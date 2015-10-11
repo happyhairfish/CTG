@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 var width=800;
-var height=750;
+var height=600;
 
 var tileSize=50;
 
@@ -53,6 +53,28 @@ var currentTile = 3;
 var button1;
 var button2;
 
+var buttondig;
+var buttondigbool;
+
+var buttonpipe1;
+var buttonpipe2;
+var buttonpipe3;
+var buttonpipe4;
+var buttonpipe5;
+var buttonpipe6;
+var buttonpipe1bool;
+var buttonpipe2bool;
+var buttonpipe3bool;
+var buttonpipe4bool;
+var buttonpipe5bool;
+var buttonpipe6bool;
+
+var buttonerasedig;
+var buttonerasedigbool;
+
+var buttonerasepipe;
+var buttonerasepipebool;
+
 var erasePipeBool;
 var eraseDigBool;
 var waterPathBool;
@@ -72,17 +94,32 @@ var lastRockTile;
 
 var mapCopy=new Array(16);
     
+var sprite;
+var text;
 
 function preload() {
 
-	game.load.image('fondo', 'assets/fondo1.png');
+	game.load.image('fondo', 'assets/textures/fondo3.png');
     //game.load.image('rock', 'assets/rockchico.png');
     game.load.image('grass', 'assets/grasschico.png');
+
+    game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar_s.png', 50,50);
+
+    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe_5_s.png', 50,50);
+    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe_4_s.png', 50,50);
+    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe_8_s.png', 50,50);
+    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe_9_s.png', 50,50);
+    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe_7_s.png', 50,50);
+    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe_6_s.png', 50,50);
+
+    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase_dig_s.png', 50,50);
+    game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe_s.png', 50,50);
+
     game.load.spritesheet('button1', 'assets/button1.png', 100,50);
     game.load.spritesheet('button2', 'assets/button2.png', 100,50);
     game.load.spritesheet('button3', 'assets/button3.png', 100,50);
 
-    game.load.tilemap('map', 'assets/tilemap8.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap9.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles9.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -131,10 +168,14 @@ function create() {
         }
     }
     */
+    var directions = "Borrar:";
+    var style = { font: "20px Arial", fill: "#ffffff", align: "center" };
+    var text = game.add.text(655, 280, directions, style);
+
 
     createTileSelector();
 
-    var number1 = game.add.bitmapText(80, 60, 'desyrel', '1', 64);
+    /*var number1 = game.add.bitmapText(80, 60, 'desyrel', '1', 64);
 
     var number2 = game.add.bitmapText(280, 60, 'desyrel', '2', 64);
 
@@ -156,7 +197,7 @@ function create() {
 
     var number11 = game.add.bitmapText(480, 460, 'desyrel', '11', 64);
 
-    var number12 = game.add.bitmapText(680, 460, 'desyrel', '12', 64);
+    var number12 = game.add.bitmapText(680, 460, 'desyrel', '12', 64);*/
 
     line1 = new Phaser.Line(200, 0, 200, 600);
     line2 = new Phaser.Line(0, 200, 800, 200);
@@ -165,14 +206,56 @@ function create() {
     line5 = new Phaser.Line(600, 0, 600, 600);
 
     game.input.addMoveCallback(updateMarker, this);
+    
+    //botón dig
+    buttondig=game.add.button(650, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig.input.useHandCursor = true;
+    buttondigbool=false;
 
-    //Botón erase pipe
-    button1 = game.add.button(700, 600, 'button1', erasePipe, this, 0, 0, 1, 0);
-    button1.input.useHandCursor = true;
-    erasePipeBool=false;
+    //Botón pipe 5
+    buttonpipe1 = game.add.button(650, 100, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1.input.useHandCursor = true;
+    buttonpipe1bool=false;
+
+    //Botón pipe 4
+    buttonpipe2 = game.add.button(700, 100, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2.input.useHandCursor = true;
+    buttonpipe2bool=false;
+
+    //Botón pipe 8
+    buttonpipe3 = game.add.button(650, 150, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3.input.useHandCursor = true;
+    buttonpipe3bool=false;
+
+    //Botón pipe 9
+    buttonpipe4 = game.add.button(700, 150, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4.input.useHandCursor = true;
+    buttonpipe4bool=false;
+
+    //Botón pipe 7
+    buttonpipe5 = game.add.button(650, 200, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5.input.useHandCursor = true;
+    buttonpipe5bool=false;
+
+    //Botón pipe 6
+    buttonpipe6 = game.add.button(700, 200, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6.input.useHandCursor = true;
+    buttonpipe6bool=false;
+
+
 
     //Botón erase dig
-    button2 = game.add.button(700, 700, 'button2', eraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(650, 300, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig.input.useHandCursor = true;
+    buttonerasedigbool=false;
+
+    //Botón erase pipe
+    buttonerasepipe = game.add.button(700, 300, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe.input.useHandCursor = true;
+    buttonerasepipebool=false;
+
+    //Botón erase dig
+    button2 = game.add.button(0, 100, 'button2', null, this, 0, 0, 1, 0);
     button2.input.useHandCursor = true;
     eraseDigBool=false;
 
@@ -299,15 +382,50 @@ function waterPath()
 
 function update() 
 {
-    if(erasePipeBool)
-        button1.frame=1;
+    if(buttondigbool)
+        buttondig.frame=1;
     else
-        button1.frame=0;
+        buttondig.frame=0;
 
-    if(eraseDigBool)
-        button2.frame=1;
+    if(buttonpipe1bool)
+        buttonpipe1.frame=1;
     else
-        button2.frame=0;
+        buttonpipe1.frame=0;
+
+    if(buttonpipe2bool)
+        buttonpipe2.frame=1;
+    else
+        buttonpipe2.frame=0;
+
+    if(buttonpipe3bool)
+        buttonpipe3.frame=1;
+    else
+        buttonpipe3.frame=0;
+
+    if(buttonpipe4bool)
+        buttonpipe4.frame=1;
+    else
+        buttonpipe4.frame=0;
+
+    if(buttonpipe5bool)
+        buttonpipe5.frame=1;
+    else
+        buttonpipe5.frame=0;
+
+    if(buttonpipe6bool)
+        buttonpipe6.frame=1;
+    else
+        buttonpipe6.frame=0;
+
+    if(buttonerasedigbool)
+        buttonerasedig.frame=1;
+    else
+        buttonerasedig.frame=0;
+
+    if(buttonerasepipebool)
+        buttonerasepipe.frame=1;
+    else
+        buttonerasepipe.frame=0;
 
     if(waterPathBool)
         button3.frame=1;
@@ -378,11 +496,11 @@ function render() {
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
     //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)'); 
-    game.debug.geom(line1);
-    game.debug.geom(line2);
-    game.debug.geom(line3);
-    game.debug.geom(line4);
-    game.debug.geom(line5);
+    //game.debug.geom(line1);
+    //game.debug.geom(line2);
+    //game.debug.geom(line3);
+    //game.debug.geom(line4);
+    //game.debug.geom(line5);
 
 }
 
@@ -613,6 +731,86 @@ function printMatrix()
         console.log(str);
     }
     console.log(" ");
+}
+
+function buttonDig()
+{
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttondigbool=true;
+    else
+        buttondigbool=false;
+}
+
+function buttonPipe1Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe1bool=true;
+    else
+        buttonpipe1bool=false;
+}
+
+function buttonPipe2Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe2bool=true;
+    else
+        buttonpipe2bool=false;
+}
+
+function buttonPipe3Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe3bool=true;
+    else
+        buttonpipe3bool=false;
+}
+
+function buttonPipe4Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe4bool=true;
+    else
+        buttonpipe4bool=false;
+}
+
+function buttonPipe5Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe5bool=true;
+    else
+        buttonpipe5bool=false;
+}
+
+function buttonPipe6Bool()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonpipe6bool=true;
+    else
+        buttonpipe6bool=false;
+}
+
+function buttonEraseDig()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonerasedigbool=true;
+    else
+        buttonerasedigbool=false;
+}
+
+function buttonErasePipe()
+{
+    //console.log("hola");
+    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
+        buttonerasepipebool=true;
+    else
+        buttonerasepipebool=false;
 }
 </script>
 
