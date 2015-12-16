@@ -53,6 +53,8 @@ var currentTile = 20;
 var button1;
 var button2;
 
+var back_button;
+
 var buttondig;
 var buttondigbool;
 
@@ -128,6 +130,8 @@ function preload() {
     game.load.spritesheet('button1', 'assets/button1.png', 100,50);
     game.load.spritesheet('button2', 'assets/button2.png', 100,50);
     game.load.spritesheet('button3', 'assets/button3.png', 100,50);
+
+    game.load.spritesheet('back', 'assets/textures/back.png', 150,50);
 
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
 
@@ -325,6 +329,12 @@ function create() {
 
     popupl.addChild(buttonreset);
 
+    back_button=game.add.button(625,500,'back', goBack, 0,1);
+
+}
+function goBack()
+{
+    window.open("../Mechanism/choose.html", "_self");
 }
 
 function updateMarker() {
