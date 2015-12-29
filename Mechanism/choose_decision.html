@@ -33,16 +33,15 @@ var button3;
 var voice_button;
 
 function preload() {
-	game.load.image('dialogo', 'assets/choose/dialogo2.png');
+	game.load.image('dialogo', 'assets/choose/dialogo4.png');
     game.load.image('mapa', 'assets/choose/map.png');
 
-    game.load.spritesheet('button1', 'assets/choose/minimap1_button.png', 200, 250);
-    game.load.spritesheet('button2', 'assets/choose/minimap2_button.png', 200, 250);
-    game.load.spritesheet('button3', 'assets/choose/minimap3_button.png', 200, 250);
+    game.load.spritesheet('button1', 'assets/choose/map_type1.png', 200, 50);
+    game.load.spritesheet('button2', 'assets/choose/map_type2.png', 200, 50);
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
 
-    game.load.audio('voice', 'assets/choose/voice_.mp3');
+    game.load.audio('voice', 'assets/choose/decision.mp3');
 
     game.load.image('left', 'assets/arrowleft.png');
     game.load.image('right', 'assets/arrowright.png');
@@ -56,9 +55,9 @@ function create() {
     dialogo=game.add.image(150, 10, 'dialogo');
     //map=game.add.image(100,50, 'mapa');
 
-    button1 = game.add.button(100, 200, 'button1', actionOnClick1, this, 1, 0, 2);
-    button2 = game.add.button(300, 200, 'button2', actionOnClick2, this, 1, 0, 2);
-    button3 = game.add.button(500, 200, 'button3', actionOnClick3, this, 1, 0, 2);
+    button1 = game.add.button(300, 225, 'button1', actionOnClick1, this, 1, 0, 2);
+    button2 = game.add.button(300, 325, 'button2', actionOnClick2, this, 1, 0, 2);
+    // button3 = game.add.button(500, 200, 'button3', actionOnClick3, this, 1, 0, 2);
 
     voice_button = game.add.button(350, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
@@ -84,17 +83,12 @@ function goRight()
 }
 function actionOnClick1()
 {
-    window.open("../Mechanism/part1_s1.html", "_self");
+    window.open("../Mechanism/choose.html", "_self");
 }
 
 function actionOnClick2()
 {
     window.open("../Mechanism/part1_s2.html", "_self");
-}
-
-function actionOnClick3()
-{
-    window.open("../Mechanism/part1_s3.html", "_self");
 }
 
 function play_sound()

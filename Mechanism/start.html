@@ -44,44 +44,42 @@ function preload() {
 
     game.load.audio('voice', 'assets/choose/voice_.mp3');
 
-    game.load.image('left', 'assets/arrowleft.png');
-    game.load.image('right', 'assets/arrowright.png');
+    // game.load.image('left', 'assets/arrowleft.png');
+    game.load.image('right', 'assets/start/arrowright.png');
+    
+
+
+    // left=game.add.sprite(0,250, 'left');
 }
 
 function create() {
 
     game.stage.backgroundColor = "#FFFFFF";
 
-
     dialogo=game.add.image(150, 10, 'dialogo');
-    //map=game.add.image(100,50, 'mapa');
+    map=game.add.image(100,200, 'mapa');
 
-    button1 = game.add.button(100, 200, 'button1', actionOnClick1, this, 1, 0, 2);
-    button2 = game.add.button(300, 200, 'button2', actionOnClick2, this, 1, 0, 2);
-    button3 = game.add.button(500, 200, 'button3', actionOnClick3, this, 1, 0, 2);
+    /*button1 = game.add.button(100, 200, 'button1', null, this, 1);
+    button2 = game.add.button(300, 200, 'button2', null, this, 1);
+    button3 = game.add.button(500, 200, 'button3', null, this, 1);*/
+
+    right=game.add.button(700,250, 'right', goRight,this);
+
 
     voice_button = game.add.button(350, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
     voice=game.add.audio('voice');
     voice.play();
-
-    left=game.add.button(0,250, 'left', goLeft);
-    // right=game.add.button(700,250, 'right', goRight);
 }
 function update() 
 {
     
 }
-
-function goLeft()
-{
-    window.open("../Mechanism/start2.html", "_self");
-}
-
 function goRight()
 {
-    window.open("../Mechanism/choose.html", "_self");
+    window.open("../Mechanism/start1.html", "_self");
 }
+
 function actionOnClick1()
 {
     window.open("../Mechanism/part1_s1.html", "_self");

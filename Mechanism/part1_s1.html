@@ -105,7 +105,9 @@ var text;
 
 var popupw;
 var popupl;
+var popups;
 var tween;
+
 
 function preload() {
 
@@ -135,13 +137,16 @@ function preload() {
 
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
 
-    game.load.tilemap('map', 'assets/tilemap2.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_start.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles11.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
     game.load.image('popup_win', 'assets/popup_win.png');
     game.load.image('popup_lose', 'assets/popup_lose.png');
+    game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/button_reset_1.png');
+
+    game.load.image('close', 'assets/textures/close_button.png');
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 }
@@ -191,9 +196,11 @@ function create() {
         }
     }
     */
-    var directions = "Borrar:";
+
+
+    /*var directions = "Borrar:";
     var style = { font: "20px Arial", fill: "#ffffff", align: "center" };
-    var text = game.add.text(655, 280, directions, style);
+    var text = game.add.text(655, 280, directions, style);*/
 
 
     createTileSelector();
@@ -231,56 +238,74 @@ function create() {
     game.input.addMoveCallback(updateMarker, this);
     
     //botón dig
-    buttondig=game.add.button(650, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(1000, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
     //Botón pipe 5
-    buttonpipe1 = game.add.button(650, 100, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1 = game.add.button(1000, 100, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
     buttonpipe1.input.useHandCursor = true;
     buttonpipe1bool=false;
 
     //Botón pipe 4
-    buttonpipe2 = game.add.button(700, 100, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2 = game.add.button(1000, 100, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
     buttonpipe2.input.useHandCursor = true;
     buttonpipe2bool=false;
 
     //Botón pipe 8
-    buttonpipe3 = game.add.button(650, 150, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3 = game.add.button(1000, 150, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
     buttonpipe3.input.useHandCursor = true;
     buttonpipe3bool=false;
 
     //Botón pipe 9
-    buttonpipe4 = game.add.button(700, 150, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4 = game.add.button(1000, 150, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
     buttonpipe4.input.useHandCursor = true;
     buttonpipe4bool=false;
 
     //Botón pipe 7
-    buttonpipe5 = game.add.button(650, 200, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5 = game.add.button(1000, 200, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
     buttonpipe5.input.useHandCursor = true;
     buttonpipe5bool=false;
 
     //Botón pipe 6
-    buttonpipe6 = game.add.button(700, 200, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6 = game.add.button(1000, 200, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(650, 300, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(1000, 300, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
     buttonerasedig.input.useHandCursor = true;
     buttonerasedigbool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(700, 300, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe = game.add.button(1000, 300, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
     buttonerasepipe.input.useHandCursor = true;
     buttonerasepipebool=false;
 
     //Botón erase dig
-    button2 = game.add.button(0, 1000, 'button2', null, this, 0, 0, 1, 0);
+    button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
     button2.input.useHandCursor = true;
     eraseDigBool=false;
+
+
+
+    popups = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_start');
+    popups.anchor.set(0.5);
+    popups.inputEnabled = true;
+    popups.scale.set(0);
+
+    var closeButton = game.make.sprite((popups.height/2)+220, -(popups.width/2)-85, 'close');
+    closeButton.inputEnabled = true;
+    closeButton.input.priorityID = 1;
+    closeButton.input.useHandCursor = true;
+    closeButton.events.onInputDown.add(closePopupS, this);
+
+    popups.addChild(closeButton);
+
+    openPopupS();
+
 
     //Botón release water
     button3 = game.add.button(650, 400, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
@@ -307,6 +332,7 @@ function create() {
         }
     }
 
+
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
     popupw.anchor.set(0.5);
     popupw.inputEnabled = true;
@@ -330,6 +356,7 @@ function create() {
     popupl.addChild(buttonreset);
 
     back_button=game.add.button(625,500,'back', goBack, 0,1);
+
 
 }
 function goBack()
@@ -419,17 +446,17 @@ function waterPath()
                     var markerX = layer1.getTileX(i*50) ;
                     var markerY = layer1.getTileY(j*50) ;
 
-                    //console.log('\n X:'+markerX+' Y: '+markerY+' Tile: '+10);
+                    console.log('\n X:'+markerX+' Y: '+markerY+' Tile: '+10);
 
                     map.putTile(10, markerX, markerY , layer1);
                 }
             }
         }
 
-        if(end1 && end2 && end3)
-            openPopupW();
-        else
-            openPopupL();
+        //if(end1 && end2 && end3)
+            //openPopupW();
+        //else
+            //openPopupL();
 
         waterPathBool=true;
     }
@@ -546,6 +573,7 @@ function createTileSelector() {
 
 function render() {
 
+    game.debug.text('I AM NUMBER 0');
     /*game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
     game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
 
@@ -931,9 +959,40 @@ function buttonErasePipe()
 
 function buttonResetAction()
 {
-    window.open("../Mechanism/part1.html", "_self");
+    window.open("../Mechanism/part1_1.html", "_self");
 }
 
+function openPopupS()
+{
+    if ((tween && tween.isRunning) || popups.scale.x === 1)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
+}
+function closePopupS()
+{
+     if (tween && tween.isRunning || popups.scale.x === 0)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(popups.scale).to( { x: 0, y: 0 }, 1000, Phaser.Easing.Elastic.In, true);
+    var timer = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    timer.loop(2000, auxDestroy, this);
+
+    timer.start();
+
+}
+function auxDestroy()
+{
+    popups.destroy();
+}
 function openPopupW()
 {
     if ((tween && tween.isRunning) || popupw.scale.x === 1)

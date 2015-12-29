@@ -33,7 +33,7 @@ var button3;
 var voice_button;
 
 function preload() {
-	game.load.image('dialogo', 'assets/choose/dialogo2.png');
+	game.load.image('dialogo', 'assets/choose/dialogoo_.png');
     game.load.image('mapa', 'assets/choose/map.png');
 
     game.load.spritesheet('button1', 'assets/choose/minimap1_button.png', 200, 250);
@@ -42,7 +42,7 @@ function preload() {
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
 
-    game.load.audio('voice', 'assets/choose/voice_.mp3');
+    game.load.audio('voice', 'assets/choose/choose.mp3');
 
     game.load.image('left', 'assets/arrowleft.png');
     game.load.image('right', 'assets/arrowright.png');
@@ -56,9 +56,9 @@ function create() {
     dialogo=game.add.image(150, 10, 'dialogo');
     //map=game.add.image(100,50, 'mapa');
 
-    button1 = game.add.button(100, 200, 'button1', actionOnClick1, this, 1, 0, 2);
-    button2 = game.add.button(300, 200, 'button2', actionOnClick2, this, 1, 0, 2);
-    button3 = game.add.button(500, 200, 'button3', actionOnClick3, this, 1, 0, 2);
+    button1 = game.add.button(100, 200, 'button1', null, this, 1, 0, 2);
+    button2 = game.add.button(300, 200, 'button2', null, this, 1, 0, 2);
+    button3 = game.add.button(500, 200, 'button3', null, this, 1, 0, 2);
 
     voice_button = game.add.button(350, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
@@ -66,7 +66,7 @@ function create() {
     voice.play();
 
     left=game.add.button(0,250, 'left', goLeft);
-    // right=game.add.button(700,250, 'right', goRight);
+    right=game.add.button(700,250, 'right', goRight);
 }
 function update() 
 {
@@ -80,7 +80,7 @@ function goLeft()
 
 function goRight()
 {
-    window.open("../Mechanism/choose.html", "_self");
+    window.open("../Mechanism/choose_decision.html", "_self");
 }
 function actionOnClick1()
 {
