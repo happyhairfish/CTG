@@ -85,10 +85,10 @@ var waterPathBool;
 
 //Inicio mapa
 var waterPos=[0,0];
-var endCoords=[11,4];
+var endCoords=[7,4];
 var endCoords1=[4,9];
 var endCoords2=[0,11];
-var startRock=[11,4];
+var startRock=[6,5];
 
 var end1=false;
 var end2=false;
@@ -108,8 +108,13 @@ var popupl;
 var popups;
 var tween;
 
+var button_yes;
+var button_no;
+
 var style_title = { font: "bold 20px Arial", fill: "#ffffff", align: "center" };
 var style_map= { font: "bold 24px Arial", fill: "#000000", align: "center" };
+
+var voice;
 
 function preload() {
 
@@ -135,11 +140,15 @@ function preload() {
     game.load.spritesheet('button2', 'assets/button2.png', 100,50);
     game.load.spritesheet('button3', 'assets/button3.png', 100,50);
 
-    game.load.spritesheet('back', 'assets/textures/back.png', 150,50);
+    game.load.spritesheet('button_yes', 'assets/yes_no/yes.png', 100,50);
+    game.load.spritesheet('button_no', 'assets/yes_no/no.png', 100,50);
+
+
+    game.load.spritesheet('back', 'assets/textures/back2.png', 150,50);
 
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
 
-    game.load.tilemap('map', 'assets/tilemap_big1.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_yes_no.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles11.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -152,7 +161,11 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/choose/dialogo5.png');
+    game.load.image('dialogo', 'assets/yes_no/yes_no_dialogue.png');
+
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
+
+    game.load.audio('voice', 'assets/yes_no/yes_no_voice.mp3');
 }
 
 function create() {
@@ -202,13 +215,13 @@ function create() {
     */
 
 
-    var directions = "Borrar:";
+   /* var directions = "Borrar:";
 
     var text1 = game.add.text(50, 23, "Cavar:", style_title);
     var text2 = game.add.text(50, 350, "Borrar:", style_title);
 
     var text_a = game.add.text(219, 214, "A", style_map);
-    var text_b = game.add.text(769, 564, "B", style_map);
+    var text_b = game.add.text(769, 564, "B", style_map);*/
 
     createTileSelector();
 
@@ -245,76 +258,70 @@ function create() {
     game.input.addMoveCallback(updateMarker, this);
     
     //botón dig
-    buttondig=game.add.button(50, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(1000, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
     //Botón pipe 5
-    buttonpipe1 = game.add.button(50, 150, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1 = game.add.button(1000, 150, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
     buttonpipe1.input.useHandCursor = true;
     buttonpipe1bool=false;
 
     //Botón pipe 4
-    buttonpipe2 = game.add.button(100, 150, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2 = game.add.button(1000, 150, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
     buttonpipe2.input.useHandCursor = true;
     buttonpipe2bool=false;
 
     //Botón pipe 8
-    buttonpipe3 = game.add.button(50, 200, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3 = game.add.button(1000, 200, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
     buttonpipe3.input.useHandCursor = true;
     buttonpipe3bool=false;
 
     //Botón pipe 9
-    buttonpipe4 = game.add.button(100, 200, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4 = game.add.button(1000, 200, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
     buttonpipe4.input.useHandCursor = true;
     buttonpipe4bool=false;
 
     //Botón pipe 7
-    buttonpipe5 = game.add.button(50, 250, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5 = game.add.button(1000, 250, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
     buttonpipe5.input.useHandCursor = true;
     buttonpipe5bool=false;
 
     //Botón pipe 6
-    buttonpipe6 = game.add.button(100, 250, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6 = game.add.button(1000, 250, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(50, 375, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(1000, 375, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
     buttonerasedig.input.useHandCursor = true;
     buttonerasedigbool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(100, 375, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe = game.add.button(1000, 375, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
     buttonerasepipe.input.useHandCursor = true;
     buttonerasepipebool=false;
-
+1000
     //Botón erase dig
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
     button2.input.useHandCursor = true;
     eraseDigBool=false;
 
+    //button yes
+    button_yes = game.add.button(50, 150, 'button_yes', aw_yes, this, 0, 0 ,1, 0);
+    button_yes.input.useHandCursor = true;
 
-    popups = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_start');
-    popups.anchor.set(0.5);
-    popups.inputEnabled = true;
-    popups.scale.set(0);
 
-    var closeButton = game.make.sprite((popups.height/2)+220, -(popups.width/2)-85, 'close');
-    closeButton.inputEnabled = true;
-    closeButton.input.priorityID = 1;
-    closeButton.input.useHandCursor = true;
-    closeButton.events.onInputDown.add(closePopupS, this);
-
-    popups.addChild(closeButton);
+    button_no = game.add.button(50, 250, 'button_no', aw_nay, this, 0, 0 ,1, 0);
+    button_no.input.useHandCursor = true;
 
     // openPopupS();
 
 
     //Botón release water
-    button3 = game.add.button(50, 450, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
+    button3 = game.add.button(50, 50, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
@@ -339,38 +346,37 @@ function create() {
     }
 
 
-    popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
-    popupw.anchor.set(0.5);
-    popupw.inputEnabled = true;
-    popupw.input.enableDrag();
-
-    popupw.scale.set(0);
-
-    popupl = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_lose');
-    popupl.anchor.set(0.5);
-    popupl.inputEnabled = true;
-    popupl.input.enableDrag();
-
-    popupl.scale.set(0);
-
-
-    buttonreset=game.make.sprite(-100, 0, 'buttonreset1');
-    buttonreset.inputEnabled = true;
-    buttonreset.input.priorityID=-1000;
-    buttonreset.events.onInputDown.add(buttonResetAction, this);
-
-    popupl.addChild(buttonreset);
-
     back_button=game.add.button(30,525,'back', goBack, 0,1);
 
     dialogo=game.add.image(250, 25, 'dialogo');
 
+    voice_button = game.add.button(50, 450, 'voice_button', play_sound ,this, 1, 0, 2);
+
+
+    voice=game.add.audio('voice');
+    voice.play();
+
 }
 function goBack()
 {
-    window.open("../Mechanism/choose.html", "_self");
+    window.open("../Mechanism/start1.html", "_self");
+}
+function play_sound()
+{
+    voice.play();
 }
 
+function aw_yes()
+{
+    button_no.visible=false;
+    window.open("../Mechanism/yes_why.html", "_self");
+}
+
+function aw_nay()
+{
+    button_yes.visible=true;
+    window.open("../Mechanism/no_why.html", "_self");
+}
 function updateMarker() {
 
     marker.x = layer1.getTileX(game.input.activePointer.worldX) * 50;
@@ -433,9 +439,11 @@ function pickTile(sprite, pointer) {
 
 function waterPath()
 {
+    console.log("asd");
     if(!waterPathBool)
     {
-        findPathGround(0,0);
+        console.log("asd");
+        findPathGround(4,4);
         
         if(end1)
             findPathRock(startRock[0],startRock[1],0);
@@ -633,7 +641,7 @@ function findPathGround(x,y)
         end3=true;
         return true;
     }
-    if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21)
+    if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21 || auxTile.index==11)
         return false;
 
     mapCopy[x][y]=20;
@@ -979,6 +987,7 @@ function openPopupS()
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
+
 function closePopupS()
 {
      if (tween && tween.isRunning || popups.scale.x === 0)
@@ -996,6 +1005,7 @@ function closePopupS()
     timer.start();
 
 }
+
 function auxDestroy()
 {
     popups.destroy();

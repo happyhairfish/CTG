@@ -30,7 +30,7 @@ function preload() {
     game.load.audio('voice', 'assets/start/voice1_.mp3');
 
 
-    game.load.image('ill1', 'assets/start/ill1.png');
+    game.load.image('ill1', 'assets/yes_no/yes_why.png');
 
     game.load.image('left', 'assets/arrowleft.png');
     game.load.image('right', 'assets/arrowright.png');
@@ -49,7 +49,7 @@ function create() {
 
     ill1=game.add.sprite(175,25, 'ill1');
 
-    voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+    // voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
 }
 function play_sound()
 {
@@ -61,7 +61,7 @@ function goRight()
 }
 function goLeft()
 {
-    window.open("../Mechanism/start.html", "_self");
+    window.open("../Mechanism/yes_no.html", "_self");
 }
 
 function update()
