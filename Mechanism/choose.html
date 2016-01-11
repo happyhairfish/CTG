@@ -33,7 +33,7 @@ var button3;
 var voice_button;
 
 function preload() {
-	game.load.image('dialogo', 'assets/choose/dialogo2.png');
+	game.load.image('dialogo', 'assets/choose/choose_area.png');
     game.load.image('mapa', 'assets/choose/map.png');
 
     game.load.spritesheet('button1', 'assets/choose/minimap1_button.png', 200, 250);
@@ -42,7 +42,7 @@ function preload() {
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
 
-    game.load.audio('voice', 'assets/choose/voice_.mp3');
+    game.load.audio('voice', 'assets/choose/choose_area.mp3');
 
     game.load.image('left', 'assets/arrowleft.png');
     game.load.image('right', 'assets/arrowright.png');
@@ -75,7 +75,7 @@ function update()
 
 function goLeft()
 {
-    window.open("../Mechanism/start2.html", "_self");
+    window.open("../Mechanism/choose_decision.html", "_self");
 }
 
 function goRight()

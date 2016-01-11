@@ -137,8 +137,8 @@ function preload() {
 
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
 
-    game.load.tilemap('map', 'assets/tilemap_start.csv', null, Phaser.Tilemap.CSV);
-    game.load.image('tiles', 'assets/tiles11.png');
+    game.load.tilemap('map', 'assets/tilemap_start1.csv', null, Phaser.Tilemap.CSV);
+    game.load.image('tiles', 'assets/tiles11_2.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
     game.load.image('popup_win', 'assets/popup_win.png');
@@ -290,7 +290,7 @@ function create() {
     eraseDigBool=false;
 
 
-
+/*
     popups = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_start');
     popups.anchor.set(0.5);
     popups.inputEnabled = true;
@@ -305,7 +305,7 @@ function create() {
     popups.addChild(closeButton);
 
     openPopupS();
-
+*/
 
     //Botón release water
     button3 = game.add.button(650, 400, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
