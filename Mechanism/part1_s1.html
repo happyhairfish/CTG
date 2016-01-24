@@ -85,10 +85,10 @@ var waterPathBool;
 
 //Inicio mapa
 var waterPos=[0,0];
-var endCoords=[11,4];
-var endCoords1=[4,9];
-var endCoords2=[0,11];
-var startRock=[11,4];
+var endCoords=[7,4];
+var endCoords1=[6,9];
+var endCoords2=[7,11];
+var startRock=[6,5];
 
 var end1=false;
 var end2=false;
@@ -108,6 +108,8 @@ var popupl;
 var popups;
 var tween;
 
+var style_title = { font: "bold 20px Arial", fill: "#ffffff", align: "center" };
+var style_map= { font: "bold 24px Arial", fill: "#000000", align: "center" };
 
 function preload() {
 
@@ -149,6 +151,8 @@ function preload() {
     game.load.image('close', 'assets/textures/close_button.png');
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
+
+    game.load.image('dialogo', 'assets/choose/dialogo5.png');
 }
 
 function create() {
@@ -198,36 +202,13 @@ function create() {
     */
 
 
-    /*var directions = "Borrar:";
-    var style = { font: "20px Arial", fill: "#ffffff", align: "center" };
-    var text = game.add.text(655, 280, directions, style);*/
+    var text1 = game.add.text(50, 23, "Cavar:", style_title);
+    var text2 = game.add.text(50, 350, "Borrar:", style_title);
 
+    var text_a = game.add.text(219, 214, "A", style_map);
+    var text_b = game.add.text(367, 564, "B", style_map);
 
     createTileSelector();
-
-    /*var number1 = game.add.bitmapText(80, 60, 'desyrel', '1', 64);
-
-    var number2 = game.add.bitmapText(280, 60, 'desyrel', '2', 64);
-
-    var number3 = game.add.bitmapText(480, 60, 'desyrel', '3', 64);
-
-    var number4 = game.add.bitmapText(680, 60, 'desyrel', '4', 64);
-
-    var number5 = game.add.bitmapText(80, 260, 'desyrel', '5', 64);
-
-    var number6 = game.add.bitmapText(280, 260, 'desyrel', '6', 64);
-
-    var number7 = game.add.bitmapText(480, 260, 'desyrel', '7', 64);
-
-    var number8 = game.add.bitmapText(680, 260, 'desyrel', '8', 64);
-
-    var number9 = game.add.bitmapText(80, 460, 'desyrel', '9', 64);
-
-    var number10 = game.add.bitmapText(280, 460, 'desyrel', '10', 64);
-
-    var number11 = game.add.bitmapText(480, 460, 'desyrel', '11', 64);
-
-    var number12 = game.add.bitmapText(680, 460, 'desyrel', '12', 64);*/
 
     line1 = new Phaser.Line(200, 0, 200, 600);
     line2 = new Phaser.Line(0, 200, 800, 200);
@@ -238,59 +219,59 @@ function create() {
     game.input.addMoveCallback(updateMarker, this);
     
     //botón dig
-    buttondig=game.add.button(1000, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(50, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
     //Botón pipe 5
-    buttonpipe1 = game.add.button(1000, 100, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1 = game.add.button(50, 150, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
     buttonpipe1.input.useHandCursor = true;
     buttonpipe1bool=false;
 
     //Botón pipe 4
-    buttonpipe2 = game.add.button(1000, 100, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2 = game.add.button(100, 150, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
     buttonpipe2.input.useHandCursor = true;
     buttonpipe2bool=false;
 
     //Botón pipe 8
-    buttonpipe3 = game.add.button(1000, 150, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3 = game.add.button(50, 200, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
     buttonpipe3.input.useHandCursor = true;
     buttonpipe3bool=false;
 
     //Botón pipe 9
-    buttonpipe4 = game.add.button(1000, 150, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4 = game.add.button(100, 200, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
     buttonpipe4.input.useHandCursor = true;
     buttonpipe4bool=false;
 
     //Botón pipe 7
-    buttonpipe5 = game.add.button(1000, 200, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5 = game.add.button(50, 250, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
     buttonpipe5.input.useHandCursor = true;
     buttonpipe5bool=false;
 
     //Botón pipe 6
-    buttonpipe6 = game.add.button(1000, 200, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6 = game.add.button(100, 250, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(1000, 300, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(50, 375, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
     buttonerasedig.input.useHandCursor = true;
     buttonerasedigbool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(1000, 300, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe = game.add.button(100, 375, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
     buttonerasepipe.input.useHandCursor = true;
     buttonerasepipebool=false;
 
-    //Botón erase dig
+     /*   //Botón erase dig
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
     button2.input.useHandCursor = true;
     eraseDigBool=false;
+    */
 
-
-/*
+    /*
     popups = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_start');
     popups.anchor.set(0.5);
     popups.inputEnabled = true;
@@ -305,10 +286,10 @@ function create() {
     popups.addChild(closeButton);
 
     openPopupS();
-*/
+    */
 
     //Botón release water
-    button3 = game.add.button(650, 400, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
+    button3 = game.add.button(50, 450, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
@@ -333,6 +314,11 @@ function create() {
     }
 
 
+
+    dialogo=game.add.image(250, 25, 'dialogo');
+
+
+
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
     popupw.anchor.set(0.5);
     popupw.inputEnabled = true;
@@ -355,10 +341,10 @@ function create() {
 
     popupl.addChild(buttonreset);
 
-    back_button=game.add.button(625,500,'back', goBack, 0,1);
-
+    back_button=game.add.button(25,525,'back', goBack, 0,1);
 
 }
+
 function goBack()
 {
     window.open("../Mechanism/choose.html", "_self");
@@ -428,13 +414,13 @@ function waterPath()
 {
     if(!waterPathBool)
     {
-        findPathGround(0,0);
+        findPathGround(4,4);
         
         if(end1)
             findPathRock(startRock[0],startRock[1],0);
 
         if(end2)
-            findPathGround(3,9);
+            findPathGround(6,9);
         
 
         for(i=0; i<16; i++)
@@ -453,10 +439,10 @@ function waterPath()
             }
         }
 
-        //if(end1 && end2 && end3)
-            //openPopupW();
-        //else
-            //openPopupL();
+        if(end1 && end2 && end3)
+            openPopupW();
+        else
+            openPopupL();
 
         waterPathBool=true;
     }
@@ -579,12 +565,6 @@ function render() {
 
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 */
-    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)'); 
-    //game.debug.geom(line1);
-    //game.debug.geom(line2);
-    //game.debug.geom(line3);
-    //game.debug.geom(line4);
-    //game.debug.geom(line5);
 
 }
 
@@ -612,7 +592,7 @@ function findPathGround(x,y)
 
     auxTile=map.getTile(markerX,markerY);
 
-    if(x<0 || y<0 || x>=12 || y>=12)
+    if(x<4 || y<4 || x>=12 || y>=12)
         return false;
     if(x==endCoords[0] && y==endCoords[1] && !end1)
     {
@@ -626,7 +606,7 @@ function findPathGround(x,y)
         end3=true;
         return true;
     }
-    if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21)
+    if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21 || mapCopy[x][y]==13)
         return false;
 
     mapCopy[x][y]=20;
@@ -959,7 +939,7 @@ function buttonErasePipe()
 
 function buttonResetAction()
 {
-    window.open("../Mechanism/part1_1.html", "_self");
+    window.open("../Mechanism/part1_s1.html", "_self");
 }
 
 function openPopupS()
@@ -972,6 +952,7 @@ function openPopupS()
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
+
 function closePopupS()
 {
      if (tween && tween.isRunning || popups.scale.x === 0)
@@ -989,6 +970,7 @@ function closePopupS()
     timer.start();
 
 }
+
 function auxDestroy()
 {
     popups.destroy();
