@@ -38,15 +38,15 @@ function preload() {
 
     game.load.image('ill1', 'assets/yes_no/no_why.png');
 
-    game.load.image('left', 'assets/arrowleft.png');
-    game.load.image('right', 'assets/arrowright.png');
+    game.load.image('left', 'assets/arrowleft_2.png');
+    game.load.image('right', 'assets/arrowright_2.png');
 
-    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice3_50.png', 100, 50);
 }
 
 function create() {
 
-    var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja", style_title);
+    var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
     voice=game.add.audio('voice1');
@@ -61,7 +61,7 @@ function create() {
 
     ill1=game.add.sprite(175,25, 'ill1');
 
-    voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+    voice_button = game.add.button(400, 525, 'voice_button', play_sound ,this, 1, 0, 2);
 
     answer=game.add.audio('voice2');
 

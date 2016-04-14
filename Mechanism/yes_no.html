@@ -124,12 +124,12 @@ function preload() {
 
     game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar_s.png', 50,50);
 
-    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe_5_s.png', 50,50);
-    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe_4_s.png', 50,50);
-    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe_8_s.png', 50,50);
-    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe_9_s.png', 50,50);
-    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe_7_s.png', 50,50);
-    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe_6_s.png', 50,50);
+    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe5.png', 50,50);
+    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe4.png', 50,50);
+    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe8.png', 50,50);
+    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe9.png', 50,50);
+    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe7.png', 50,50);
+    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe6.png', 50,50);
 
     game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase_dig_s.png', 50,50);
     game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe_s.png', 50,50);
@@ -140,16 +140,16 @@ function preload() {
     game.load.spritesheet('button2', 'assets/button2.png', 100,50);
     game.load.spritesheet('button3', 'assets/button3.png', 100,50);
 
-    game.load.spritesheet('button_yes', 'assets/yes_no/yes.png', 100,50);
-    game.load.spritesheet('button_no', 'assets/yes_no/no.png', 100,50);
+    game.load.spritesheet('button_yes', 'assets/yes_no/button_yes.png', 100,50);
+    game.load.spritesheet('button_no', 'assets/yes_no/button_no.png', 100,50);
 
 
-    game.load.spritesheet('back', 'assets/textures/back2.png', 150,50);
+    game.load.spritesheet('back', 'assets/buttons/button_back2t.png', 150,50);
 
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
 
     game.load.tilemap('map', 'assets/tilemap_yes_no.csv', null, Phaser.Tilemap.CSV);
-    game.load.image('tiles', 'assets/tiles11.png');
+    game.load.image('tiles', 'assets/tiles15.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
     game.load.image('popup_win', 'assets/popup_win.png');
@@ -161,11 +161,11 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/yes_no/yes_no_dialogue.png');
+    game.load.image('dialogo', 'assets/yes_no/yes_no_dialogue2.png');
 
-    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
 
-    game.load.audio('voice', 'assets/yes_no/yes_no_voice.mp3');
+    game.load.audio('voice', 'assets/yes_no/yes_no_voice2.mp3');
 }
 
 function create() {
@@ -286,11 +286,11 @@ function create() {
     eraseDigBool=false;
 
     //button yes
-    button_yes = game.add.button(50, 150, 'button_yes', aw_yes, this, 0, 0 ,1, 0);
+    button_yes = game.add.button(50, 200, 'button_yes', aw_yes, this, 0, 0 ,1, 0);
     button_yes.input.useHandCursor = true;
 
 
-    button_no = game.add.button(50, 250, 'button_no', aw_nay, this, 0, 0 ,1, 0);
+    button_no = game.add.button(50, 260, 'button_no', aw_nay, this, 0, 0 ,1, 0);
     button_no.input.useHandCursor = true;
 
     // openPopupS();
@@ -326,15 +326,18 @@ function create() {
 
     dialogo=game.add.image(250, 25, 'dialogo');
 
-    voice_button = game.add.button(50, 450, 'voice_button', play_sound ,this, 1, 0, 2);
+    voice_button = game.add.button(120, 525, 'voice_button', play_sound ,this, 1, 0, 2);
 
     voice=game.add.audio('voice');
     voice.play();
 
+    var text_a = game.add.text(219, 214, "A", style_map);
+    var text_b = game.add.text(766, 564, "B", style_map);
+
 }
 function goBack()
 {
-    window.open("../Mechanism/start1.html", "_self");
+    window.open("../Mechanism/start1-2.html", "_self");
 }
 function play_sound()
 {

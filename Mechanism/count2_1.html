@@ -49,19 +49,19 @@ function preload() {
     game.load.spritesheet('button33', 'assets/choose/minimap2_button.png', 200, 250);
     game.load.spritesheet('button3', 'assets/choose/minimap3_button.png', 200, 250);
 
-    game.load.spritesheet('option33', 'assets/contar/6.png', 100, 50);
-    game.load.spritesheet('option34', 'assets/contar/8.png', 100, 50);
-    game.load.spritesheet('option30', 'assets/contar/10.png', 100, 50);
+    game.load.spritesheet('option33', 'assets/contar/1_2.png', 100, 50);
+    game.load.spritesheet('option34', 'assets/contar/2_2.png', 100, 50);
+    game.load.spritesheet('option30', 'assets/contar/3_2.png', 100, 50);
 
-    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
-    game.load.spritesheet('enter_answer_button', 'assets/contar/ingresar_rspta.png', 100, 50);
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice3_50.png', 100, 50);
+    game.load.spritesheet('enter_answer_button', 'assets/contar/ingresar_rspta_3.png', 100, 50);
 
     game.load.audio('voice', 'assets/contar/voice4.mp3');
 
-    game.load.image('left', 'assets/arrowleft.png');
-    game.load.image('right', 'assets/arrowright.png');
+    game.load.image('left', 'assets/arrowleft_2.png');
+    game.load.image('right', 'assets/arrowright_2.png');
 
-    game.load.image('popup', 'assets/contar/popup.png');
+    game.load.image('popup', 'assets/contar/popup_2.png');
 
     game.load.image('close', 'assets/contar/close_button.png');
 
@@ -80,14 +80,14 @@ function create() {
     // button33 = game.add.button(300, 200, 'button33', null, this, 1, 0, 2);
     // button3 = game.add.button(500, 200, 'button3', null, this, 1, 0, 2);
 
-    button30 = game.add.button(360,225,'option30',option_30,this,0,0);
-    button33 = game.add.button(360,310,'option33',option_33,this,0,0);
-    button34 = game.add.button(360,395,'option34',option_34,this,0,0);
+    button30 = game.add.button(360,220,'option30',option_30,this,0,0);
+    button33 = game.add.button(360,305,'option33',option_33,this,0,0);
+    button34 = game.add.button(360,390,'option34',option_34,this,0,0);
 
 
     voice_button = game.add.button(250, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
-    answer_button = game.add.button(450, 500, 'enter_answer_button', answer ,this, 1, 0, 2);
+    answer_button = game.add.button(450, 500, 'enter_answer_button', answer ,this, 0);
 
     voice=game.add.audio('voice');
     voice.play();

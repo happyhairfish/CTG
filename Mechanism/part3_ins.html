@@ -133,6 +133,8 @@ var style_title = { font: "bold 20px Arial", fill: "#ffffff", align: "center" };
 var style_map1= { font: "bold 28px Arial", fill: "#000000", align: "center" };
 var style_map2= { font: "bold 24px Arial", fill: "#000000", align: "center" };
 
+var closeButton;
+var closeButton2;
 
 function preload() {
 
@@ -140,22 +142,22 @@ function preload() {
     //game.load.image('rock', 'assets/rockchico.png');
     game.load.image('grass', 'assets/grasschico.png');
 
-    game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar_s.png', 50,50);
+    game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar2.png', 100,100);
 
-    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe_5_s.png', 50,50);
-    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe_4_s.png', 50,50);
-    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe_8_s.png', 50,50);
-    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe_9_s.png', 50,50);
-    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe_7_s.png', 50,50);
-    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe_6_s.png', 50,50);
+    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe5.png', 75,75);
+    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe4.png', 75,75);
+    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe8.png', 75,75);
+    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe9.png', 75,75);
+    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe7.png', 75,75);
+    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe6.png', 75,75);
 
-    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase_dig_s.png', 50,50);
-    game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe_s.png', 50,50);
+    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase2.png', 75,75);
+    game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe2.png', 75,75);
 
     game.load.spritesheet('buttonreleasewater', 'assets/textures/button_r_water.png', 100,50);
 
-    game.load.spritesheet('buttonenteranswer', 'assets/textures/enter_answer.png', 100,50);
-    game.load.spritesheet('buttonresetchico', 'assets/textures/reset.png', 100,50);
+    game.load.spritesheet('buttonenteranswer', 'assets/textures/boton_enter_answer.png', 100,50);
+    game.load.spritesheet('buttonresetchico', 'assets/textures/boton_reset.png', 100,50);
 
 
     game.load.spritesheet('button1', 'assets/button1.png', 100,50);
@@ -167,12 +169,12 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
     game.load.spritesheet('buttoncontinue', 'assets/textures/boton_continue.png', 200, 100);
 
-    game.load.tilemap('map', 'assets/tilemap_big3.csv', null, Phaser.Tilemap.CSV);
-    game.load.image('tiles', 'assets/tiles12.png');
+    game.load.tilemap('map', 'assets/tilemap_big5.csv', null, Phaser.Tilemap.CSV);
+    game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
-    game.load.image('popup_win', 'assets/popup_win.png');
-    game.load.image('popup_lose', 'assets/popup_try.png');
+    game.load.image('popup_win', 'assets/popup_win2.png');
+    game.load.image('popup_lose', 'assets/popup_lose.png');
     game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/button_reset_1.png');
 
@@ -180,7 +182,7 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/dialogo7.png');
+    game.load.image('dialogo', 'assets/dialogo_ins3.png');
 }
 function copyMap()
 {
@@ -293,8 +295,8 @@ function create() {
     */
 
 
-    var text1 = game.add.text(50, 23, "Cavar:", style_title);
-    var text2 = game.add.text(50, 350, "Borrar:", style_title);
+    // var text1 = game.add.text(50, 23, "Cavar:", style_title);
+    var text2 = game.add.text(20,385, "Borrar:", style_title);
 
 /*    var text_a = game.add.text(214, 210, "A", style_map1);
     var text_b = game.add.text(465, 210, "B", style_map1);*/
@@ -309,52 +311,53 @@ function create() {
 
     game.input.addMoveCallback(updateMarker, this);
     
-    //botón dig
-    buttondig=game.add.button(50, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+     //botón dig
+    buttondig=game.add.button(20, 20, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
     //Botón pipe 5
-    buttonpipe1 = game.add.button(50, 150, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1 = game.add.button(20, 130, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
     buttonpipe1.input.useHandCursor = true;
     buttonpipe1bool=false;
 
     //Botón pipe 4
-    buttonpipe2 = game.add.button(100, 150, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2 = game.add.button(100, 130, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
     buttonpipe2.input.useHandCursor = true;
     buttonpipe2bool=false;
 
     //Botón pipe 8
-    buttonpipe3 = game.add.button(50, 200, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3 = game.add.button(20, 210, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
     buttonpipe3.input.useHandCursor = true;
     buttonpipe3bool=false;
 
     //Botón pipe 9
-    buttonpipe4 = game.add.button(100, 200, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4 = game.add.button(100, 210, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
     buttonpipe4.input.useHandCursor = true;
     buttonpipe4bool=false;
 
     //Botón pipe 7
-    buttonpipe5 = game.add.button(50, 250, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5 = game.add.button(20, 290, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
     buttonpipe5.input.useHandCursor = true;
     buttonpipe5bool=false;
 
     //Botón pipe 6
-    buttonpipe6 = game.add.button(100, 250, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6 = game.add.button(100, 290, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(50, 375, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(20, 410, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
     buttonerasedig.input.useHandCursor = true;
     buttonerasedigbool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(100, 375, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe = game.add.button(100, 410, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
     buttonerasepipe.input.useHandCursor = true;
     buttonerasepipebool=false;
+
 
      /*   //Botón erase dig
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
@@ -380,15 +383,15 @@ function create() {
     */
 
     //Botón release water
-    button3 = game.add.button(0, 450, 'buttonreleasewater', waterPath, this, 0, 0, 1);
+    button3 = game.add.button(0, 490, 'buttonreleasewater', waterPath, this, 0, 0, 1);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
     //Botón quitar water
-    button4 = game.add.button(100, 450, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
+    button4 = game.add.button(100, 490, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
     button4.input.useHandCursor = true;
 
-    buttonEnterAnswer = game.add.button(50, 520, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
+    buttonEnterAnswer = game.add.button(50, 550, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
     buttonEnterAnswer.input.useHandCursor = true;
 
     for(i=0; i<16; i++)
@@ -403,7 +406,7 @@ function create() {
 
             auxTile=map.getTile(markerX,markerY);
 
-            console.log('\n X:'+markerX+' Y: '+markerY+' Tile: '+auxTile.index);
+            // console.log('\n X:'+markerX+' Y: '+markerY+' Tile: '+auxTile.index);
 
             tileType=auxTile.index;
 
@@ -487,29 +490,33 @@ function create() {
     popupw.inputEnabled = true;
     popupw.input.enableDrag();
 
-    popupw.scale.set(0);
-
-    buttoncontinue=game.make.sprite(-100, 0, 'buttoncontinue');
+/*    buttoncontinue=game.make.sprite(-100, 0, 'buttoncontinue');
     buttoncontinue.inputEnabled = true;
     buttoncontinue.input.priorityID=-1000;
     buttoncontinue.events.onInputDown.add(buttonContinueAction, this);
 
-    popupw.addChild(buttoncontinue);
+    popupw.addChild(buttoncontinue);*/
+
+    closeButton = game.make.sprite(100,-95, 'close');
+    closeButton.inputEnabled = true;
+    closeButton.input.priorityID=-1000;
+    closeButton.events.onInputDown.add(closeWindow, this);
+
+    popupw.addChild(closeButton);
+    popupw.scale.set(0);
+
+
+    closeButton2 = game.make.sprite(100,-95, 'close');
+    closeButton2.inputEnabled = true;
+    closeButton2.input.priorityID=-1000;
+    closeButton2.events.onInputDown.add(closeWindow2, this);
 
     popupl = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_lose');
     popupl.anchor.set(0.5);
     popupl.inputEnabled = true;
     popupl.input.enableDrag();
 
-    popupl.scale.set(0);
-
-    //  And click the close button to close it down again
-    closeButton = game.make.sprite(100,-95, 'close');
-    closeButton.inputEnabled = true;
-    closeButton.input.priorityID=-1000;
-    closeButton.events.onInputDown.add(closeWindow, this);
-
-    popupl.addChild(closeButton);
+    popupl.addChild(closeButton2);
 
     popupl.scale.set(0);
 
@@ -528,7 +535,7 @@ function create() {
 
 function checkAnswer()
 {
-    if(mapCopiedBool)
+/*    if(mapCopiedBool)
         printBackup();
 
     var bAux=false;
@@ -554,7 +561,8 @@ function checkAnswer()
     else
     {
         openPopupL();
-    }
+    }*/
+    window.open("../Mechanism/end0_1.html", "_self");
 }
 
 function goBack()
@@ -586,14 +594,31 @@ function updateMarker() {
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool )
+    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
+    {
+        console.log("erasepipeworld");
+        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+    }
+    else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
+    {
+        console.log("erasedigbool");
+        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+    }   
+    else if(game.input.mousePointer.isDown && tileType==16 && (!buttonerasedigbool && !buttonerasepipebool) && currentTile!=20)
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool )
+    else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasedigbool)
     {
-        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+        console.log("hoas");
+        map.putTile(16, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
+    else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasepipebool)
+    {
+        console.log("hoas2");
+        map.putTile(16, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+    }
+
 
 }
 
@@ -687,11 +712,11 @@ function waterPath()
             }
         }
 
-/*        if(end1)
+        if(end1 && end2)
             openPopupW();
         else
             openPopupL();
-*/
+
         waterPathBool=true;
     }
     else
@@ -810,7 +835,7 @@ function render() {
     // game.debug.text('I AM NUMBER 0');
     game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
     game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
-
+    game.debug.text('pointer tile:'+currentTile, 32, 100, 'rgb(0,0,0)');
     game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
@@ -1254,7 +1279,7 @@ function buttonErasePipe()
 
 function buttonResetAction()
 {
-    window.open("../Mechanism/part1_ins.html", "_self");
+    window.open("../Mechanism/part3_ins.html", "_self");
 }
 
 function buttonContinueAction()
@@ -1301,8 +1326,8 @@ function openPopupW()
     {
         return;
     }
-    buttoncontinue.input.priorityID=1;
-
+    // buttoncontinue.input.priorityID=1;
+    closeButton.input.priorityID=1;
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupw.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
@@ -1321,11 +1346,22 @@ function openPopupL()
 
 function closeWindow() {
 
-    if (tween && tween.isRunning || popupl.scale.x === 0)
+    if (tween && tween.isRunning || popupw.scale.x === 0)
     {
         return;
     }
     closeButton.input.priorityID=-1000;
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = game.add.tween(popupw.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
+
+}
+function closeWindow2() {
+
+    if (tween && tween.isRunning || popupl.scale.x === 0)
+    {
+        return;
+    }
+    closeButton2.input.priorityID=-1000;
     //  Create a tween that will close the window, but only if it's not already tweening or closed
     tween = game.add.tween(popupl.scale).to( { x: 0, y: 0 }, 500, Phaser.Easing.Elastic.In, true);
 

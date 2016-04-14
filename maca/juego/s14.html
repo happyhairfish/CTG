@@ -1,0 +1,235 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Cómic Pensamiento Crítico</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+    
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var ill;
+var left;
+var right;
+var voice;
+var voice_button;
+var moreTools;
+var block1;
+var block2;
+var block3;
+var block1used=false;
+var block2used=false;
+var block3used=false;
+var rocks;
+var rock1;
+var rock2;
+var rock3;
+var mesb1;
+var mesb1;
+var mesb3;
+var mesr1;
+var mesr2;
+var mesr3;
+var mest1;
+var mest2;
+var mest3;
+
+function preload() {
+    game.load.audio('voice', 'assetsAudio/s14.m4a');
+    game.load.image('ill', 'assetsImg/s14.jpg');
+    game.load.image('A', 'assetsImg/Aac.png');
+    game.load.image('B', 'assetsImg/Bbc.png');
+    game.load.image('C', 'assetsImg/Ccc.png');
+    game.load.image('block', 'assetsImg/littleBlock.png');
+    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
+    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
+    game.load.spritesheet('buttonAudio', 'assetsImg/buttonAudio.png', 114, 50);
+    game.load.spritesheet('moreTools', 'assetsImg/masButton.png', 115,53);
+    game.load.spritesheet('ready', 'assetsImg/readybutton.png', 115,53);
+    game.load.spritesheet('again', 'assetsImg/againButton.png', 103,43);
+}
+function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);    
+    game.stage.backgroundColor = "#FFFFFF";
+    ill=game.add.sprite(game.world.centerX, game.world.centerY, 'ill');
+    ill.anchor.setTo(0.5);
+    voice=game.add.audio('voice');
+    voice.play();
+    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
+    voice_button = game.add.button(685, 80, 'buttonAudio', play_sound ,this, 1, 0, 2);
+    moreTools=game.add.button(685, 140, 'moreTools', goTools ,this, 1, 0, 2);
+    moreTools=game.add.button(180, 440, 'again', eraseAns ,this, 1, 0, 2);
+
+    var style = { font: "10px Arial", align: "center" };
+    mesb1= game.add.text(447, 258, localStorage.getItem('b_m1'), style);
+    mesb1= game.add.text(447, 300, localStorage.getItem('b_m2'), style);
+    mesb3= game.add.text(447, 342, localStorage.getItem('b_m3'), style);
+    mesr1= game.add.text(586, 258, localStorage.getItem('r_m1'), style);
+    mesr2= game.add.text(586, 300, localStorage.getItem('r_m2'), style);
+    mesr3= game.add.text(586, 342, localStorage.getItem('r_m3'), style);
+    mest1= game.add.text(696, 258, localStorage.getItem('t_m1'), style);
+    mest2= game.add.text(696, 300, localStorage.getItem('t_m2'), style);
+    mest3= game.add.text(696, 342, localStorage.getItem('t_m3'), style);
+
+
+
+
+    //Creamos los bloques. 
+    block1=game.add.sprite(75,273,'block');
+    block1.anchor.setTo(0.5);
+    block1.enableBody=true;
+    block1.inputEnabled=true;
+    block2=game.add.sprite(225,273,'block');
+    block2.anchor.setTo(0.5);
+    block2.enableBody=true;
+    block3=game.add.sprite(376,273,'block');
+    block3.anchor.setTo(0.5);
+    block3.enableBody=true;
+    
+    //Creamos las rocas, le agregamos el cuerpo solido 
+    rocks=game.add.group();
+    rocks.enableBody=true;
+
+    rock1=rocks.create(96,368,'A');
+    rock1.body.collideWorldBounds = true;
+    rock2=rocks.create(194,368,'B');
+    rock2.body.collideWorldBounds = true;
+    rock3=rocks.create(312,368,'C');
+    rock3.body.collideWorldBounds = true;
+
+    //Habilitamos el drag and drop
+    rock1.inputEnabled=true;
+    rock1.input.enableDrag(false,true);
+    rock1.events.onDragStart.add(startDrag,this);
+    rock1.events.onDragStop.add(stopDrag,this);
+    rock2.inputEnabled=true;
+    rock2.input.enableDrag(false,true);
+    rock2.events.onDragStart.add(startDrag,this);
+    rock2.events.onDragStop.add(stopDrag,this);
+    rock3.inputEnabled=true;
+    rock3.input.enableDrag(false,true);
+    rock3.events.onDragStart.add(startDrag,this);
+    rock3.events.onDragStop.add(stopDrag,this);
+
+}
+
+function update(){
+    if(checkOverlap(block1, rock1)){
+        onTouch(rock1, 1);
+    }
+    if(checkOverlap(block1, rock2)){
+        onTouch(rock2, 1);
+    }
+    if(checkOverlap(block1, rock3)){
+        onTouch(rock3, 1);
+    }
+    
+    if(checkOverlap(block2, rock1)){
+        onTouch(rock1, 2);
+    } 
+    if(checkOverlap(block2, rock2)){
+        onTouch(rock2, 2);
+    }
+    if(checkOverlap(block2, rock3)){
+        onTouch(rock3, 2);
+    }
+
+    if(checkOverlap(block3, rock1)){
+        onTouch(rock1, 3);
+    }
+    if(checkOverlap(block3, rock2)){
+        onTouch(rock2, 3);
+    }
+    if(checkOverlap(block3, rock3)){
+        onTouch(rock3, 3);
+    }
+}
+function checkOverlap(spriteA, spriteB) {
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
+function onTouch(obj1, obj2){
+    if(obj2==1){
+        block1used=true;    
+    }else if(obj2==2){
+        block2used=true;
+    }else{
+        block3used=true;
+    }
+    checkRight();
+}
+
+function play_sound(){
+    voice.play();
+}
+function goRight(){
+    window.open("../historia/scene12.html", "_self");
+}
+function goLeft(){
+    window.open("s12.html", "_self");
+}
+function goTools(){
+    window.open("s11.html", "_self");   
+}
+function checkRight(){
+    if(block1used==true && block2used==true&&block3used==true && right==null){
+        right=game.add.button(685,450, 'ready', goRight, this, 1,0,2);
+    }
+}
+function eraseAns(){
+    rock1.destroy();
+    rock2.destroy();
+    rock3.destroy();
+    rock1=rocks.create(96,368,'A');
+    rock1.body.collideWorldBounds = true;
+    rock2=rocks.create(194,368,'B');
+    rock2.body.collideWorldBounds = true;
+    rock3=rocks.create(312,368,'C');
+    rock3.body.collideWorldBounds = true;
+
+    rock1.inputEnabled=true;
+    rock1.input.enableDrag(false,true);
+    rock1.events.onDragStart.add(startDrag,this);
+    rock1.events.onDragStop.add(stopDrag,this);
+    rock2.inputEnabled=true;
+    rock2.input.enableDrag(false,true);
+    rock2.events.onDragStart.add(startDrag,this);
+    rock2.events.onDragStop.add(stopDrag,this);
+    rock3.inputEnabled=true;
+    rock3.input.enableDrag(false,true);
+    rock3.events.onDragStart.add(startDrag,this);
+    rock3.events.onDragStop.add(stopDrag,this);
+
+    block1used=false;
+    block2used=false;
+    block3used=false;
+
+    if (right!=null){
+        right.destroy();
+        right=null;
+    }
+}
+
+function startDrag(sprite){
+    sprite.body.moves=false;
+}
+
+function stopDrag(sprite){
+    sprite.body.moves=true;
+}
+function render() {
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Cómic Pensamiento Crítico</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+    
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var ill;
+var left;
+var buttontools;
+var mesb1;
+var mesb1;
+var mesb3;
+var mesr1;
+var mesr2;
+var mesr3;
+var mest1;
+var mest2;
+var mest3;
+
+
+
+function preload() {
+    game.load.image('ill', 'assetsImg/s13.jpg');
+    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
+    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
+    game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+}
+function create() {    
+    game.stage.backgroundColor = "#FFFFFF";
+    ill=game.add.sprite(game.world.centerX, game.world.centerY, 'ill');
+    ill.anchor.setTo(0.5);
+    buttontools=game.add.button(685,100,'tools', goTools, this,1,0,2);
+    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
+
+    var style = { font: "14px Arial", align: "center" };
+    mesb1= game.add.text(140, 260, localStorage.getItem('b_m1'), style);
+    mesb1= game.add.text(140, 345, localStorage.getItem('b_m2'), style);
+    mesb3= game.add.text(140, 435, localStorage.getItem('b_m3'), style);
+    mesr1= game.add.text(365, 260, localStorage.getItem('r_m1'), style);
+    mesr2= game.add.text(365, 345, localStorage.getItem('r_m2'), style);
+    mesr3= game.add.text(365, 435, localStorage.getItem('r_m3'), style);
+    mest1= game.add.text(550, 260, localStorage.getItem('t_m1'), style);
+    mest2= game.add.text(550, 345, localStorage.getItem('t_m2'), style);
+    mest3= game.add.text(550, 435, localStorage.getItem('t_m3'), style);
+}
+
+function goLeft(){
+    window.open("s12.html", "_self");
+}
+function goTools(){
+    window.open("s11.html", "_self");
+}
+function update(){
+}
+function render() {
+}
+</script>
+
+</body>
+</html>

@@ -140,22 +140,22 @@ function preload() {
     //game.load.image('rock', 'assets/rockchico.png');
     game.load.image('grass', 'assets/grasschico.png');
 
-    game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar_s.png', 50,50);
+    game.load.spritesheet('buttoncavar', 'assets/textures/button_cavar2.png', 100,100);
 
-    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe_5_s.png', 50,50);
-    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe_4_s.png', 50,50);
-    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe_8_s.png', 50,50);
-    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe_9_s.png', 50,50);
-    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe_7_s.png', 50,50);
-    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe_6_s.png', 50,50);
+    game.load.spritesheet('buttonpipe5', 'assets/textures/button_pipe5.png', 75,75);
+    game.load.spritesheet('buttonpipe4', 'assets/textures/button_pipe4.png', 75,75);
+    game.load.spritesheet('buttonpipe8', 'assets/textures/button_pipe8.png', 75,75);
+    game.load.spritesheet('buttonpipe9', 'assets/textures/button_pipe9.png', 75,75);
+    game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe7.png', 75,75);
+    game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe6.png', 75,75);
 
-    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase_dig_s.png', 50,50);
-    game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe_s.png', 50,50);
+    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase2.png', 75,75);
+    game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe2.png', 75,75);
 
     game.load.spritesheet('buttonreleasewater', 'assets/textures/button_r_water.png', 100,50);
 
-    game.load.spritesheet('buttonenteranswer', 'assets/textures/enter_answer.png', 100,50);
-    game.load.spritesheet('buttonresetchico', 'assets/textures/reset.png', 100,50);
+    game.load.spritesheet('buttonenteranswer', 'assets/textures/boton_enter_answer.png', 100,50);
+    game.load.spritesheet('buttonresetchico', 'assets/textures/boton_reset.png', 100,50);
 
 
     game.load.spritesheet('button1', 'assets/button1.png', 100,50);
@@ -164,15 +164,15 @@ function preload() {
 
     game.load.spritesheet('back', 'assets/textures/back.png', 150,50);
 
-    game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
-    game.load.spritesheet('buttoncontinue', 'assets/textures/boton_continue.png', 200, 100);
+    game.load.spritesheet('buttonreset', 'assets/textures/boton_reset.png', 200, 100);
+    game.load.spritesheet('buttoncontinue', 'assets/boton_continue3.png', 100, 50);
 
     game.load.tilemap('map', 'assets/tilemap_big3.csv', null, Phaser.Tilemap.CSV);
-    game.load.image('tiles', 'assets/tiles12.png');
+    game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
-    game.load.image('popup_win', 'assets/popup_win.png');
-    game.load.image('popup_lose', 'assets/popup_try.png');
+    game.load.image('popup_win', 'assets/popup_w3.png');
+    game.load.image('popup_lose', 'assets/textures/popup_l2.png');
     game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/button_reset_1.png');
 
@@ -180,7 +180,7 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/dialogo7.png');
+    game.load.image('dialogo', 'assets/dialogo8.png');
 }
 function copyMap()
 {
@@ -293,8 +293,8 @@ function create() {
     */
 
 
-    var text1 = game.add.text(50, 23, "Cavar:", style_title);
-    var text2 = game.add.text(50, 350, "Borrar:", style_title);
+    // var text1 = game.add.text(50, 23, "Cavar:", style_title);
+    var text2 = game.add.text(20, 360, "Borrar:", style_title);
 
 /*    var text_a = game.add.text(214, 210, "A", style_map1);
     var text_b = game.add.text(465, 210, "B", style_map1);*/
@@ -310,49 +310,49 @@ function create() {
     game.input.addMoveCallback(updateMarker, this);
     
     //botón dig
-    buttondig=game.add.button(50, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(20, 0, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
     //Botón pipe 5
-    buttonpipe1 = game.add.button(50, 150, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
+    buttonpipe1 = game.add.button(20, 110, 'buttonpipe5', buttonPipe1Bool, this, 0, 0, 1, 0);
     buttonpipe1.input.useHandCursor = true;
     buttonpipe1bool=false;
 
     //Botón pipe 4
-    buttonpipe2 = game.add.button(100, 150, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
+    buttonpipe2 = game.add.button(100, 110, 'buttonpipe4', buttonPipe2Bool, this, 0, 0, 1, 0);
     buttonpipe2.input.useHandCursor = true;
     buttonpipe2bool=false;
 
     //Botón pipe 8
-    buttonpipe3 = game.add.button(50, 200, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
+    buttonpipe3 = game.add.button(20, 190, 'buttonpipe8', buttonPipe3Bool, this, 0, 0, 1, 0);
     buttonpipe3.input.useHandCursor = true;
     buttonpipe3bool=false;
 
     //Botón pipe 9
-    buttonpipe4 = game.add.button(100, 200, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
+    buttonpipe4 = game.add.button(100, 190, 'buttonpipe9', buttonPipe4Bool, this, 0, 0, 1, 0);
     buttonpipe4.input.useHandCursor = true;
     buttonpipe4bool=false;
 
     //Botón pipe 7
-    buttonpipe5 = game.add.button(50, 250, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
+    buttonpipe5 = game.add.button(20, 270, 'buttonpipe7', buttonPipe5Bool, this, 0, 0, 1, 0);
     buttonpipe5.input.useHandCursor = true;
     buttonpipe5bool=false;
 
     //Botón pipe 6
-    buttonpipe6 = game.add.button(100, 250, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
+    buttonpipe6 = game.add.button(100, 270, 'buttonpipe6', buttonPipe6Bool, this, 0, 0, 1, 0);
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(50, 375, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
+    buttonerasedig = game.add.button(20, 385, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
     buttonerasedig.input.useHandCursor = true;
     buttonerasedigbool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(100, 375, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    buttonerasepipe = game.add.button(100, 385, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
     buttonerasepipe.input.useHandCursor = true;
     buttonerasepipebool=false;
 
@@ -380,15 +380,15 @@ function create() {
     */
 
     //Botón release water
-    button3 = game.add.button(0, 450, 'buttonreleasewater', waterPath, this, 0, 0, 1);
+    button3 = game.add.button(0, 480, 'buttonreleasewater', waterPath, this, 0, 0, 1);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
     //Botón quitar water
-    button4 = game.add.button(100, 450, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
+    button4 = game.add.button(100, 480, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
     button4.input.useHandCursor = true;
 
-    buttonEnterAnswer = game.add.button(50, 520, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
+    buttonEnterAnswer = game.add.button(50, 540, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
     buttonEnterAnswer.input.useHandCursor = true;
 
     for(i=0; i<16; i++)
@@ -489,7 +489,7 @@ function create() {
 
     popupw.scale.set(0);
 
-    buttoncontinue=game.make.sprite(-100, 0, 'buttoncontinue');
+    buttoncontinue=game.make.sprite(-45, 30, 'buttoncontinue');
     buttoncontinue.inputEnabled = true;
     buttoncontinue.input.priorityID=-1000;
     buttoncontinue.events.onInputDown.add(buttonContinueAction, this);

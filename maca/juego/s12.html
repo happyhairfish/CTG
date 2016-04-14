@@ -1,0 +1,122 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Cómic Pensamiento Crítico</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+    
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var ill;
+var left;
+var right;
+var voice;
+var voice_button;
+var A_button;
+var B_button;
+var C_button;
+var rA;
+var rB;
+var rC;
+var ans=false;
+
+function preload() {
+    game.load.audio('voice', 'assetsAudio/s12.m4a');
+    game.load.image('ill', 'assetsImg/s12.jpg');
+    game.load.image('red', 'assetsImg/red.png');
+    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
+    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
+    game.load.spritesheet('buttonAudio', 'assetsImg/buttonAudio.png', 114, 50);
+    game.load.spritesheet('Abutton', 'assetsImg/Abutton.png', 252, 176);
+    game.load.spritesheet('Bbutton', 'assetsImg/Bbutton.png', 252, 176);
+    game.load.spritesheet('Cbutton', 'assetsImg/Cbutton.png', 252, 176);
+    game.load.spritesheet('results', 'assetsImg/resultadosButton.png', 115, 53);
+}
+function create() {    
+    game.stage.backgroundColor = "#FFFFFF";
+    ill=game.add.sprite(game.world.centerX, game.world.centerY-200, 'ill');
+    ill.anchor.setTo(0.5);
+    voice=game.add.audio('voice');
+    voice.play();
+    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
+    voice_button = game.add.button(685, 100, 'buttonAudio', play_sound ,this, 1, 0, 2);
+    results_button = game.add.button(685, 160, 'results', goResult ,this, 1, 0, 2);
+    A_button=game.add.button(game.world.centerX-250, game.world.centerY+20, 'Abutton', goA ,this, 1, 0, 2);
+    A_button.anchor.setTo(0.5);
+    B_button=game.add.button(game.world.centerX, game.world.centerY+20, 'Bbutton', goB ,this, 1, 0, 2);
+    B_button.anchor.setTo(0.5);
+    C_button=game.add.button(game.world.centerX+250, game.world.centerY+20, 'Cbutton', goC ,this, 1, 0, 2);
+    C_button.anchor.setTo(0.5);
+
+    //checkRight();
+}
+function play_sound(){
+    voice.play();
+}
+function goRight(){
+    window.open("s14.html", "_self");
+}
+function goLeft(){
+    window.open("s11.html", "_self");
+}
+function goResult(){
+    window.open("s13.html", "_self");   
+}
+function goA(){
+    if(rB!=null){
+        rB.destroy();
+    }
+    if(rC!=null){
+        rC.destroy();
+    }
+    rA=game.add.sprite(game.world.centerX-250, game.world.centerY+20, 'red');
+    rA.anchor.setTo(0.5);
+    ans=true;
+    checkRight();
+}
+function goB(){
+    if(rA!=null){
+        rA.destroy();
+    }
+    if(rC!=null){
+        rC.destroy();
+    }
+    rB=game.add.sprite(game.world.centerX, game.world.centerY+20, 'red');
+    rB.anchor.setTo(0.5);
+    ans=true;
+    checkRight();
+}
+function goC(){
+    if(rA!=null){
+        rA.destroy();
+    }
+    if(rB!=null){
+        rB.destroy();
+    }
+    rC=game.add.sprite(game.world.centerX+250, game.world.centerY+20, 'red');
+    rC.anchor.setTo(0.5);
+    ans=true;
+    checkRight();
+}
+function checkRight(){
+    if(ans){
+        right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
+    }
+}
+function update(){
+}
+function render() {
+}
+</script>
+
+</body>
+</html>

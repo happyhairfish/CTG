@@ -33,19 +33,19 @@ var button3;
 var voice_button;
 
 function preload() {
-	game.load.image('dialogo', 'assets/contar/all1.png');
-    game.load.image('mapa', 'assets/contar/base.png');
+	game.load.image('dialogo', 'assets/contar/all2.png');
+    game.load.image('mapa', 'assets/contar/base2.png');
 
     game.load.spritesheet('button1', 'assets/choose/minimap1_button.png', 200, 250);
     game.load.spritesheet('button2', 'assets/choose/minimap2_button.png', 200, 250);
     game.load.spritesheet('button3', 'assets/choose/minimap3_button.png', 200, 250);
 
-    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice3_50.png', 100, 50);
 
     game.load.audio('voice', 'assets/contar/voice3.mp3');
 
-    game.load.image('left', 'assets/arrowleft.png');
-    game.load.image('right', 'assets/arrowright.png');
+    game.load.image('left', 'assets/arrowleft_2.png');
+    game.load.image('right', 'assets/arrowright_2.png');
 }
 
 function create() {
@@ -54,14 +54,14 @@ function create() {
 
 
     dialogo=game.add.image(110, 10, 'dialogo');
-/*    map=game.add.image(165,150, 'mapa');
-    map.scale.setTo(0.8,0.8);*/
+    map=game.add.image(165,150, 'mapa');
+    map.scale.setTo(0.8,0.8);
 
     // button1 = game.add.button(100, 200, 'button1', null, this, 1, 0, 2);
     // button2 = game.add.button(300, 200, 'button2', null, this, 1, 0, 2);
     // button3 = game.add.button(500, 200, 'button3', null, this, 1, 0, 2);
 
-    voice_button = game.add.button(350, 500, 'voice_button', play_sound ,this, 1, 0, 2);
+    voice_button = game.add.button(390, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
     voice=game.add.audio('voice');
     voice.play();
@@ -84,7 +84,7 @@ function update_right()
 
 function goLeft()
 {
-    window.open("../Mechanism/start2.html", "_self");
+    window.open("../Mechanism/count1.html", "_self");
 }
 
 function goRight()
