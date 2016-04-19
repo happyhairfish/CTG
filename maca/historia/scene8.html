@@ -24,20 +24,25 @@ var voice_button;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/scene8.m4a');
-    game.load.image('ill', 'assetsImg/ill08.jpg');
-    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
-    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
-    game.load.spritesheet('buttonAudio', 'assetsImg/buttonAudio.png', 114, 50);
+    game.load.image('ill', 'assetsImg/ill08-2.jpg');
+    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
+    game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
+    game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
 }
 function create() {    
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(game.world.centerX, game.world.centerY, 'ill');
-    ill.anchor.setTo(0.5);
+    ill=game.add.sprite(130,25, 'ill');
+    ill.scale.setTo(0.9,0.9);
+
     voice=game.add.audio('voice');
     voice.play();
-    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
-    right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
-    voice_button = game.add.button(685, 100, 'buttonAudio', play_sound ,this, 1, 0, 2);
+    left=game.add.button(0,250, 'left', goLeft, this, 1,0,2);
+    right=game.add.button(700,250, 'right', goRight, this, 1,0,2);
+    voice_button = game.add.button(400,525 , 'buttonAudio', play_sound ,this, 1, 0, 2);
+
+    game.time.events.add(Phaser.Timer.SECOND * 2.5, play_answer, this);
+
+    game.time.events.add(Phaser.Timer.SECOND * 60, showRight, this);
 
 }
 function play_sound(){
