@@ -35,7 +35,7 @@ function create() {
     ill.scale.setTo(0.85,0.85);
     voice=game.add.audio('voice');
     voice.play();
-     left=game.add.button(0,250, 'left', goLeft, this, 1,0,2);
+    left=game.add.button(0,250, 'left', goLeft, this, 1,0,2);
     right=game.add.button(700,250, 'right', goRight, this, 1,0,2);
     voice_button = game.add.button(380, 525, 'buttonAudio', play_sound ,this, 1, 0, 2);
 
