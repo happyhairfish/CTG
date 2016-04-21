@@ -100,13 +100,13 @@ function create() {
     rocks=game.add.group();
     rocks.enableBody=true;
 
-    rock1=rocks.create(96,368,'A');
+    rock1=rocks.create(127,382,'A');
     rock1.body.collideWorldBounds = true;
     rock1.anchor.setTo(0.5);
-    rock2=rocks.create(194,368,'B');
+    rock2=rocks.create(227,380,'B');
     rock2.body.collideWorldBounds = true;
     rock2.anchor.setTo(0.5);
-    rock3=rocks.create(312,368,'C');
+    rock3=rocks.create(332,382,'C');
     rock3.body.collideWorldBounds = true;
     rock3.anchor.setTo(0.5);
 
@@ -185,6 +185,7 @@ function goLeft(){
     window.open("s12.html", "_self");
 }
 function goTools(){
+    localStorage.setItem('cameFrom', 's14');
     window.open("s11.html", "_self");   
 }
 function checkRight(){
@@ -201,11 +202,11 @@ function eraseAns(){
     rock1.destroy();
     rock2.destroy();
     rock3.destroy();
-    rock1=rocks.create(96,368,'A');
+    rock1=rocks.create(127,382,'A');
     rock1.body.collideWorldBounds = true;
-    rock2=rocks.create(194,368,'B');
+    rock2=rocks.create(227,380,'B');
     rock2.body.collideWorldBounds = true;
-    rock3=rocks.create(312,368,'C');
+    rock3=rocks.create(332,382,'C');
     rock3.body.collideWorldBounds = true;
 
     rock1.inputEnabled=true;
@@ -238,6 +239,7 @@ function stopDrag(sprite){
     sprite.body.moves=true;
 }
 function render() {
+    //game.debug.inputInfo(32, 32);
 }
 </script>
 

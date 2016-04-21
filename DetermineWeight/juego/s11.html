@@ -18,6 +18,7 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload:
 
 var ill;
 var left;
+var order;
 var right;
 var voice;
 var voice_button;
@@ -38,6 +39,7 @@ function preload() {
     game.load.spritesheet('balanceButton', 'assetsImg/balanceButton.png', 246, 184);
     game.load.spritesheet('ruleButton', 'assetsImg/ruleButton.png', 246, 181);
     game.load.spritesheet('thermometerButton', 'assetsImg/termometerButton.png', 245, 180);
+    game.load.spritesheet('b11v', 'assetsImg/b11v.png', 109, 77);
 }
 function create() {    
     game.stage.backgroundColor = "#FFFFFF";
@@ -56,6 +58,9 @@ function create() {
 
     drawRed();
     checkRight();
+    order=game.add.button(20,450, 'b11v', goOrder, this, 1,0,2);
+    order.visible=false;
+    checkOrder();
 }
 function play_sound(){
     voice.play();
@@ -65,6 +70,15 @@ function goRight(){
 }
 function goLeft(){
     //window.open("../historia/scene11.html", "_self");
+}
+function goOrder(){
+    localStorage.setItem('cameFrom', '0');
+    window.open("s14.html", "_self")   
+}
+function checkOrder(){
+    if (localStorage.getItem('cameFrom')=='s14'){
+        order.visible=true;
+    }
 }
 function goThermometer(){
     console.log("Termometro");
