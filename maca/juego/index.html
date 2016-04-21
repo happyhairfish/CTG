@@ -36,6 +36,7 @@ function preload(){
     game.load.spritesheet('goTable', 'assets/botonAgregar.png', 88,53);
     game.load.image('tfull', 'assets/tablaCompleta2.png');
     game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.image('ok', 'assets/k.png');
 }
 
 var floors;
@@ -45,9 +46,9 @@ var plates;
 var block1;
 var block2;
 var block3;
-var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 630, cy: 275, intable: false };
-var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 630, cy: 360, intable: false};
-var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 630, cy: 445, intable: false};
+var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 630, cy: 275, intable: false, ok: null };
+var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 630, cy: 360, intable: false, ok: null};
+var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 630, cy: 445, intable: false, ok: null};
 var button1;
 var button11;
 var button2;
@@ -56,6 +57,13 @@ var button3;
 var button31;
 var tableup={fulltable: false, lines: null, measures: 0 };
 var buttontools;
+var pivImg1;
+var pivImg2;
+var pivImg3;
+var style = { font: "12px Arial", align: "center" };
+var textA=null;
+var textB=null;
+var textC=null;
 
 function create(){
 	// Habilitar Arcade Physics system
@@ -125,9 +133,10 @@ function create(){
 	plates=game.add.group();
 	plates.enableBody=true;
 
-	var p1=plates.create(90,400,'piv');
+	/*var p1=plates.create(90,400,'piv');
 	p1.body.immovable=true;
-	p1.body.allowGravity=false;
+	p1.body.allowGravity=false;*/
+	pivImg1=game.add.sprite(90,400,'piv');
 	var p1l=plates.create(38,380,'platei');
 	p1l.body.immovable=true;
 	p1l.body.allowGravity=false;
@@ -135,9 +144,10 @@ function create(){
 	p1r.body.immovable=true;
 	p1r.body.allowGravity=false;
 
-	var p2=plates.create(280,400,'piv');
+	/*var p2=plates.create(280,400,'piv');
 	p2.body.immovable=true;
-	p2.body.allowGravity=false;
+	p2.body.allowGravity=false;*/
+	pivImg2=game.add.sprite(280,400,'piv');
 	var p2l=plates.create(228,380,'platei');
 	p2l.body.immovable=true;
 	p2l.body.allowGravity=false;
@@ -145,9 +155,10 @@ function create(){
 	p2r.body.immovable=true;
 	p2r.body.allowGravity=false;
 
-	var p3=plates.create(471,400,'piv');
+	/*var p3=plates.create(471,400,'piv');
 	p3.body.immovable=true;
-	p3.body.allowGravity=false;
+	p3.body.allowGravity=false;*/
+	pivImg3=game.add.sprite(471,400,'piv');
 	var p3l=plates.create(419,380,'platei');
 	p3l.body.immovable=true;
 	p3l.body.allowGravity=false;
@@ -170,6 +181,17 @@ function create(){
 	var r2=game.add.sprite(510,120,'Bgrande');
 	var r3=game.add.sprite(660,120,'Cgrande');
 
+	reloadTable();
+
+	measure1.ok=game.add.sprite(160,234,'ok');
+	measure1.ok.anchor.setTo(0.5);
+	measure1.ok.visible=false;
+	measure2.ok=game.add.sprite(350,234,'ok');
+	measure2.ok.anchor.setTo(0.5);
+	measure2.ok.visible=false;
+	measure3.ok=game.add.sprite(540,234,'ok');
+	measure3.ok.anchor.setTo(0.5);
+	measure3.ok.visible=false;
 
 }
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
@@ -178,6 +200,22 @@ function update(){
 	game.physics.arcade.collide(rocks, plates, onTouch, null, this);
 }
 
+function reloadTable(){
+	console.log(localStorage.getItem('b_m1'));
+	if(localStorage.getItem('b_m1')!=null){
+		textA = game.add.text(640, 281, localStorage.getItem('b_m1'), style);
+		tableup.measures++;
+	}
+	if(localStorage.getItem('b_m2')!=null){
+		textB = game.add.text(640, 370, localStorage.getItem('b_m2'), style);
+		tableup.measures++;
+	}
+	if(localStorage.getItem('b_m3')!=null){
+		textC = game.add.text(640, 450, localStorage.getItem('b_m3'), style);
+		tableup.measures++;
+	}
+	checkfull();
+}
 
 function onTouch(obj1, obj2){
 	if(obj1.overlap(block1) && !measure1.blockused){
@@ -233,11 +271,11 @@ function measure(measureTemp, obj1, obj2){
 }
 
 function doMeasure(m){
-	var style = { font: "12px Arial", align: "center" };
 	var text = game.add.text(m.cx, m.cy,"Medida: "+m.name+". "+m.pl.key+m.midtext+m.pr.key, style);
 	m.result=text;
 	m.result.visible=false;
 	m.blockused=true;
+	m.ok.visible=true;
 	console.log(m);
 	reloadRock(m.pl);
 	reloadRock(m.pr);
@@ -268,6 +306,7 @@ function eraseMeasure1(){
 	console.log("me apretaron1");
 	if (measure1.blockused==true){
 		measure1.blockused=false;
+		measure1.ok.visible=false;
 		measure1.result.destroy();
 		if (measure1.intable== true){
 			measure1.intable=false;
@@ -294,6 +333,7 @@ function eraseMeasure2(){
 	console.log("me apretaron2");
 	if (measure2.blockused==true){
 		measure2.blockused=false;
+		measure2.ok.visible=false;
 		measure2.result.destroy();
 		if (measure2.intable== true){
 			measure2.intable=false;
@@ -320,6 +360,7 @@ function eraseMeasure3(){
 	console.log("me apretaron3");
 	if (measure3.blockused==true){
 		measure3.blockused=false;
+		measure3.ok.visible=false;
 		measure3.result.destroy();
 		if (measure3.intable== true){
 			measure3.intable=false;
@@ -344,6 +385,11 @@ function eraseMeasure3(){
 //Funciones que pasan la medición a la tabla por cada boton
 function goTable1 (){
 	if (measure1.blockused==true){
+		if(textA!=null){
+			textA.destroy();
+			textA=null;
+			tableup.measures--;
+		}
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
@@ -354,6 +400,11 @@ function goTable1 (){
 }
 function goTable2 (){
 	if (measure2.blockused==true){
+		if(textB!=null){
+			textB.destroy();
+			textB=null;
+			tableup.measures--;
+		}
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
@@ -363,6 +414,11 @@ function goTable2 (){
 	}
 }function goTable3 (){
 	if (measure3.blockused==true){
+		if(textC!=null){
+			textC.destroy();
+			textC=null;
+			tableup.measures--;
+		}
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;

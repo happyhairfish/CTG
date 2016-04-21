@@ -31,6 +31,7 @@ function preload(){
     game.load.spritesheet('goTable', 'assets/botonAgregar.png', 88,53);
     game.load.image('tfull', 'assets/tablaCompleta2.png');
     game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.image('ok', 'assets/k.png');
 }
 
 //Variables globales que se usaran.
@@ -39,9 +40,9 @@ var rules;
 var block1;
 var block2;
 var block3;
-var measure1={blockused: false, instrument: null, obj: null, result: null, intable: false};
-var measure2={blockused: false, instrument: null, obj: null, result: null, intable: false};
-var measure3={blockused: false, instrument: null, obj: null, result: null, intable: false};
+var measure1={blockused: false, instrument: null, obj: null, result: null, intable: false, ok: null};
+var measure2={blockused: false, instrument: null, obj: null, result: null, intable: false, ok: null};
+var measure3={blockused: false, instrument: null, obj: null, result: null, intable: false, ok: null};
 var button1;
 var button11;
 var button2;
@@ -50,6 +51,10 @@ var button3;
 var button31;
 var tableup={fulltable: false, lines: null, measures: 0 };
 var buttontools;
+var style = { font: "24px Arial", align: "center" };
+var textA=null;
+var textB=null;
+var textC=null;
 
 function create(){
 	// Se habilita la física, Arcade Physics system
@@ -112,6 +117,17 @@ function create(){
 	button31=game.add.button(490,540, 'goTable', goTable3, this, 1,0,2);
 
 	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
+	reloadTable();
+
+	measure1.ok=game.add.sprite(160,234,'ok');
+	measure1.ok.anchor.setTo(0.5);
+	measure1.ok.visible=false;
+	measure2.ok=game.add.sprite(350,234,'ok');
+	measure2.ok.anchor.setTo(0.5);
+	measure2.ok.visible=false;
+	measure3.ok=game.add.sprite(540,234,'ok');
+	measure3.ok.anchor.setTo(0.5);
+	measure3.ok.visible=false;
 }
 
 function update(){
@@ -119,10 +135,26 @@ function update(){
 	game.physics.arcade.collide(rocks, rules, measure, null, this);
 }
 
+//Se despliegan mediciones anteriores
+function reloadTable(){
+	if(localStorage.getItem('t_m1')!=null){
+		textA = game.add.text(640, 281, localStorage.getItem('t_m1'), style);
+		tableup.measures++;
+	}
+	if(localStorage.getItem('t_m2')!=null){
+		textB = game.add.text(640, 370, localStorage.getItem('t_m2'), style);
+		tableup.measures++;
+	}
+	if(localStorage.getItem('t_m3')!=null){
+		textC = game.add.text(640, 450, localStorage.getItem('t_m3'), style);
+		tableup.measures++;
+	}
+	checkfull();
+}
+
 //Estas funciones permiten registrar la medición. En detalle, si la colisión ocurrió sobre un bloque de medición que no ha sido usado antes, impide que los objetos se vuelvan a usar y registra los datos. 
 function measure(obj1, obj2){
 	console.log("Medida");
-	var style = { font: "24px Arial", align: "center" };
 	if (obj2.overlap(block1)&& !measure1.blockused){
 		console.log("Medicion 1");
     	var text = game.add.text(640, 281, textRock(obj1), style);
@@ -149,6 +181,7 @@ function doMeasure(measure, obj1, obj2, text){
 		measure.obj.inputEnabled=false;
 		measure.instrument.inputEnabled=false;
 		measure.blockused=true;
+		measure.ok.visible=true;
 		reloadElements(obj1);
 }
 
@@ -192,6 +225,7 @@ function eraseMeasure1(){
 	console.log("me apretaron");
 	if (measure1.blockused==true){
 		measure1.blockused=false;
+		measure1.ok.visible=false;
 		measure1.instrument.destroy();
 		measure1.obj.destroy();
 		measure1.result.destroy();
@@ -208,6 +242,7 @@ function eraseMeasure2(){
 	console.log("me apretaron2");
 	if (measure2.blockused==true){
 		measure2.blockused=false;
+		measure2.ok.visible=false;
 		measure2.instrument.destroy();
 		measure2.obj.destroy();
 		measure2.result.destroy();
@@ -224,6 +259,7 @@ function eraseMeasure3(){
 	console.log("me apretaron3");
 	if (measure3.blockused==true){
 		measure3.blockused=false;
+		measure3.ok.visible=false;
 		measure3.instrument.destroy();
 		measure3.obj.destroy();
 		measure3.result.destroy();
@@ -239,6 +275,11 @@ function eraseMeasure3(){
 //Funciones que pasan la medición a la tabla por cada boton
 function goTable1 (){
 	if (measure1.blockused==true){
+		if(textA!=null){
+			textA.destroy();
+			textA=null;
+			tableup.measures--;
+		}
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
@@ -249,6 +290,11 @@ function goTable1 (){
 }
 function goTable2 (){
 	if (measure2.blockused==true){
+		if(textB!=null){
+			textB.destroy();
+			textB=null;
+			tableup.measures--;
+		}
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
@@ -258,6 +304,11 @@ function goTable2 (){
 	}
 }function goTable3 (){
 	if (measure3.blockused==true){
+		if(textC!=null){
+			textC.destroy();
+			textC=null;
+			tableup.measures--;
+		}
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;

@@ -68,15 +68,15 @@ function goLeft(){
 }
 function goThermometer(){
     console.log("Termometro");
-    window.open("s5.html", "_self");
+    window.open("termometros.html", "_self");
 }
 function goBalance(){
     console.log("Balanza");
-    window.open("s1.html", "_self");
+    window.open("index.html", "_self");
 }
 function goRule(){
     console.log("Regla");
-    window.open("s8.html", "_self");
+    window.open("reglas.html", "_self");
 }
 function drawRed(){
     if(localStorage.getItem('t_f')=='true'){
@@ -93,7 +93,7 @@ function drawRed(){
     }
 }
 function checkRight(){
-    if(localStorage.getItem('r_f')=='true'&&localStorage.getItem('b_f')=='true'&&localStorage.getItem('t_f')=='true'){
+    if(localStorage.getItem('r_f')=='true'||localStorage.getItem('b_f')=='true'||localStorage.getItem('t_f')=='true'){
         right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
     }
 }
