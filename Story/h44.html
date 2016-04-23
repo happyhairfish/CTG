@@ -1,8 +1,8 @@
 <!doctype html> 
 <html lang="en"> 
 <head> 
-	<meta charset="UTF-8" />
-	<title>Cómic Pensamiento Crítico</title>
+    <meta charset="UTF-8" />
+    <title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
     <style type="text/css">
         body {
@@ -24,6 +24,10 @@ var voice_button;
 var b_a;
 var b_b;
 var b_c;
+
+var b_a_bool=false;
+var b_b_bool=false;
+var b_c_bool=false;
 var c_a=null;
 var c_b=null;
 var c_c=null;
@@ -34,54 +38,52 @@ var yc;
 function preload() {
     game.load.audio('voice', 'assetsAudio/h44.m4a');
     game.load.image('ill', 'assetsImg/h44.jpg');
-    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
-    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
-    game.load.spritesheet('buttonAudio', 'assetsImg/buttonAudio.png', 114, 50);
-    game.load.spritesheet('b_a', 'assetsImg/b44a.png', 415, 91);
-    game.load.spritesheet('b_b', 'assetsImg/b44b.png', 414, 56);
-    game.load.spritesheet('b_c', 'assetsImg/b44c.png', 414, 87);
-    game.load.image('c_a', 'assetsImg/c44a.png');
-    game.load.image('c_b', 'assetsImg/c44b.png');
-    game.load.image('c_c', 'assetsImg/c44c.png');
+    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
+    game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
+    game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
+    game.load.spritesheet('b_a', 'assetsImg/b44a_2.png', 300,100);
+    game.load.spritesheet('b_b', 'assetsImg/b44b_2.png', 300,50);
+    game.load.spritesheet('b_c', 'assetsImg/b44c_2.png', 300,100);
+    game.load.image('c_a', 'assetsImg/c38a.png');
+    game.load.image('c_b', 'assetsImg/c38b.png');
+    game.load.image('c_c', 'assetsImg/c38c.png');
 }
 function create() {    
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(game.world.centerX, game.world.centerY, 'ill');
-    ill.anchor.setTo(0.5);
+    ill=game.add.image(70, 0, 'ill');
+    ill.scale.setTo(0.95,0.95);
     voice=game.add.audio('voice');
     voice.play();
-    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
-    voice_button = game.add.button(685, 200, 'buttonAudio', play_sound ,this, 1, 0, 2);
+    left=game.add.button(20,280, 'left', goLeft, this, 1,0,2);
+    right=game.add.button(660,280, 'right', goRight, this, 1,0,2);
+    right.visible=false;
+    voice_button = game.add.button(370, 500, 'voice_button', play_sound ,this);
 
-    ya=game.world.centerY;
-    yb=game.world.centerY+80;
-    yc=game.world.centerY+160;
-
-    b_a = game.add.button(game.world.centerX, ya, 'b_a', AnsA ,this, 1, 0, 2);
+    ya=game.world.centerY-50;
+    yb=game.world.centerY+30;
+    yc=game.world.centerY+110;
+    b_a = game.add.button(game.world.centerX-10, ya, 'b_a', AnsA ,this, 0);
     b_a.anchor.setTo(0.5);
-    b_b = game.add.button(game.world.centerX, yb, 'b_b', AnsB ,this, 1, 0, 2);
+    b_b = game.add.button(game.world.centerX-10, yb, 'b_b', AnsB ,this, 0);
     b_b.anchor.setTo(0.5);
-    b_c = game.add.button(game.world.centerX, yc, 'b_c', AnsC ,this, 1, 0, 2);
+    b_c = game.add.button(game.world.centerX-10, yc, 'b_c', AnsC ,this, 0);
     b_c.anchor.setTo(0.5);
 
 }
 function AnsA(){
-    clearBefore();
-    c_a=game.add.sprite(game.world.centerX, ya, 'c_a');
-    c_a.anchor.setTo(0.5);
-    right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
+    b_a_bool=true;
+    b_b_bool=false;
+    b_c_bool=false;
 }
 function AnsB(){
-    clearBefore();
-    c_b=game.add.sprite(game.world.centerX, yb, 'c_b');
-    c_b.anchor.setTo(0.5);
-    right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
+    b_a_bool=false;
+    b_b_bool=true;
+    b_c_bool=false;
 }
 function AnsC(){
-    clearBefore();
-    c_c=game.add.sprite(game.world.centerX, yc, 'c_c');
-    c_c.anchor.setTo(0.5);
-    right=game.add.button(685,450, 'right', goRight, this, 1,0,2);
+    b_a_bool=false;
+    b_b_bool=false;
+    b_c_bool=true;
 }
 
 function clearBefore(){
@@ -113,6 +115,24 @@ function goLeft(){
     window.open("h43.html", "_self");
 }
 function update(){
+    if(b_a_bool)
+        b_a.frame=1;
+    else
+        b_a.frame=0;
+
+    if(b_b_bool)
+        b_b.frame=1;
+    else
+        b_b.frame=0;
+
+    if(b_c_bool)
+        b_c.frame=1;
+    else
+        b_c.frame=0;
+
+    if(b_a_bool || b_b_bool || b_c_bool)
+        right.visible=true;
+
 }
 function render() {
 }
