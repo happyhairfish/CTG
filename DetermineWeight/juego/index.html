@@ -60,7 +60,7 @@ var buttontools;
 var pivImg1;
 var pivImg2;
 var pivImg3;
-var style = { font: "12px Arial", align: "center" };
+var style = { font: "12px Arial" };
 var textA=null;
 var textB=null;
 var textC=null;
@@ -104,13 +104,13 @@ function create(){
 	rocks=game.add.group();
 	rocks.enableBody=true;
 
-	var rock1=rocks.create(370,50,'A');
+	var rock1=rocks.create(370,80,'A');
 	rock1.body.collideWorldBounds = true;
 	rock1.body.mass=2;
-	var rock2=rocks.create(520,50,'B');
+	var rock2=rocks.create(520,80,'B');
 	rock2.body.collideWorldBounds = true;
 	rock2.body.mass=3;
-	var rock3=rocks.create(670,50,'C');
+	var rock3=rocks.create(670,80,'C');
 	rock3.body.collideWorldBounds = true;
 	rock3.body.mass=4;
 
@@ -177,10 +177,6 @@ function create(){
 
 	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 
-	var r1=game.add.sprite(360,120,'Agrande');
-	var r2=game.add.sprite(510,120,'Bgrande');
-	var r3=game.add.sprite(660,120,'Cgrande');
-
 	reloadTable();
 
 	measure1.ok=game.add.sprite(160,234,'ok');
@@ -203,15 +199,15 @@ function update(){
 function reloadTable(){
 	console.log(localStorage.getItem('b_m1'));
 	if(localStorage.getItem('b_m1')!=null){
-		textA = game.add.text(640, 281, localStorage.getItem('b_m1'), style);
+		textA = game.add.text(630, 2875, localStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m2')!=null){
-		textB = game.add.text(640, 370, localStorage.getItem('b_m2'), style);
+		textB = game.add.text(630, 360, localStorage.getItem('b_m2'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m3')!=null){
-		textC = game.add.text(640, 450, localStorage.getItem('b_m3'), style);
+		textC = game.add.text(630, 445, localStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -249,17 +245,17 @@ function measure(measureTemp, obj1, obj2){
 	}
 	if (measureTemp.plw>measureTemp.prw){
 		console.log("izquierdo abajo");
-		text2 = " es más \npesada que ";
+		text2 = " es más \n                pesada\n                que ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	} else if(measureTemp.plw==measureTemp.prw){
 		console.log("Iguales");
-		text2 = " pesa lo \nmismo que ";
+		text2 = " pesa lo \n                mismo\n                que ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}else{
 		console.log("izquierdo arriba");
-		text2 = " es más \nliviana que ";
+		text2 = " es más \n                liviana\n                que ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}
@@ -271,7 +267,7 @@ function measure(measureTemp, obj1, obj2){
 }
 
 function doMeasure(m){
-	var text = game.add.text(m.cx, m.cy,"Medida: "+m.name+". "+m.pl.key+m.midtext+m.pr.key, style);
+	var text = game.add.text(m.cx, m.cy,"Medida "+m.name+"   "+m.pl.key+m.midtext+m.pr.key, style);
 	m.result=text;
 	m.result.visible=false;
 	m.blockused=true;
