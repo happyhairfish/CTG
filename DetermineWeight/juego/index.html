@@ -27,18 +27,20 @@ function preload(){
     game.load.image('A', 'assets/stone1C.png');
     game.load.image('B', 'assets/piedra2C.png');
     game.load.image('C', 'assets/piedra3C.png');
-    game.load.image('back', 'assets/fondo4.png');
+    game.load.image('back', 'assets/fondo6.png');
     game.load.image('piv', 'assets/pivote.png');
     game.load.image('platei', 'assets/pivote2i.png');
     game.load.image('plated', 'assets/pivote2d.png');
+    //borde cuadros
     game.load.image('block', 'assets/block.png');
-    game.load.spritesheet('reload', 'assets/BotonLimpiar.png', 88,53);
-    game.load.spritesheet('goTable', 'assets/botonAgregar.png', 88,53);
+    game.load.spritesheet('reload', 'assets/delete_2.png', 64,64);
+    game.load.spritesheet('goTable', 'assets/shapes_2.png', 64,64);
     game.load.image('tfull', 'assets/tablaCompleta2.png');
-    game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.spritesheet('tools', 'assets/choose_tool.png', 100,50);
     game.load.image('ok', 'assets/k.png');
 }
 
+var fondo;
 var floors;
 var rocks;
 var pivs;
@@ -72,7 +74,8 @@ function create(){
 
 	//Fondo
 	game.stage.backgroundColor = "#FFFFFF";
-	game.add.sprite(0, 0, 'back');
+	fondo=game.add.sprite(0, 80, 'back');
+	fondo.scale.setTo(0.86,0.86);
 
 	//Se crean los tres bloques de medición. 
 	block1=game.add.sprite(6,203,'block');
@@ -168,12 +171,12 @@ function create(){
 
 
 	//Se agregan los botones
-	button1=game.add.button(20,540, 'reload', eraseMeasure1, this, 1,0,2);
-	button11=game.add.button(110,540, 'goTable', goTable1, this, 1,0,2);
-	button2=game.add.button(205,540, 'reload', eraseMeasure2, this, 1,0,2);
-	button21=game.add.button(295,540, 'goTable', goTable2, this, 1,0,2);
-	button3=game.add.button(400,540, 'reload', eraseMeasure3, this, 1,0,2);
-	button31=game.add.button(490,540, 'goTable', goTable3, this, 1,0,2);
+	button1=game.add.button(40,520, 'reload', eraseMeasure1, this, 1,0,2);
+	button11=game.add.button(120,520, 'goTable', goTable1, this, 1,0,2);
+	button2=game.add.button(230,520, 'reload', eraseMeasure2, this, 1,0,2);
+	button21=game.add.button(310,520, 'goTable', goTable2, this, 1,0,2);
+	button3=game.add.button(420,520, 'reload', eraseMeasure3, this, 1,0,2);
+	button31=game.add.button(500,520, 'goTable', goTable3, this, 1,0,2);
 
 	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 
@@ -203,7 +206,7 @@ function update(){
 function reloadTable(){
 	console.log(localStorage.getItem('b_m1'));
 	if(localStorage.getItem('b_m1')!=null){
-		textA = game.add.text(640, 281, localStorage.getItem('b_m1'), style);
+		textA = game.add.text(640, 260, localStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m2')!=null){
