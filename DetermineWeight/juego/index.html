@@ -28,9 +28,9 @@ function preload(){
     game.load.image('B', 'assets/piedra2C.png');
     game.load.image('C', 'assets/piedra3C.png');
     game.load.image('back', 'assets/fondo6.png');
-    game.load.image('piv', 'assets/pivote.png');
-    game.load.image('platei', 'assets/pivote2i.png');
-    game.load.image('plated', 'assets/pivote2d.png');
+    game.load.image('piv', 'assets/pivote3.png');
+    game.load.image('platei', 'assets/pivote2i_2.png');
+    game.load.image('plated', 'assets/pivote2d_2.png');
     //borde cuadros
     game.load.image('block', 'assets/block.png');
     game.load.spritesheet('reload', 'assets/delete_2.png', 64,64);
@@ -48,7 +48,7 @@ var plates;
 var block1;
 var block2;
 var block3;
-var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 630, cy: 275, intable: false, ok: null };
+var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 650, cy: 275, intable: false, ok: null };
 var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 630, cy: 360, intable: false, ok: null};
 var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 630, cy: 445, intable: false, ok: null};
 var button1;
@@ -107,13 +107,13 @@ function create(){
 	rocks=game.add.group();
 	rocks.enableBody=true;
 
-	var rock1=rocks.create(370,80,'A');
+	var rock1=rocks.create(430,80,'A');
 	rock1.body.collideWorldBounds = true;
 	rock1.body.mass=2;
-	var rock2=rocks.create(520,80,'B');
+	var rock2=rocks.create(560,80,'B');
 	rock2.body.collideWorldBounds = true;
 	rock2.body.mass=3;
-	var rock3=rocks.create(670,80,'C');
+	var rock3=rocks.create(690,80,'C');
 	rock3.body.collideWorldBounds = true;
 	rock3.body.mass=4;
 
@@ -139,33 +139,33 @@ function create(){
 	/*var p1=plates.create(90,400,'piv');
 	p1.body.immovable=true;
 	p1.body.allowGravity=false;*/
-	pivImg1=game.add.sprite(90,400,'piv');
-	var p1l=plates.create(38,380,'platei');
+	pivImg1=game.add.sprite(35,400,'piv');
+	var p1l=plates.create(20,370,'platei');
 	p1l.body.immovable=true;
 	p1l.body.allowGravity=false;
-	var p1r=plates.create(135,380,'plated');
+	var p1r=plates.create(125,370,'plated');
 	p1r.body.immovable=true;
 	p1r.body.allowGravity=false;
 
 	/*var p2=plates.create(280,400,'piv');
 	p2.body.immovable=true;
 	p2.body.allowGravity=false;*/
-	pivImg2=game.add.sprite(280,400,'piv');
-	var p2l=plates.create(228,380,'platei');
+	pivImg2=game.add.sprite(225,400,'piv');
+	var p2l=plates.create(210,370,'platei');
 	p2l.body.immovable=true;
 	p2l.body.allowGravity=false;
-	var p2r=plates.create(325,380,'plated');
+	var p2r=plates.create(315,370,'plated');
 	p2r.body.immovable=true;
 	p2r.body.allowGravity=false;
 
 	/*var p3=plates.create(471,400,'piv');
 	p3.body.immovable=true;
 	p3.body.allowGravity=false;*/
-	pivImg3=game.add.sprite(471,400,'piv');
-	var p3l=plates.create(419,380,'platei');
+	pivImg3=game.add.sprite(415,400,'piv');
+	var p3l=plates.create(400,370,'platei');
 	p3l.body.immovable=true;
 	p3l.body.allowGravity=false;
-	var p3r=plates.create(516,380,'plated');
+	var p3r=plates.create(505,370,'plated');
 	p3r.body.immovable=true;
 	p3r.body.allowGravity=false;
 
@@ -270,7 +270,7 @@ function measure(measureTemp, obj1, obj2){
 }
 
 function doMeasure(m){
-	var text = game.add.text(m.cx, m.cy,"Medida "+m.name+"   "+m.pl.key+m.midtext+m.pr.key, style);
+	var text = game.add.text(m.cx, m.cy,"Medida "+m.name+"                "+m.pl.key+m.midtext+m.pr.key, style);
 	m.result=text;
 	m.result.visible=false;
 	m.blockused=true;
@@ -284,13 +284,13 @@ function reloadRock(obj){
 	var rock;
 	var massRock=1;
 	if (obj.key=='A'){
-		rock=rocks.create(370,100,'A');
+		rock=rocks.create(430,100,'A');
 		massRock=2;	
 	} else if(obj.key=='B'){
-		rock=rocks.create(520,100,'B');
+		rock=rocks.create(560,100,'B');
 		massRock=3;
 	}else{
-		rock=rocks.create(670,100,'C');
+		rock=rocks.create(690,100,'C');
 		massRock=4;
 	}
 	rock.body.collideWorldBounds = true;

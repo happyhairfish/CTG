@@ -21,16 +21,16 @@ var game = new Phaser.Game(width, height, Phaser.CANVAS, '', { preload: preload,
 
 function preload(){
 	//Se cargan las imagenes a usar
-    game.load.image('A', 'assets/stone.png');
-    game.load.image('B', 'assets/piedra2.png');
-    game.load.image('C', 'assets/piedra3.png');
-    game.load.image('back', 'assets/fondo3.jpg');
+    game.load.image('A', 'assets/stone1C.png');
+    game.load.image('B', 'assets/piedra2C.png');
+    game.load.image('C', 'assets/piedra3C.png');
+    game.load.image('back', 'assets/fondo7.PNG');
     game.load.image('rule', 'assets/termometro2.png');
     game.load.image('block', 'assets/block.png');
-    game.load.spritesheet('reload', 'assets/BotonLimpiar.png', 88,53);
-    game.load.spritesheet('goTable', 'assets/botonAgregar.png', 88,53);
+    game.load.spritesheet('reload', 'assets/delete_2.png', 88,53);
+    game.load.spritesheet('goTable', 'assets/shapes_2.png', 88,53);
     game.load.image('tfull', 'assets/tablaCompleta2.png');
-    game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.spritesheet('tools', 'assetsImg/choose_tool.png', 115,58);
     game.load.image('ok', 'assets/k.png');
 }
 
@@ -56,13 +56,16 @@ var textA=null;
 var textB=null;
 var textC=null;
 
+var fondo;
+
 function create(){
 	// Se habilita la física, Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	// Se crea el fondo
 	game.stage.backgroundColor = "#FFFFFF";
-	game.add.sprite(0, 0, 'back');
+	fondo=game.add.sprite(0, 80, 'back');
+	fondo.scale.setTo(0.86,0.86);
 
 	//Se crean los tres bloques de medición.  
 	block1=game.add.sprite(6,203,'block');
@@ -76,11 +79,11 @@ function create(){
 	rocks=game.add.group();
 	rocks.enableBody=true;
 
-	var rock1=rocks.create(360,100,'A');
+	var rock1=rocks.create(430,80,'A');
 	rock1.body.collideWorldBounds = true;
-	var rock2=rocks.create(510,100,'B');
+	var rock2=rocks.create(560,80,'B');
 	rock2.body.collideWorldBounds = true;
-	var rock3=rocks.create(660,100,'C');
+	var rock3=rocks.create(690,80,'C');
 	rock3.body.collideWorldBounds = true;
 
 	//Se habilita drag and drop
@@ -109,12 +112,12 @@ function create(){
 	rule1.body.collideWorldBounds = true;
 
 	//Se agregan los botones
-	button1=game.add.button(20,540, 'reload', eraseMeasure1, this, 1,0,2);
-	button11=game.add.button(110,540, 'goTable', goTable1, this, 1,0,2);
-	button2=game.add.button(205,540, 'reload', eraseMeasure2, this, 1,0,2);
-	button21=game.add.button(295,540, 'goTable', goTable2, this, 1,0,2);
-	button3=game.add.button(400,540, 'reload', eraseMeasure3, this, 1,0,2);
-	button31=game.add.button(490,540, 'goTable', goTable3, this, 1,0,2);
+	button1=game.add.button(40,520, 'reload', eraseMeasure1, this, 1,0,2);
+	button11=game.add.button(120,520, 'goTable', goTable1, this, 1,0,2);
+	button2=game.add.button(230,520, 'reload', eraseMeasure2, this, 1,0,2);
+	button21=game.add.button(310,520, 'goTable', goTable2, this, 1,0,2);
+	button3=game.add.button(420,520, 'reload', eraseMeasure3, this, 1,0,2);
+	button31=game.add.button(500,520, 'goTable', goTable3, this, 1,0,2);
 
 	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 	reloadTable();
