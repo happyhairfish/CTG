@@ -67,15 +67,30 @@ function create() {
 
     var style = { font: "14px Arial", align: "center" };
     var style2 = { font: "12px Arial", align: "center" };
-    mesb1= game.add.text(290, 320, localStorage.getItem('b_m1'), style2);
-    mesb1= game.add.text(290, 375, localStorage.getItem('b_m2'), style2);
-    mesb3= game.add.text(290, 440, localStorage.getItem('b_m3'), style2);
+    mesb1= game.add.text(340, 234, localStorage.getItem('b_m1'), style2);
+    mesb1= game.add.text(340, 300, localStorage.getItem('b_m2'), style2);
+    mesb3= game.add.text(340, 363, localStorage.getItem('b_m3'), style2);
     mesr1= game.add.text(460, 335, localStorage.getItem('r_m1'), style);
     mesr2= game.add.text(460, 390, localStorage.getItem('r_m2'), style);
     mesr3= game.add.text(460, 455, localStorage.getItem('r_m3'), style);
     mest1= game.add.text(615, 335, localStorage.getItem('t_m1'), style);
     mest2= game.add.text(615, 390, localStorage.getItem('t_m2'), style);
     mest3= game.add.text(615, 455, localStorage.getItem('t_m3'), style);
+
+    text_m1b = game.add.text(260, 253, "Medida 1", style);
+    text_m2b = game.add.text(260, 318, "Medida 2", style);
+    text_m3b = game.add.text(260, 383, "Medida 3", style);
+
+    text_m1t = game.add.text(450, 253, "Medida 1", style);
+    text_m2t = game.add.text(450, 318, "Medida 2", style);
+    text_m3t = game.add.text(450, 383, "Medida 3", style);
+
+    text_m1r = game.add.text(640, 253, "Medida 1", style);
+    text_m2r = game.add.text(640, 318, "Medida 2", style);
+    text_m3r = game.add.text(640, 383, "Medida 3", style);
+
+
+
 
 }
 function play_sound(){

@@ -21,6 +21,7 @@ var left;
 var right;
 var voice;
 var voice_button;
+var rep_hist_button;
 var b_a;
 var b_b;
 var b_c;
@@ -41,6 +42,8 @@ function preload() {
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
+    game.load.spritesheet('repetir_historia', 'assetsImg/rep_hist.png', 201, 100);
+
     game.load.spritesheet('b_a', 'assetsImg/b44a_2.png', 300,100);
     game.load.spritesheet('b_b', 'assetsImg/b44b_2.png', 300,50);
     game.load.spritesheet('b_c', 'assetsImg/b44c_2.png', 300,100);
@@ -57,7 +60,9 @@ function create() {
     left=game.add.button(20,280, 'left', goLeft, this, 1,0,2);
     right=game.add.button(660,280, 'right', goRight, this, 1,0,2);
     right.visible=false;
-    voice_button = game.add.button(370, 500, 'voice_button', play_sound ,this);
+    voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
+    rep_hist_button = game.add.button(250, 500, 'repetir_historia', rep_hist_action ,this);
+    rep_hist_button.scale.setTo(0.5,0.5);   
 
     ya=game.world.centerY-50;
     yb=game.world.centerY+30;
@@ -69,6 +74,11 @@ function create() {
     b_c = game.add.button(game.world.centerX-10, yc, 'b_c', AnsC ,this, 0);
     b_c.anchor.setTo(0.5);
 
+}
+function rep_hist_action()
+{
+    sessionStorage.setItem('before', '44');
+    window.open("h0.html", "_self");
 }
 function AnsA(){
     b_a_bool=true;
@@ -109,6 +119,14 @@ function play_sound(){
     voice.play();
 }
 function goRight(){
+    if(b_a_bool)
+        sessionStorage.setItem("i8","1");
+    else if(b_b_bool)
+        sessionStorage.setItem("i8","0");
+    else if(b_c_bool)
+        sessionStorage.setItem("i8","0");
+
+    console.log(sessionStorage.getItem("i10"));
     window.open("h45.html", "_self");
 }
 function goLeft(){

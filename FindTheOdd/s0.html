@@ -75,7 +75,7 @@ function create() {
     voice=game.add.audio('voice1');
     voice.play();
 
-    voice_button = game.add.button(400, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+    voice_button = game.add.button(game.world.centerX-25, 400, 'voice_button', play_sound ,this, 1, 0, 2);
 
     left=game.add.button(0,250, 'left', goLeft);
     right=game.add.button(700,250, 'right', goRight);
@@ -83,7 +83,7 @@ function create() {
 
     ill1=game.add.sprite(50,25, 'ill1');
 
-    var button_enter_answer=game.add.button(375,450,'button_enter_answer',enter_answer_action,1,0);
+    // var button_enter_answer=game.add.button(375,450,'button_enter_answer',enter_answer_action,1,0);
 
     button_key1=game.add.button(100,225,'key_button_1',actionKey1,this,0,0,0,0);
     button_key2=game.add.button(250,225,'key_button_2',actionKey2,this,0,0,0,0);
@@ -119,7 +119,15 @@ function play_answer()
 }
 function goRight()
 {
-    window.open("../Mechanism/start2.html", "_self");
+    if(button_key1_bool)
+        window.open("../FindTheOdd/s0_1.html", "_self");
+    else if(button_key2_bool)
+        window.open("../FindTheOdd/s0_2.html", "_self");
+    else if(button_key3_bool)
+        window.open("../FindTheOdd/s0_3.html", "_self");
+    else if(button_key4_bool)
+        window.open("../FindTheOdd/s0_4.html", "_self");
+
 }
 function showRight()
 {
@@ -127,7 +135,7 @@ function showRight()
 }
 function goLeft()
 {
-    window.open("../Mechanism/yes_no.html", "_self");
+    window.open("../Story/h51.html", "_self");
 }
 
 function update()
@@ -151,6 +159,9 @@ function update()
         button_key4.frame=1;
     else
         button_key4.frame=0;
+
+    if(button_key1_bool || button_key2_bool || button_key3_bool || button_key4_bool)
+        right.visible=true;
 }
 
 function render()

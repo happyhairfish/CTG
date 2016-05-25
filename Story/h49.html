@@ -24,15 +24,15 @@ var voice_button;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/h49.m4a');
-    game.load.image('ill', 'assetsImg/h49.jpg');
+    game.load.image('ill', 'assetsImg/h49_1.jpg');
    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
 }
 function create() {    
    game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(0,0, 'ill');
-    ill.scale.setTo(0.85,0.85);
+    ill=game.add.sprite(50,50, 'ill');
+    // ill.scale.setTo(0.85,0.85);
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(0,250, 'left', goLeft, this, 0);

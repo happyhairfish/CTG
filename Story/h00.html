@@ -24,9 +24,9 @@ function create() {
     goRight();
 }
 function goRight(){
-    localStorage.setItem('before', '0');
-    localStorage.setItem('cameFrom', '0');
-    console.log(localStorage.getItem('before'));
+    sessionStorage.setItem('before', '0');
+    sessionStorage.setItem('cameFrom', '0');
+    console.log(sessionStorage.getItem('before'));
     window.open("h0.html", "_self");
 }
 function update(){

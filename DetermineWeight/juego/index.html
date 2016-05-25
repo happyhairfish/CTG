@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 
-var width=800;
+var width=900;
 var height=600;
 var game = new Phaser.Game(width, height, Phaser.CANVAS, '', { preload: preload, create: create, update: update, render: render});
 
@@ -28,16 +28,18 @@ function preload(){
     game.load.image('B', 'assets/piedra2C.png');
     game.load.image('C', 'assets/piedra3C.png');
     game.load.image('back', 'assets/fondo6.png');
-    game.load.image('piv', 'assets/pivote3.png');
-    game.load.image('platei', 'assets/pivote2i_2.png');
-    game.load.image('plated', 'assets/pivote2d_2.png');
+    game.load.image('piv', 'assets/pesa2.png');
+    game.load.image('platei', 'assets/pivote2d_3.png');
+    game.load.image('plated', 'assets/pivote2d_3.png');
     //borde cuadros
     game.load.image('block', 'assets/block.png');
-    game.load.spritesheet('reload', 'assets/delete_2.png', 64,64);
-    game.load.spritesheet('goTable', 'assets/shapes_2.png', 64,64);
+    game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
+    game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
     game.load.image('tfull', 'assets/tablaCompleta2.png');
     game.load.spritesheet('tools', 'assets/choose_tool.png', 100,50);
     game.load.image('ok', 'assets/k.png');
+
+		game.load.image('pesaBmayA', 'assets/pesaBmayA.png');
 }
 
 var fondo;
@@ -48,9 +50,9 @@ var plates;
 var block1;
 var block2;
 var block3;
-var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 650, cy: 275, intable: false, ok: null };
-var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 630, cy: 360, intable: false, ok: null};
-var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 630, cy: 445, intable: false, ok: null};
+var measure1={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "1", midtext: "", cx: 727, cy: 252, intable: false, ok: null };
+var measure2={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "2", midtext: "", cx: 727, cy: 325, intable: false, ok: null};
+var measure3={blockused: false, plw: 0, prw: 0, pl: null, pr: null, result: null, name: "3", midtext: "", cx: 727, cy: 395, intable: false, ok: null};
 var button1;
 var button11;
 var button2;
@@ -62,7 +64,8 @@ var buttontools;
 var pivImg1;
 var pivImg2;
 var pivImg3;
-var style = { font: "12px Arial" };
+var pesaBmayA;
+var style = { font: "12px Arial", align: "center" };
 var textA=null;
 var textB=null;
 var textC=null;
@@ -77,7 +80,7 @@ function create(){
 	fondo=game.add.sprite(0, 80, 'back');
 	fondo.scale.setTo(0.86,0.86);
 
-	//Se crean los tres bloques de medición. 
+	//Se crean los tres bloques de medición.
 	block1=game.add.sprite(6,203,'block');
 	block1.enableBody=true;
 	block2=game.add.sprite(195,203,'block');
@@ -89,7 +92,7 @@ function create(){
 	floors=game.add.group();
 	floors.enableBody=true;
 
-	//Creamos pisos. hacemos que no se pueda caer de ese lugar las rocas. 
+	//Creamos pisos. hacemos que no se pueda caer de ese lugar las rocas.
 	var floor1= floors.create(370,150, 'ground');
 	floor1.body.immovable=true;
 	floor1.body.allowGravity=false;
@@ -103,7 +106,10 @@ function create(){
 	floor4.body.immovable=true;
 	floor4.body.allowGravity=false;
 
-	//Creamos las rocas, le agregamos el cuerpo solido 
+	pivImg1=game.add.sprite(35,370,'piv');
+	pesaBmayA=game.add.image(35,345,'pesaBmayA');
+	pesaBmayA.visible=false;
+	//Creamos las rocas, le agregamos el cuerpo solido
 	rocks=game.add.group();
 	rocks.enableBody=true;
 
@@ -132,20 +138,21 @@ function create(){
 	rock3.events.onDragStop.add(stopDrag,this);
 
 
-	//Creamos los pivotes y brazos de las balanzas. 
+	//Creamos los pivotes y brazos de las balanzas.
 	plates=game.add.group();
 	plates.enableBody=true;
 
 	/*var p1=plates.create(90,400,'piv');
 	p1.body.immovable=true;
 	p1.body.allowGravity=false;*/
-	pivImg1=game.add.sprite(35,400,'piv');
-	var p1l=plates.create(20,370,'platei');
+
+	var p1l=plates.create(20,385,'platei');
 	p1l.body.immovable=true;
 	p1l.body.allowGravity=false;
-	var p1r=plates.create(125,370,'plated');
+	var p1r=plates.create(125,385,'plated');
 	p1r.body.immovable=true;
 	p1r.body.allowGravity=false;
+
 
 	/*var p2=plates.create(280,400,'piv');
 	p2.body.immovable=true;
@@ -170,13 +177,15 @@ function create(){
 	p3r.body.allowGravity=false;
 
 
-	//Se agregan los botones
-	button1=game.add.button(40,520, 'reload', eraseMeasure1, this, 1,0,2);
-	button11=game.add.button(120,520, 'goTable', goTable1, this, 1,0,2);
-	button2=game.add.button(230,520, 'reload', eraseMeasure2, this, 1,0,2);
-	button21=game.add.button(310,520, 'goTable', goTable2, this, 1,0,2);
-	button3=game.add.button(420,520, 'reload', eraseMeasure3, this, 1,0,2);
-	button31=game.add.button(500,520, 'goTable', goTable3, this, 1,0,2);
+	//reload=borrar
+	//goTable=+
+	//Se agregan los botones de agregar y borrar a la tabla
+	button1=game.add.button(40,520, 'basurero', eraseMeasure1, this, 1,0,2);
+	button11=game.add.button(120,520, 'add', goTable1, this, 1,0,2);
+	button2=game.add.button(230,520, 'basurero', eraseMeasure2, this, 1,0,2);
+	button21=game.add.button(310,520, 'add', goTable2, this, 1,0,2);
+	button3=game.add.button(420,520, 'basurero', eraseMeasure3, this, 1,0,2);
+	button31=game.add.button(500,520, 'add', goTable3, this, 1,0,2);
 
 	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 
@@ -192,6 +201,9 @@ function create(){
 	measure3.ok.anchor.setTo(0.5);
 	measure3.ok.visible=false;
 
+	text_m1 = game.add.text(632, 273, "Medida 1", style);
+	text_m2 = game.add.text(632, 346, "Medida 2", style);
+	text_m3 = game.add.text(632, 418, "Medida 3", style);
 }
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
 function update(){
@@ -202,15 +214,15 @@ function update(){
 function reloadTable(){
 	console.log(localStorage.getItem('b_m1'));
 	if(localStorage.getItem('b_m1')!=null){
-		textA = game.add.text(630, 275, localStorage.getItem('b_m1'), style);
+		textA = game.add.text(727, 252, localStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m2')!=null){
-		textB = game.add.text(630, 360, localStorage.getItem('b_m2'), style);
+		textB = game.add.text(727, 325, localStorage.getItem('b_m2'), style);
 		tableup.measures++;
 	}
 	if(localStorage.getItem('b_m3')!=null){
-		textC = game.add.text(630, 445, localStorage.getItem('b_m3'), style);
+		textC = game.add.text(727, 395, localStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -219,16 +231,16 @@ function reloadTable(){
 function onTouch(obj1, obj2){
 	if(obj1.overlap(block1) && !measure1.blockused){
 		console.log("Medición en 1");
-		measure(measure1,obj1,obj2);		
+		measure(measure1,obj1,obj2);
 	} else if(obj1.overlap(block2) && !measure2.blockused){
 		console.log("Medición en 2");
-		measure(measure2,obj1,obj2);		
+		measure(measure2,obj1,obj2);
 	} else if(obj1.overlap(block3) && !measure3.blockused){
 		console.log("Medición en 3");
-		measure(measure3,obj1,obj2);		
+		measure(measure3,obj1,obj2);
 	} else {
 		console.log("No area de medición");
-	}	
+	}
 }
 
 function measure(measureTemp, obj1, obj2){
@@ -248,17 +260,17 @@ function measure(measureTemp, obj1, obj2){
 	}
 	if (measureTemp.plw>measureTemp.prw){
 		console.log("izquierdo abajo");
-		text2 = " es más \n                pesada\n                que ";
+		text2 = " es más\npesada\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	} else if(measureTemp.plw==measureTemp.prw){
 		console.log("Iguales");
-		text2 = " pesa lo \n                mismo\n                que ";
+		text2 = " pesa lo\nmismo\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}else{
 		console.log("izquierdo arriba");
-		text2 = " es más \n                liviana\n                que ";
+		text2 = " es más\nliviana\nque ";
 		console.log(measureTemp.pl);
 		console.log(measureTemp.pr);
 	}
@@ -270,11 +282,15 @@ function measure(measureTemp, obj1, obj2){
 }
 
 function doMeasure(m){
-	var text = game.add.text(m.cx, m.cy,"Medida "+m.name+"                "+m.pl.key+m.midtext+m.pr.key, style);
+	var text = game.add.text(m.cx, m.cy,m.pl.key+m.midtext+m.pr.key, style);
 	m.result=text;
 	m.result.visible=false;
 	m.blockused=true;
 	m.ok.visible=true;
+
+	pivImg1.visible=false;
+	pesaBmayA.visible=true;
+
 	console.log(m);
 	reloadRock(m.pl);
 	reloadRock(m.pr);
@@ -285,7 +301,7 @@ function reloadRock(obj){
 	var massRock=1;
 	if (obj.key=='A'){
 		rock=rocks.create(430,100,'A');
-		massRock=2;	
+		massRock=2;
 	} else if(obj.key=='B'){
 		rock=rocks.create(560,100,'B');
 		massRock=3;
@@ -318,7 +334,7 @@ function eraseMeasure1(){
 		reloadRock(measure1.pl);
 		measure1.pl.destroy();
 		measure1.pl=null;
-		measure1.plw=0;		
+		measure1.plw=0;
 	}
 	if (measure1.pr!=null){
 		reloadRock(measure1.pr);
@@ -345,7 +361,7 @@ function eraseMeasure2(){
 		reloadRock(measure2.pl);
 		measure2.pl.destroy();
 		measure2.pl=null;
-		measure2.plw=0;		
+		measure2.plw=0;
 	}
 	if (measure2.pr!=null){
 		reloadRock(measure2.pr);
@@ -372,7 +388,7 @@ function eraseMeasure3(){
 		reloadRock(measure3.pl);
 		measure3.pl.destroy();
 		measure3.pl=null;
-		measure3.plw=0;		
+		measure3.plw=0;
 	}
 	if (measure3.pr!=null){
 		reloadRock(measure3.pr);
@@ -394,7 +410,7 @@ function goTable1 (){
 		tableup.measures++;
 		localStorage.setItem('b_m1', measure1.result._text);
 		console.log(localStorage.getItem('b_m1'));
-		checkfull();		
+		checkfull();
 	}
 }
 function goTable2 (){
@@ -409,7 +425,7 @@ function goTable2 (){
 		tableup.measures++;
 		localStorage.setItem('b_m2', measure2.result._text);
 		console.log(localStorage.getItem('b_m2'));
-		checkfull();		
+		checkfull();
 	}
 }function goTable3 (){
 	if (measure3.blockused==true){
@@ -423,7 +439,7 @@ function goTable2 (){
 		tableup.measures++;
 		localStorage.setItem('b_m3', measure3.result._text);
 		console.log(localStorage.getItem('b_m3'));
-		checkfull();		
+		checkfull();
 	}
 }
 //Función que comprueba si la tabla está llena

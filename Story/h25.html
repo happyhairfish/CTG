@@ -28,8 +28,23 @@ function preload() {
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
+
+    console.log(sessionStorage.getItem('before'));
+ game.load.spritesheet('volver_pregunta', 'assetsImg/volver_preg.png', 201, 100);
 }
-function create() {    
+function create() {
+    if(sessionStorage.getItem('before')!='0')
+    {
+        voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
+        var rep_hist_button = game.add.button(250, 500, 'volver_pregunta', volver_pregunta_action ,this);
+        rep_hist_button.scale.setTo(0.5,0.5);
+    }
+    else
+    {
+        voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
+    }
+
+
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(160,25, 'ill');
     ill.scale.setTo(0.85,0.85);
@@ -37,27 +52,30 @@ function create() {
     voice.play();
     left=game.add.button(0,250, 'left', goLeft, this, 0);
     right=game.add.button(700,250, 'right', goRight, this, 0);
-    voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
+
 
 }
-function play_sound(){
+function volver_pregunta_action()
+{
+    var destination = sessionStorage.getItem('before');
+    sessionStorage.setItem('before','0');
+    window.open("h"+destination+".html", "_self");
+}
+function play_sound()
+{
     voice.play();
 }
 function goRight(){
-    if (localStorage.getItem('before')=='0'){
+    if(sessionStorage.getItem('before')!='0')
+        window.open("h"+sessionStorage.getItem('before')+".html", "_self");
+    else
         window.open("h26.html", "_self");
-    }else if (localStorage.getItem('before')=='37'){
-        window.open("h38.html", "_self");
-    }else if (localStorage.getItem('before')=='42'){
-        window.open("h43.html", "_self");
-    }  else{
-        console.log(localStorage.getItem('before'));
-    }
 }
 function goLeft(){
     window.open("h24.html", "_self");
 }
 function update(){
+
 }
 function render() {
 }

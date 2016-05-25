@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 var ill1;
 var ill2;
@@ -58,7 +58,7 @@ var boton_c_bool=false;
 function preload() {
     game.load.audio('voice1', 'assets/voice1.mp3');
 
-    game.load.image('ill1', 'assets/dialogo1_con_globo.PNG');
+    game.load.image('ill1', 'assets/dialogo1_con_globo_2.PNG');
 
     game.load.image('left', 'assets/arrowleft_2.png');
     game.load.image('right', 'assets/arrowright_2.png');
@@ -72,40 +72,40 @@ function preload() {
 
     game.load.spritesheet('button_enter_answer','assets/ingresar_rspta_3.png', 100,50)
 
-    game.load.spritesheet('button_largo_a','assets/boton_largo1_a.png',300,100);
-    game.load.spritesheet('button_largo_b','assets/boton_largo1_b.png',300,100);
-    game.load.spritesheet('button_largo_c','assets/boton_largo1_c.png',300,100);
+    game.load.spritesheet('button_largo_a','assets/boton_largo1_a_2.png',300,50);
+    game.load.spritesheet('button_largo_b','assets/boton_largo1_b_2.png',300,50);
+    game.load.spritesheet('button_largo_c','assets/boton_largo1_c_2.png',300,50);
 
     game.load.image('popup', 'assets/popup2.png');
     game.load.image('close', 'assets/close_button.png');
 }
 
 function create() {
-
+    sessionStorage.setItem('i1','');
     // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
     voice=game.add.audio('voice1');
     voice.play();
 
-    voice_button = game.add.button(220, 500, 'voice_button', play_sound ,this, 1, 0, 2);
+    voice_button = game.add.button(350, 440, 'voice_button', play_sound ,this, 1, 0, 2);
 
     left=game.add.button(0,250, 'left', goLeft);
     right=game.add.button(700,250, 'right', goRight);
     right.visible=false;
 
-    ill1=game.add.sprite(50,25, 'ill1');
+    ill1=game.add.sprite(60,25, 'ill1');
 
-    var button_enter_answer=game.add.button(70,500,'button_enter_answer',enter_answer_action,1,0);
+    // var button_enter_answer=game.add.button(70,500,'button_enter_answer',enter_answer_action,1,0);
 
-    button_key1=game.add.sprite(130,300,'key_button_1');
+    button_key1=game.add.sprite(95,240,'key_button_2');
    /* button_key2=game.add.button(250,225,'key_button_2',actionKey2,this,0,0,0,0);
     button_key3=game.add.button(400,225,'key_button_3',actionKey3,this,0,0,0,0);
     button_key4=game.add.button(550,225,'key_button_4',actionKey4,this,0,0,0,0);
 */
-    boton_largo_a=game.add.button(390,220,'button_largo_a',boton_a_action,this,0);
-    boton_largo_b=game.add.button(390,330,'button_largo_b',boton_b_action,this,0);
-    boton_largo_c=game.add.button(390,440,'button_largo_c',boton_c_action,this,0);
+    boton_largo_a=game.add.button(300,210,'button_largo_a',boton_a_action,this,0);
+    boton_largo_b=game.add.button(300,280,'button_largo_b',boton_b_action,this,0);
+    boton_largo_c=game.add.button(300,350,'button_largo_c',boton_c_action,this,0);
 
     popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
     popup.anchor.set(0.5);
@@ -136,7 +136,8 @@ function play_answer()
 }
 function goRight()
 {
-    window.open("../DetermineWeight/historia/scene0.html", "_self");
+    sessionStorage.setItem('i1','0');
+    window.open("../FindTheOdd/s1.html", "_self");
 }
 function showRight()
 {
@@ -171,18 +172,21 @@ function update()
 
     if(boton_a_bool)
         boton_largo_a.frame=1;
-    else   
+    else
         boton_largo_a.frame=0;
 
     if(boton_b_bool)
         boton_largo_b.frame=1;
-    else   
+    else
         boton_largo_b.frame=0;
 
     if(boton_c_bool)
         boton_largo_c.frame=1;
-    else   
+    else
         boton_largo_c.frame=0;
+
+    if(boton_a_bool || boton_b_bool || boton_c_bool)
+        right.visible=true;
 
 }
 

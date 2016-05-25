@@ -47,7 +47,7 @@ var mest3;
 function preload() {
     game.load.image('dialogue','assetsImg/dialogo14.JPG')
     game.load.audio('voice', 'assetsAudio/s14.m4a');
-    game.load.image('ill', 'assetsImg/s14_4.jpg');
+    game.load.image('ill', 'assetsImg/s14_5.jpg');
     game.load.image('A', 'assetsImg/Aac.png');
     game.load.image('B', 'assetsImg/Bbc.png');
     game.load.image('C', 'assetsImg/Ccc.png');
@@ -75,12 +75,12 @@ function create() {
     right.visible=false;
     voice_button = game.add.button(720, 80, 'buttonAudio', play_sound ,this, 1, 0, 2);
     moreTools=game.add.button(695, 140, 'moreTools', goTools ,this, 1, 0, 2);
-    moreTools2=game.add.button(160, 400, 'again', eraseAns ,this, 1, 0, 2);
+    moreTools2=game.add.button(220, 400, 'again', eraseAns ,this, 1, 0, 2);
 
     var style = { font: "10px Arial", align: "center" };
-    mesb1= game.add.text(447, 245, localStorage.getItem('b_m1'), style);
-    mesb1= game.add.text(447, 295, localStorage.getItem('b_m2'), style);
-    mesb3= game.add.text(447, 340, localStorage.getItem('b_m3'), style);
+    mesb1= game.add.text(567, 267, localStorage.getItem('b_m1'), style);
+    mesb1= game.add.text(567, 325, localStorage.getItem('b_m2'), style);
+    mesb3= game.add.text(567, 383, localStorage.getItem('b_m3'), style);
     mesr1= game.add.text(586, 258, localStorage.getItem('r_m1'), style);
     mesr2= game.add.text(586, 300, localStorage.getItem('r_m2'), style);
     mesr3= game.add.text(586, 342, localStorage.getItem('r_m3'), style);
@@ -95,10 +95,10 @@ function create() {
     block1=game.add.sprite(15,225,'block');
     block1.enableBody=true;
     block1.inputEnabled=true;
-    block2=game.add.sprite(145,225,'block');
+    block2=game.add.sprite(185,225,'block');
 
     block2.enableBody=true;
-    block3=game.add.sprite(275,225,'block');
+    block3=game.add.sprite(355,225,'block');
 
     block3.enableBody=true;
     
@@ -106,11 +106,11 @@ function create() {
     rocks=game.add.group();
     rocks.enableBody=true;
 
-    rock1=rocks.create(60,320,'A');
+    rock1=rocks.create(110,325,'A');
     rock1.body.collideWorldBounds = true;
-    rock2=rocks.create(170,320,'B');
+    rock2=rocks.create(215,325,'B');
     rock2.body.collideWorldBounds = true;
-    rock3=rocks.create(260,320,'C');
+    rock3=rocks.create(300,325,'C');
     rock3.body.collideWorldBounds = true;
 
     //Habilitamos el drag and drop
@@ -127,6 +127,12 @@ function create() {
     rock3.events.onDragStart.add(startDrag,this);
     rock3.events.onDragStop.add(stopDrag,this);
 
+    text_m1b = game.add.text(500, 283, "Medida 1", style);
+    text_m2b = game.add.text(500, 343, "Medida 2", style);
+    text_m3b = game.add.text(500, 403, "Medida 3", style);
+
+    text_1 = game.add.text(137, 233, "es más\nliviana\nque", style);
+    text_2 = game.add.text(307, 233, "es más\nliviana\nque", style);
 }
 
 function update(){
