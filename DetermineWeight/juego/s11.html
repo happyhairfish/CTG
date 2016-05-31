@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
@@ -36,12 +36,12 @@ function preload() {
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
     game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
-    game.load.spritesheet('balanceButton', 'assetsImg/balanceButton_2.png', 250, 200);
-    game.load.spritesheet('ruleButton', 'assetsImg/ruleButton_2.png', 250, 200);
-    game.load.spritesheet('thermometerButton', 'assetsImg/termometerButton_2.png', 250, 200);
+    game.load.spritesheet('balanceButton', 'assetsImg/balanceButton_3.png', 250, 200);
+    game.load.spritesheet('ruleButton', 'assetsImg/ruleButton_3.png', 250, 200);
+    game.load.spritesheet('thermometerButton', 'assetsImg/termometerButton_3.png', 250, 200);
     game.load.spritesheet('b11v', 'assetsImg/b11v.png', 109, 77);
 }
-function create() {    
+function create() {
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(game.world.centerX, game.world.centerY-200, 'ill');
     ill.anchor.setTo(0.5);
@@ -72,11 +72,11 @@ function goLeft(){
     //window.open("../historia/scene11.html", "_self");
 }
 function goOrder(){
-    localStorage.setItem('cameFrom', '0');
-    window.open("s14.html", "_self")   
+    sessionStorage.setItem('cameFrom', '0');
+    window.open("s14.html", "_self")
 }
 function checkOrder(){
-    if (localStorage.getItem('cameFrom')=='s14'){
+    if (sessionStorage.getItem('cameFrom')=='s14'){
         order.visible=true;
     }
 }
@@ -93,18 +93,18 @@ function goRule(){
     window.open("reglas.html", "_self");
 }
 function drawRed(){
-    if(localStorage.getItem('t_f')=='true'){
-        thermometer_button.frame=1;
+    if(sessionStorage.getItem('t_f')=='true'){
+        thermometer_button.frame=2;
     }
-    if(localStorage.getItem('b_f')=='true'){
-        balance_button.frame=1;
+    if(sessionStorage.getItem('b_f')=='true'){
+        balance_button.frame=2;
     }
-    if(localStorage.getItem('r_f')=='true'){
-        rule_button.frame=1;
+    if(sessionStorage.getItem('r_f')=='true'){
+        rule_button.frame=2;
     }
 }
 function checkRight(){
-    if(localStorage.getItem('r_f')=='true'||localStorage.getItem('b_f')=='true'||localStorage.getItem('t_f')=='true'){
+    if(sessionStorage.getItem('r_f')=='true'||sessionStorage.getItem('b_f')=='true'||sessionStorage.getItem('t_f')=='true'){
         right=game.add.button(685,440, 'right', goRight, this, 1,0,2);
     }
 }

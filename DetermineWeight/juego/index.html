@@ -27,19 +27,31 @@ function preload(){
     game.load.image('A', 'assets/stone1C.png');
     game.load.image('B', 'assets/piedra2C.png');
     game.load.image('C', 'assets/piedra3C.png');
-    game.load.image('back', 'assets/fondo6.png');
+    game.load.image('back', 'assets/fondo9.png');
     game.load.image('piv', 'assets/pesa2.png');
     game.load.image('platei', 'assets/pivote2d_3.png');
     game.load.image('plated', 'assets/pivote2d_3.png');
     //borde cuadros
-    game.load.image('block', 'assets/block.png');
+    game.load.image('block', 'assets/block2.png');
     game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
     game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
-    game.load.image('tfull', 'assets/tablaCompleta2.png');
+    game.load.image('tfull', 'assets/tablaCompleta3.png');
     game.load.spritesheet('tools', 'assets/choose_tool.png', 100,50);
-    game.load.image('ok', 'assets/k.png');
+    game.load.image('ok', 'assets/ticket_nuevo.png');
 
-		game.load.image('pesaBmayA', 'assets/pesaBmayA.png');
+		game.load.image('pesaBmayADer', 'assets/pesaBmayADer.png');
+		game.load.image('pesaBmayAIzq', 'assets/pesaBmayAIzq.png');
+		game.load.image('pesaCmayADer', 'assets/pesaCmayADer.png');
+		game.load.image('pesaCmayBIzq', 'assets/pesaCmayBIzq.png');
+		game.load.image('pesaCmayBDer', 'assets/pesaCmayBDer.png');
+		game.load.image('pesaCmayAIzq', 'assets/pesaCmayAIzq.png');
+		game.load.image('pesaAigualA', 'assets/pesaAigualA.png');
+		game.load.image('pesaBigualB', 'assets/pesaBigualB.png');
+		game.load.image('pesaCigualC', 'assets/pesaCigualC.png');
+
+		game.load.spritesheet('left', 'assets/arrowleft_3.png', 100, 100);
+		game.load.spritesheet('right', 'assets/arrowright_3.png', 100, 100);
+
 }
 
 var fondo;
@@ -64,11 +76,43 @@ var buttontools;
 var pivImg1;
 var pivImg2;
 var pivImg3;
-var pesaBmayA;
+var pesaBmayADer1;
+var pesaBmayAIzq1;
+var pesaCmayAIzq1;
+var pesaCmayADer1;
+var pesaCmayBDer1;
+var pesaCmayBIzq1;
+var pesaAigualA1;
+var pesaBigualB1;
+var pesaCigualC1;
+var pesaBmayADer2;
+var pesaBmayAIzq2;
+var pesaCmayAIzq2;
+var pesaCmayADer2;
+var pesaCmayBDer2;
+var pesaCmayBIzq2;
+var pesaAigualA2;
+var pesaBigualB2;
+var pesaCigualC2;
+var pesaBmayADer3;
+var pesaBmayAIzq3;
+var pesaCmayAIzq3;
+var pesaCmayADer3;
+var pesaCmayBDer3;
+var pesaCmayBIzq3;
+var pesaAigualA3;
+var pesaBigualB3;
+var pesaCigualC3;
 var style = { font: "12px Arial", align: "center" };
 var textA=null;
 var textB=null;
 var textC=null;
+var left;
+var right;
+var mAdone=false;
+var mBdone=false;
+var mCdone=false;
+
 
 function create(){
 	// Habilitar Arcade Physics system
@@ -77,8 +121,14 @@ function create(){
 
 	//Fondo
 	game.stage.backgroundColor = "#FFFFFF";
-	fondo=game.add.sprite(0, 80, 'back');
-	fondo.scale.setTo(0.86,0.86);
+	fondo=game.add.sprite(10,80, 'back');
+	fondo.scale.setTo(0.9,0.9);
+
+	left=game.add.button(10,10, 'left', goLeft, this, 1,0,2);
+	left.scale.setTo(0.8,0.8);
+	right=game.add.button(685,10, 'right', goRight, this, 1,0,2);
+	right.scale.setTo(0.8,0.8);
+	right.visible=false;
 
 	//Se crean los tres bloques de medición.
 	block1=game.add.sprite(6,203,'block');
@@ -96,19 +146,80 @@ function create(){
 	var floor1= floors.create(370,150, 'ground');
 	floor1.body.immovable=true;
 	floor1.body.allowGravity=false;
-	var floor2=floors.create(28,444, 'platform');
-	floor2.body.immovable=true;
-	floor2.body.allowGravity=false;
-	var floor3=floors.create(220,444, 'platform');
-	floor3.body.immovable=true;
-	floor3.body.allowGravity=false;
-	var floor4=floors.create(415,444, 'platform');
-	floor4.body.immovable=true;
-	floor4.body.allowGravity=false;
+	// var floor2=floors.create(28,444, 'platform');
+	// floor2.body.immovable=true;
+	// floor2.body.allowGravity=false;
+	// var floor3=floors.create(220,444, 'platform');
+	// floor3.body.immovable=true;
+	// floor3.body.allowGravity=false;
+	// var floor4=floors.create(415,444, 'platform');
+	// floor4.body.immovable=true;
+	// floor4.body.allowGravity=false;
 
 	pivImg1=game.add.sprite(35,370,'piv');
-	pesaBmayA=game.add.image(35,345,'pesaBmayA');
-	pesaBmayA.visible=false;
+	pivImg2=game.add.sprite(222.5,370,'piv');
+	// pivImg2.visible=false;
+	pivImg3=game.add.sprite(415,370,'piv');
+	// pivImg3.visible=false;
+
+	pesaBmayADer1=game.add.image(35,345,'pesaBmayADer');
+	pesaBmayADer1.visible=false;
+	pesaBmayAIzq1=game.add.image(35,345,'pesaBmayAIzq');
+	pesaBmayAIzq1.visible=false;
+	pesaCmayADer1=game.add.image(35,345,'pesaCmayADer');
+	pesaCmayADer1.visible=false;
+	pesaCmayAIzq1=game.add.image(35,345,'pesaCmayAIzq');
+	pesaCmayAIzq1.visible=false;
+	pesaCmayBDer1=game.add.image(35,345,'pesaCmayBDer');
+	pesaCmayBDer1.visible=false;
+	pesaCmayBIzq1=game.add.image(35,345,'pesaCmayBIzq');
+	pesaCmayBIzq1.visible=false;
+	pesaAigualA1=game.add.image(35,345,'pesaAigualA');
+	pesaAigualA1.visible=false;
+	pesaBigualB1=game.add.image(35,345,'pesaBigualB');
+	pesaBigualB1.visible=false;
+	pesaCigualC1=game.add.image(35,345,'pesaCigualC');
+	pesaCigualC1.visible=false;
+
+	pesaBmayADer2=game.add.image(222.5,345,'pesaBmayADer');
+	pesaBmayADer2.visible=false;
+	pesaBmayAIzq2=game.add.image(222.5,345,'pesaBmayAIzq');
+	pesaBmayAIzq2.visible=false;
+	pesaCmayADer2=game.add.image(222.5,345,'pesaCmayADer');
+	pesaCmayADer2.visible=false;
+	pesaCmayAIzq2=game.add.image(222.5,345,'pesaCmayAIzq');
+	pesaCmayAIzq2.visible=false;
+	pesaCmayBDer2=game.add.image(222.5,345,'pesaCmayBDer');
+	pesaCmayBDer2.visible=false;
+	pesaCmayBIzq2=game.add.image(222.5,345,'pesaCmayBIzq');
+	pesaCmayBIzq2.visible=false;
+	pesaAigualA2=game.add.image(222.5,345,'pesaAigualA');
+	pesaAigualA2.visible=false;
+	pesaBigualB2=game.add.image(222.5,345,'pesaBigualB');
+	pesaBigualB2.visible=false;
+	pesaCigualC2=game.add.image(222.5,345,'pesaCigualC');
+	pesaCigualC2.visible=false;
+
+	pesaBmayADer3=game.add.image(415,345,'pesaBmayADer');
+	pesaBmayADer3.visible=false;
+	pesaBmayAIzq3=game.add.image(415,345,'pesaBmayAIzq');
+	pesaBmayAIzq3.visible=false;
+	pesaCmayADer3=game.add.image(415,345,'pesaCmayADer');
+	pesaCmayADer3.visible=false;
+	pesaCmayAIzq3=game.add.image(415,345,'pesaCmayAIzq');
+	pesaCmayAIzq3.visible=false;
+	pesaCmayBDer3=game.add.image(415,345,'pesaCmayBDer');
+	pesaCmayBDer3.visible=false;
+	pesaCmayBIzq3=game.add.image(415,345,'pesaCmayBIzq');
+	pesaCmayBIzq3.visible=false;
+	pesaAigualA3=game.add.image(415,345,'pesaAigualA');
+	pesaAigualA3.visible=false;
+	pesaBigualB3=game.add.image(415,345,'pesaBigualB');
+	pesaBigualB3.visible=false;
+	pesaCigualC3=game.add.image(415,345,'pesaCigualC');
+	pesaCigualC3.visible=false;
+
+
 	//Creamos las rocas, le agregamos el cuerpo solido
 	rocks=game.add.group();
 	rocks.enableBody=true;
@@ -157,22 +268,22 @@ function create(){
 	/*var p2=plates.create(280,400,'piv');
 	p2.body.immovable=true;
 	p2.body.allowGravity=false;*/
-	pivImg2=game.add.sprite(225,400,'piv');
-	var p2l=plates.create(210,370,'platei');
+	// pivImg2=game.add.sprite(225,400,'piv');
+	var p2l=plates.create(210,385,'platei');
 	p2l.body.immovable=true;
 	p2l.body.allowGravity=false;
-	var p2r=plates.create(315,370,'plated');
+	var p2r=plates.create(315,385,'plated');
 	p2r.body.immovable=true;
 	p2r.body.allowGravity=false;
 
 	/*var p3=plates.create(471,400,'piv');
 	p3.body.immovable=true;
 	p3.body.allowGravity=false;*/
-	pivImg3=game.add.sprite(415,400,'piv');
-	var p3l=plates.create(400,370,'platei');
+	// pivImg3=game.add.sprite(415,400,'piv');
+	var p3l=plates.create(400,385,'platei');
 	p3l.body.immovable=true;
 	p3l.body.allowGravity=false;
-	var p3r=plates.create(505,370,'plated');
+	var p3r=plates.create(505,385,'plated');
 	p3r.body.immovable=true;
 	p3r.body.allowGravity=false;
 
@@ -187,42 +298,56 @@ function create(){
 	button3=game.add.button(420,520, 'basurero', eraseMeasure3, this, 1,0,2);
 	button31=game.add.button(500,520, 'add', goTable3, this, 1,0,2);
 
-	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
+	//buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 
 	reloadTable();
 
-	measure1.ok=game.add.sprite(160,234,'ok');
+	measure1.ok=game.add.sprite(160,242.5,'ok');
 	measure1.ok.anchor.setTo(0.5);
 	measure1.ok.visible=false;
-	measure2.ok=game.add.sprite(350,234,'ok');
+	measure2.ok=game.add.sprite(350,242.5,'ok');
 	measure2.ok.anchor.setTo(0.5);
 	measure2.ok.visible=false;
-	measure3.ok=game.add.sprite(540,234,'ok');
+	measure3.ok=game.add.sprite(540,242.5,'ok');
 	measure3.ok.anchor.setTo(0.5);
 	measure3.ok.visible=false;
 
 	text_m1 = game.add.text(632, 273, "Medida 1", style);
 	text_m2 = game.add.text(632, 346, "Medida 2", style);
 	text_m3 = game.add.text(632, 418, "Medida 3", style);
+	//
+	// text_back = game.add.text(100,30,"Volver al \ntutorial",style);
+	// text_back2 = game.add.text(560,30,"Medir con \notra herramienta",style);
+
+	console.log(sessionStorage.getItem('b_m1'));
+	console.log(sessionStorage.getItem('b_m2'));
+	console.log(sessionStorage.getItem('b_m3'));
 }
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
 function update(){
+	if(mAdone || mBdone || mCdone || (sessionStorage.getItem('b_m1')!=null || sessionStorage.getItem('b_m2')!=null || sessionStorage.getItem('b_m3')!=null))
+	{
+		right.visible=true;
+	}
+	else {
+		right.visible=false;
+	}
 	game.physics.arcade.collide(rocks, floors);
 	game.physics.arcade.collide(rocks, plates, onTouch, null, this);
 }
 
 function reloadTable(){
-	console.log(localStorage.getItem('b_m1'));
-	if(localStorage.getItem('b_m1')!=null){
-		textA = game.add.text(727, 252, localStorage.getItem('b_m1'), style);
+	console.log(sessionStorage.getItem('b_m1'));
+	if(sessionStorage.getItem('b_m1')!=null){
+		textA = game.add.text(727, 252, sessionStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
-	if(localStorage.getItem('b_m2')!=null){
-		textB = game.add.text(727, 325, localStorage.getItem('b_m2'), style);
+	if(sessionStorage.getItem('b_m2')!=null){
+		textB = game.add.text(727, 325, sessionStorage.getItem('b_m2'), style);
 		tableup.measures++;
 	}
-	if(localStorage.getItem('b_m3')!=null){
-		textC = game.add.text(727, 395, localStorage.getItem('b_m3'), style);
+	if(sessionStorage.getItem('b_m3')!=null){
+		textC = game.add.text(727, 395, sessionStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -231,12 +356,15 @@ function reloadTable(){
 function onTouch(obj1, obj2){
 	if(obj1.overlap(block1) && !measure1.blockused){
 		console.log("Medición en 1");
+		measure1.id="1";
 		measure(measure1,obj1,obj2);
 	} else if(obj1.overlap(block2) && !measure2.blockused){
 		console.log("Medición en 2");
+		measure2.id="2";
 		measure(measure2,obj1,obj2);
 	} else if(obj1.overlap(block3) && !measure3.blockused){
 		console.log("Medición en 3");
+		measure3.id="3";
 		measure(measure3,obj1,obj2);
 	} else {
 		console.log("No area de medición");
@@ -251,6 +379,7 @@ function measure(measureTemp, obj1, obj2){
 		measureTemp.pl.body.allowGravity=false;
 		measureTemp.pl.inputEnabled=false;
 		measureTemp.pl.y= measureTemp.pl.y-3;
+
 	}else{
 		measureTemp.prw=obj1.body.mass;
 		measureTemp.pr=obj1;
@@ -275,10 +404,20 @@ function measure(measureTemp, obj1, obj2){
 		console.log(measureTemp.pr);
 	}
 	if(measureTemp.prw!=0 && measureTemp.plw!=0){
+		measureTemp.pl.visible=false;
+		measureTemp.pr.visible=false;
 		console.log("doMedición")
 		measureTemp.midtext=text2;
 		doMeasure(measureTemp);
 	}
+
+}
+function goRight(){
+    window.open("../../Mechanism/start.html", "_self");
+}
+function goLeft(){
+	//ir al tutorial
+    window.open("s11.html", "_self");
 }
 
 function doMeasure(m){
@@ -288,8 +427,75 @@ function doMeasure(m){
 	m.blockused=true;
 	m.ok.visible=true;
 
-	pivImg1.visible=false;
-	pesaBmayA.visible=true;
+	if(m.name=="1")
+	{
+		mAdone=true;
+		pivImg1.visible=false;
+		if(m.pl.key=='A' && m.pr.key=='A')
+			pesaAigualA1.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='B')
+			pesaBigualB1.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='C')
+			pesaCigualC1.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='B')
+			pesaBmayADer1.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='A')
+			pesaBmayAIzq1.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='A')
+			pesaCmayAIzq1.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='C')
+			pesaCmayADer1.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='B')
+			pesaCmayBIzq1.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='C')
+			pesaCmayBDer1.visible=true;
+	}
+	else if(m.name=="2")
+	{
+		mBdone=true;
+		pivImg2.visible=false;
+		if(m.pl.key=='A' && m.pr.key=='A')
+			pesaAigualA2.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='B')
+			pesaBigualB2.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='C')
+			pesaCigualC2.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='B')
+			pesaBmayADer2.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='A')
+			pesaBmayAIzq2.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='A')
+			pesaCmayAIzq2.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='C')
+			pesaCmayADer2.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='B')
+			pesaCmayBIzq2.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='C')
+			pesaCmayBDer2.visible=true;
+	}
+	else if(m.name=="3")
+	{
+		mCdone=true;
+		pivImg3.visible=false;
+		if(m.pl.key=='A' && m.pr.key=='A')
+			pesaAigualA3.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='B')
+			pesaBigualB3.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='C')
+			pesaCigualC3.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='B')
+			pesaBmayADer3.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='A')
+			pesaBmayAIzq3.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='A')
+			pesaCmayAIzq3.visible=true;
+		else if(m.pl.key=='A' && m.pr.key=='C')
+			pesaCmayADer3.visible=true;
+		else if(m.pl.key=='C' && m.pr.key=='B')
+			pesaCmayBIzq3.visible=true;
+		else if(m.pl.key=='B' && m.pr.key=='C')
+			pesaCmayBDer3.visible=true;
+	}
 
 	console.log(m);
 	reloadRock(m.pl);
@@ -318,16 +524,37 @@ function reloadRock(obj){
 }
 
 function eraseMeasure1(){
+		mAdone=false;
+		pivImg1.visible=true;
+
+		pesaAigualA1.visible=false;
+
+		pesaBigualB1.visible=false;
+
+		pesaCigualC1.visible=false;
+
+		pesaBmayADer1.visible=false;
+
+		pesaBmayAIzq1.visible=false;
+
+		pesaCmayAIzq1.visible=false;
+
+		pesaCmayADer1.visible=false;
+
+		pesaCmayBIzq1.visible=false;
+
+		pesaCmayBDer1.visible=false;
 	console.log("me apretaron1");
 	if (measure1.blockused==true){
 		measure1.blockused=false;
 		measure1.ok.visible=false;
+
 		measure1.result.destroy();
 		if (measure1.intable== true){
 			measure1.intable=false;
 			tableup.measures--;
 			erasefull();
-			localStorage.removeItem("b_m1");
+			sessionStorage.removeItem("b_m1");
 		}
 	}
 	if (measure1.pl!=null){
@@ -345,6 +572,26 @@ function eraseMeasure1(){
 }
 
 function eraseMeasure2(){
+	mBdone=false;
+	pivImg2.visible=true;
+
+	pesaAigualA2.visible=false;
+
+	pesaBigualB2.visible=false;
+
+	pesaCigualC2.visible=false;
+
+	pesaBmayADer2.visible=false;
+
+	pesaBmayAIzq2.visible=false;
+
+	pesaCmayAIzq2.visible=false;
+
+	pesaCmayADer2.visible=false;
+
+	pesaCmayBIzq2.visible=false;
+
+	pesaCmayBDer2.visible=false;
 	console.log("me apretaron2");
 	if (measure2.blockused==true){
 		measure2.blockused=false;
@@ -354,7 +601,7 @@ function eraseMeasure2(){
 			measure2.intable=false;
 			tableup.measures--;
 			erasefull();
-			localStorage.removeItem("b_m2");
+			sessionStorage.removeItem("b_m2");
 		}
 	}
 	if (measure2.pl!=null){
@@ -372,6 +619,26 @@ function eraseMeasure2(){
 }
 
 function eraseMeasure3(){
+	mCdone=false;
+	pivImg3.visible=true;
+
+	pesaAigualA3.visible=false;
+
+	pesaBigualB3.visible=false;
+
+	pesaCigualC3.visible=false;
+
+	pesaBmayADer3.visible=false;
+
+	pesaBmayAIzq3.visible=false;
+
+	pesaCmayAIzq3.visible=false;
+
+	pesaCmayADer3.visible=false;
+
+	pesaCmayBIzq3.visible=false;
+
+	pesaCmayBDer3.visible=false;
 	console.log("me apretaron3");
 	if (measure3.blockused==true){
 		measure3.blockused=false;
@@ -381,7 +648,7 @@ function eraseMeasure3(){
 			measure3.intable=false;
 			tableup.measures--;
 			erasefull();
-			localStorage.removeItem("b_m3");
+			sessionStorage.removeItem("b_m3");
 		}
 	}
 	if (measure3.pl!=null){
@@ -408,8 +675,8 @@ function goTable1 (){
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
-		localStorage.setItem('b_m1', measure1.result._text);
-		console.log(localStorage.getItem('b_m1'));
+		sessionStorage.setItem('b_m1', measure1.result._text);
+		console.log(sessionStorage.getItem('b_m1'));
 		checkfull();
 	}
 }
@@ -423,8 +690,8 @@ function goTable2 (){
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
-		localStorage.setItem('b_m2', measure2.result._text);
-		console.log(localStorage.getItem('b_m2'));
+		sessionStorage.setItem('b_m2', measure2.result._text);
+		console.log(sessionStorage.getItem('b_m2'));
 		checkfull();
 	}
 }function goTable3 (){
@@ -437,8 +704,8 @@ function goTable2 (){
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;
-		localStorage.setItem('b_m3', measure3.result._text);
-		console.log(localStorage.getItem('b_m3'));
+		sessionStorage.setItem('b_m3', measure3.result._text);
+		console.log(sessionStorage.getItem('b_m3'));
 		checkfull();
 	}
 }
@@ -446,8 +713,8 @@ function goTable2 (){
 function checkfull(){
 	if (tableup.measures>=3){
 		tableup.fulltable=true;
-		tableup.lines= game.add.sprite(535,170,'tfull');
-		localStorage.setItem('b_f', 'true');
+		tableup.lines= game.add.sprite(582.5,162.5,'tfull');
+		sessionStorage.setItem('b_f', 'true');
 	}
 }
 //Función que quita el full de la tabla
@@ -455,7 +722,7 @@ function erasefull(){
 	if(tableup.fulltable==true){
 		tableup.fulltable=false;
 		tableup.lines.destroy();
-		localStorage.setItem('b_f', 'false');
+		sessionStorage.setItem('b_f', 'false');
 	}
 }
 function startDrag(sprite){
