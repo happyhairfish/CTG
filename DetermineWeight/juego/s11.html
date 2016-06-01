@@ -48,7 +48,7 @@ function create() {
     voice=game.add.audio('voice');
     voice.play();
     //left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
-    voice_button = game.add.button(400, 485, 'buttonAudio', play_sound ,this);
+    voice_button = game.add.button(400, 467, 'buttonAudio', play_sound ,this);
     balance_button=game.add.button(game.world.centerX-250, game.world.centerY+20, 'balanceButton', goBalance ,this);
     balance_button.anchor.setTo(0.5);
     thermometer_button=game.add.button(game.world.centerX, game.world.centerY+20, 'thermometerButton', goThermometer ,this);
