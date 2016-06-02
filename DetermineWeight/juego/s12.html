@@ -48,7 +48,7 @@ var ruler_label_bool=false;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/s12.m4a');
-    game.load.image('ill', 'assetsImg/s12_3.PNG');
+    game.load.image('ill', 'assetsImg/s12_4.PNG');
     game.load.image('red', 'assetsImg/red2.png');
     game.load.spritesheet('left', 'assets/arrowleft_choose_tool.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
@@ -66,7 +66,7 @@ function preload() {
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(200,30, 'ill');
+    ill=game.add.sprite(135,12, 'ill');
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(20,440, 'left', goLeft, this, 1,0,2);

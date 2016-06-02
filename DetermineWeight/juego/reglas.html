@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -21,17 +21,17 @@ var game = new Phaser.Game(width, height, Phaser.CANVAS, '', { preload: preload,
 
 function preload(){
 	//Se cargan las imagenes a usar
-    game.load.image('A', 'assets/stone.png');
-    game.load.image('B', 'assets/piedra2.png');
-    game.load.image('C', 'assets/piedra3.png');
-    game.load.image('back', 'assets/fondo3.jpg');
-    game.load.image('rule', 'assets/regla2.png');
-    game.load.image('block', 'assets/block.png');
-    game.load.spritesheet('reload', 'assets/BotonLimpiar.png', 88,53);
-    game.load.spritesheet('goTable', 'assets/botonAgregar.png', 88,53);
-    game.load.image('tfull', 'assets/tablaCompleta2.png');
-    game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
-    game.load.image('ok', 'assets/k.png');
+    game.load.image('A', 'assets/stone1C.png');
+    game.load.image('B', 'assets/piedra2C.png');
+    game.load.image('C', 'assets/piedra3C.png');
+    game.load.image('back', 'assets/fondo14.PNG');
+    game.load.image('rule', 'assets/regla3.png');
+    game.load.image('block', 'assets/block2.png');
+    game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
+    game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
+    game.load.image('tfull', 'assets/tablaCompleta3.png');
+    // game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.image('ok', 'assets/ticket_nuevo.png');
 }
 
 //Variables globales que se usaran.
@@ -51,7 +51,7 @@ var button3;
 var button31;
 var tableup={fulltable: false, lines: null, measures: 0 };
 var buttontools;
-var style = { font: "24px Arial", align: "center" };
+var style = { font: "12px Arial", align: "center" };
 var textA=null;
 var textB=null;
 var textC=null;
@@ -63,9 +63,10 @@ function create(){
 
 	// Se crea el fondo
 	game.stage.backgroundColor = "#FFFFFF";
-	game.add.sprite(0, 0, 'back');
+	var fondo=game.add.sprite(10, 30, 'back');
+	fondo.scale.setTo(0.9,0.9);
 
-	//Se crean los tres bloques de medición.  
+	//Se crean los tres bloques de medición.
 	block1=game.add.sprite(6,203,'block');
 	block1.enableBody=true;
 	block2=game.add.sprite(195,203,'block');
@@ -73,15 +74,15 @@ function create(){
 	block3=game.add.sprite(386,203,'block');
 	block3.enableBody=true;
 
-	//Se crean las rocas, se les agrega un cuerpo solido y que no puedan salir de los limites del juego. 
+	//Se crean las rocas, se les agrega un cuerpo solido y que no puedan salir de los limites del juego.
 	rocks=game.add.group();
 	rocks.enableBody=true;
 
-	var rock1=rocks.create(360,100,'A');
+	var rock1=rocks.create(550,130,'A');
 	rock1.body.collideWorldBounds = true;
-	var rock2=rocks.create(510,100,'B');
+	var rock2=rocks.create(650,130,'B');
 	rock2.body.collideWorldBounds = true;
-	var rock3=rocks.create(660,100,'C');
+	var rock3=rocks.create(750,130,'C');
 	rock3.body.collideWorldBounds = true;
 
 	//Se habilita drag and drop
@@ -98,11 +99,11 @@ function create(){
 	rock3.events.onDragStart.add(startDrag,this);
 	rock3.events.onDragStop.add(stopDrag,this);
 
-	//Se crea el instrumento de medición, y al igual que las rocas se permite que sea un cuerpo sólido, que no salga de los límites del juego y el drag and drop.  
+	//Se crea el instrumento de medición, y al igual que las rocas se permite que sea un cuerpo sólido, que no salga de los límites del juego y el drag and drop.
 	rules=game.add.group();
 	rules.enableBody=true;
 
-	var rule1=rules.create(92,74,'rule');
+	var rule1=rules.create(40,90,'rule');
 	rule1.inputEnabled=true;
 	rule1.input.enableDrag(false,true);
 	rule1.events.onDragStart.add(startDrag,this);
@@ -110,14 +111,14 @@ function create(){
 	rule1.body.collideWorldBounds = true;
 
 	//Se agregan los botones
-	button1=game.add.button(20,540, 'reload', eraseMeasure1, this, 1,0,2);
-	button11=game.add.button(110,540, 'goTable', goTable1, this, 1,0,2);
-	button2=game.add.button(205,540, 'reload', eraseMeasure2, this, 1,0,2);
-	button21=game.add.button(295,540, 'goTable', goTable2, this, 1,0,2);
-	button3=game.add.button(400,540, 'reload', eraseMeasure3, this, 1,0,2);
-	button31=game.add.button(490,540, 'goTable', goTable3, this, 1,0,2);
+	button1=game.add.button(40,500, 'basurero', eraseMeasure1, this, 1,0,2);
+	button11=game.add.button(120,500, 'add', goTable1, this, 1,0,2);
+	button2=game.add.button(230,500, 'basurero', eraseMeasure2, this, 1,0,2);
+	button21=game.add.button(310,500, 'add', goTable2, this, 1,0,2);
+	button3=game.add.button(420,500, 'basurero', eraseMeasure3, this, 1,0,2);
+	button31=game.add.button(500,500, 'add', goTable3, this, 1,0,2);
 
-	buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
+	//buttontools=game.add.button(685,520,'tools', goTools, this,1,0,2);
 	reloadTable();
 
 	measure1.ok=game.add.sprite(160,234,'ok');
@@ -129,7 +130,10 @@ function create(){
 	measure3.ok=game.add.sprite(540,234,'ok');
 	measure3.ok.anchor.setTo(0.5);
 	measure3.ok.visible=false;
-	
+
+	text_m1 = game.add.text(630, 255, "Medida 1", style);
+	text_m2 = game.add.text(630, 328, "Medida 2", style);
+	text_m3 = game.add.text(630, 400, "Medida 3", style);
 }
 
 function update(){
@@ -139,22 +143,22 @@ function update(){
 
 //Se despliegan mediciones anteriores
 function reloadTable(){
-	if(localStorage.getItem('r_m1')!=null){
-		textA = game.add.text(640, 281, localStorage.getItem('r_m1'), style);
+	if(sessionStorage.getItem('r_m1')!=null){
+		textA = game.add.text(720, 248, sessionStorage.getItem('r_m1'), style);
 		tableup.measures++;
 	}
-	if(localStorage.getItem('r_m2')!=null){
-		textB = game.add.text(640, 370, localStorage.getItem('r_m2'), style);
+	if(sessionStorage.getItem('r_m2')!=null){
+		textB = game.add.text(720, 320, sessionStorage.getItem('r_m2'), style);
 		tableup.measures++;
 	}
-	if(localStorage.getItem('r_m3')!=null){
-		textC = game.add.text(640, 450, localStorage.getItem('r_m3'), style);
+	if(sessionStorage.getItem('r_m3')!=null){
+		textC = game.add.text(720, 390, sessionStorage.getItem('r_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
 }
 
-//Estas funciones permiten registrar la medición. En detalle, si la colisión ocurrió sobre un bloque de medición que no ha sido usado antes, impide que los objetos se vuelvan a usar y registra los datos. 
+//Estas funciones permiten registrar la medición. En detalle, si la colisión ocurrió sobre un bloque de medición que no ha sido usado antes, impide que los objetos se vuelvan a usar y registra los datos.
 
 
 
@@ -162,15 +166,15 @@ function measure(obj1, obj2){
 	console.log("Medida");
 	if (obj2.overlap(block1)&& !measure1.blockused){
 		console.log("Medicion 1");
-    	var text = game.add.text(640, 281, textRock(obj1), style);
+    	var text = game.add.text(720, 248, textRock(obj1), style);
     	doMeasure(measure1, obj1, obj2, text);
 	} else if(obj2.overlap(block2)&& !measure2.blockused){
 		console.log("Medicion 2");
-    	var text = game.add.text(640, 370, textRock(obj1), style);
+    	var text = game.add.text(720, 320, textRock(obj1), style);
     	doMeasure(measure2, obj1, obj2, text);
 	} else if(obj2.overlap(block3)&& !measure3.blockused){
 		console.log("Medicion 3");
-    	var text = game.add.text(640, 450, textRock(obj1), style);
+    	var text = game.add.text(720, 390, textRock(obj1), style);
     	doMeasure(measure3, obj1, obj2, text);
 	}else {
 		console.log("No area de medición");
@@ -190,9 +194,9 @@ function doMeasure(measure, obj1, obj2, text){
 		reloadElements(obj1);
 }
 
-//Esta función permite crear un nuevo instrumento de medición y nuevas piedras para hacer nuevas mediciones. 
+//Esta función permite crear un nuevo instrumento de medición y nuevas piedras para hacer nuevas mediciones.
 function reloadElements(obj1){
-	var rule=rules.create(92,74, 'rule');
+	var rule=rules.create(40,90, 'rule');
 	rule.inputEnabled=true;
 	rule.input.enableDrag(false,true);
 	rule.events.onDragStart.add(startDrag,this);
@@ -201,11 +205,11 @@ function reloadElements(obj1){
 
 	var rock;
 	if (obj1.key=='A'){
-		rock=rocks.create(360,100,'A');	
+		rock=rocks.create(550,140,'A');
 	} else if(obj1.key=='B'){
-		rock=rocks.create(510,100,'B');
+		rock=rocks.create(650,140,'B');
 	}else{
-		rock=rocks.create(660,100,'C');
+		rock=rocks.create(750,140,'C');
 	}
 	rock.body.collideWorldBounds = true;
 	rock.inputEnabled=true;
@@ -217,11 +221,11 @@ function reloadElements(obj1){
 //Función que entrega el texto resultado.
 function textRock(obj1){
 	if (obj1.key=='A'){
-		return "A        10 cm";	
+		return "A mide 1\nmetro";
 	} else if(obj1.key=='B'){
-		return "B        30 cm";
+		return "B mide 1,2\nmetros";
 	}else{
-		return "C        45 cm";
+		return "C mide 1,5\nmetros";
 	}
 }
 
@@ -237,7 +241,7 @@ function eraseMeasure1(){
 		if (measure1.intable== true){
 			measure1.intable=false;
 			tableup.measures--;
-			localStorage.removeItem("r_m1");
+			sessionStorage.removeItem("r_m1");
 			erasefull();
 		}
 	}
@@ -254,7 +258,7 @@ function eraseMeasure2(){
 		if (measure2.intable== true){
 			measure2.intable=false;
 			tableup.measures--;
-			localStorage.removeItem("r_m2");
+			sessionStorage.removeItem("r_m2");
 			erasefull();
 		}
 	}
@@ -271,7 +275,7 @@ function eraseMeasure3(){
 		if (measure3.intable== true){
 			measure3.intable=false;
 			tableup.measures--;
-			localStorage.removeItem("r_m3");
+			sessionStorage.removeItem("r_m3");
 			erasefull();
 		}
 	}
@@ -288,9 +292,9 @@ function goTable1 (){
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
-		localStorage.setItem('r_m1', measure1.result._text);
-		console.log(localStorage.getItem('r_m1'));
-		checkfull();		
+		sessionStorage.setItem('r_m1', measure1.result._text);
+		console.log(sessionStorage.getItem('r_m1'));
+		checkfull();
 	}
 }
 function goTable2 (){
@@ -303,9 +307,9 @@ function goTable2 (){
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
-		localStorage.setItem('r_m2', measure2.result._text);
-		console.log(localStorage.getItem('r_m2'));
-		checkfull();		
+		sessionStorage.setItem('r_m2', measure2.result._text);
+		console.log(sessionStorage.getItem('r_m2'));
+		checkfull();
 	}
 }function goTable3 (){
 	if (measure3.blockused==true){
@@ -317,9 +321,9 @@ function goTable2 (){
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;
-		localStorage.setItem('r_m3', measure3.result._text);
-		console.log(localStorage.getItem('r_m3'));
-		checkfull();		
+		sessionStorage.setItem('r_m3', measure3.result._text);
+		console.log(sessionStorage.getItem('r_m3'));
+		checkfull();
 	}
 }
 
@@ -327,8 +331,9 @@ function goTable2 (){
 function checkfull(){
 	if (tableup.measures>=3){
 		tableup.fulltable=true;
-		tableup.lines= game.add.sprite(535,160,'tfull');
-		localStorage.setItem('r_f', 'true');
+		tableup.lines= game.add.sprite(595,165,'tfull');
+		tableup.lines.scale.setTo(0.89,0.89);
+		sessionStorage.setItem('r_f', 'true');
 	}
 }
 
@@ -337,10 +342,10 @@ function erasefull(){
 	if(tableup.fulltable==true){
 		tableup.fulltable=false;
 		tableup.lines.destroy();
-		localStorage.setItem('r_f', 'false');
+		sessionStorage.setItem('r_f', 'false');
 	}
 }
-//Funciones que permite que la física no funcione mientras se arrastra el objeto. 
+//Funciones que permite que la física no funcione mientras se arrastra el objeto.
 function startDrag(sprite){
 	sprite.body.moves=false;
 }
