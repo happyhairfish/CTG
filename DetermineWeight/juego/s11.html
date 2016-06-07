@@ -28,6 +28,9 @@ var rule_button;
 var rr;
 var rb;
 var rt;
+var text_termometer_meds;
+var text_balance_meds;
+var text_ruler_meds;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/s11.m4a');
@@ -39,16 +42,24 @@ function preload() {
     game.load.spritesheet('balanceButton', 'assetsImg/balanceButton_3.png', 250, 200);
     game.load.spritesheet('ruleButton', 'assetsImg/ruleButton_3.png', 250, 200);
     game.load.spritesheet('thermometerButton', 'assetsImg/termometerButton_3.png', 250, 200);
-    game.load.spritesheet('b11v', 'assetsImg/b11v.png', 109, 77);
+    game.load.spritesheet('back_question', 'assets/back_question.png', 200, 100);
+
+		game.load.spritesheet('moreTools', 'assetsImg/more_tools.png', 200,100);
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(game.world.centerX, game.world.centerY-200, 'ill');
-    ill.anchor.setTo(0.5);
+    ill=game.add.sprite(100, 30, 'ill');
     voice=game.add.audio('voice');
     voice.play();
-    //left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
-    voice_button = game.add.button(400, 467, 'buttonAudio', play_sound ,this);
+    left=game.add.button(20,470, 'left', goLeft, this, 1,0,2);
+
+		if(sessionStorage.getItem('before_dw')=='s12' || sessionStorage.getItem('before_dw')=='s14')
+			left.visible=true;
+		else {
+			left.visible=false;
+		}
+
+    voice_button = game.add.button(400, 520, 'buttonAudio', play_sound ,this);
     balance_button=game.add.button(game.world.centerX-250, game.world.centerY+20, 'balanceButton', goBalance ,this);
     balance_button.anchor.setTo(0.5);
     thermometer_button=game.add.button(game.world.centerX, game.world.centerY+20, 'thermometerButton', goThermometer ,this);
@@ -56,11 +67,25 @@ function create() {
     rule_button=game.add.button(game.world.centerX+250, game.world.centerY+20, 'ruleButton', goRule ,this);
     rule_button.anchor.setTo(0.5);
 
-    drawRed();
-    checkRight();
-    order=game.add.button(20,450, 'b11v', goOrder, this, 1,0,2);
-    order.visible=false;
-    checkOrder();
+    // drawRed();
+    // checkRight();
+    order=game.add.button(50,470, 'left', goOrder, this, 0);
+		order.scale.setTo(0.6,0.6);
+		order.visible=false;
+    // checkOrder();
+
+		var style = { font: "20px Arial", align: "center" };
+		text_termometer_meds=game.add.text(295,425,"Mediciones termómetro\ncompletas",style)
+		text_termometer_meds.addColor("#2cb800",0);
+		text_termometer_meds.visible=false;
+
+		text_balance_meds=game.add.text(65,425,"Mediciones balanza\ncompletas",style)
+		text_balance_meds.addColor("#2cb800",0);
+		text_balance_meds.visible=false;
+
+		text_ruler_meds=game.add.text(580,425,"Mediciones regla\ncompletas",style)
+		text_ruler_meds.addColor("#2cb800",0);
+		text_ruler_meds.visible=false;
 }
 function play_sound(){
     voice.play();
@@ -69,7 +94,13 @@ function goRight(){
     window.open("s12.html", "_self");
 }
 function goLeft(){
-    //window.open("../historia/scene11.html", "_self");
+	if(sessionStorage.getItem('before_dw')=='s12')
+		window.open("s12.html", "_self");
+	if(sessionStorage.getItem('before_dw')=='s13')
+		window.open("s13.html", "_self");
+	if(sessionStorage.getItem('before_dw')=='s14')
+		window.open("s14.html", "_self");
+
 }
 function goOrder(){
     sessionStorage.setItem('cameFrom', '0');
@@ -93,22 +124,47 @@ function goRule(){
     window.open("reglas.html", "_self");
 }
 function drawRed(){
-    if(sessionStorage.getItem('t_f')=='true'){
-        thermometer_button.frame=2;
-    }
-    if(sessionStorage.getItem('b_f')=='true'){
-        balance_button.frame=2;
-    }
-    if(sessionStorage.getItem('r_f')=='true'){
-        rule_button.frame=2;
-    }
+
 }
 function checkRight(){
-    if(sessionStorage.getItem('r_f')=='true'||sessionStorage.getItem('b_f')=='true'||sessionStorage.getItem('t_f')=='true'){
-        right=game.add.button(685,440, 'right', goRight, this, 1,0,2);
-    }
+    // if(sessionStorage.getItem('r_f')=='true'||sessionStorage.getItem('b_f')=='true'||sessionStorage.getItem('t_f')=='true'){
+    //     right=game.add.button(685,490, 'right', goRight, this, 1,0,2);
+    // }
+		// if (sessionStorage.getItem('cameFrom')=='s14' || sessionStorage.getItem('cameFrom')=='s12'){
+		// 		order.visible=true;
+		// }
 }
 function update(){
+	if(sessionStorage.getItem('t_f')=='true'){
+			thermometer_button.frame=2;
+			text_termometer_meds.visible=true;
+	}
+	else {
+		thermometer_button.frame=0;
+		text_termometer_meds.visible=false;
+	}
+
+	if(sessionStorage.getItem('b_f')=='true'){
+			balance_button.frame=2;
+			text_balance_meds.visible=true;
+	}
+	else {
+		balance_button.frame=0;
+		text_balance_meds.visible=false;
+	}
+
+	if(sessionStorage.getItem('r_f')=='true'){
+			rule_button.frame=2;
+			text_ruler_meds.visible=true;
+	}
+	else {
+		rule_button.frame=0;
+		text_ruler_meds.visible=false;
+	}
+
+	if(sessionStorage.getItem('before_dw')=='s12' || sessionStorage.getItem('before_dw')=='s14')
+		left.visible.true;
+
 }
 function render() {
 }

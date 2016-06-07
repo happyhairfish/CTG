@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+var game = new Phaser.Game(900, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
 var left;
@@ -52,7 +52,7 @@ function preload() {
     game.load.image('red', 'assetsImg/red2.png');
     game.load.spritesheet('left', 'assets/arrowleft_choose_tool.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
-		game.load.spritesheet('left', 'assets/arrowleft_choose_tool.png', 100, 100);
+		game.load.spritesheet('left', 'assets/arrowleft_2.png', 100, 100);
 		game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
 
 		game.load.spritesheet('left_mini', 'assets/mini_left.png', 50, 50);
@@ -63,6 +63,9 @@ function preload() {
     game.load.spritesheet('Abutton', 'assetsImg/b12a_2.png', 116, 70);
     game.load.spritesheet('Bbutton', 'assetsImg/b12b_2.png', 116, 70);
     game.load.spritesheet('Cbutton', 'assetsImg/b12c_2.png', 116, 70);
+
+		game.load.spritesheet('moreTools', 'assetsImg/more_tools.png', 200,100);
+
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
@@ -70,7 +73,7 @@ function create() {
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(20,440, 'left', goLeft, this, 1,0,2);
-    right=game.add.button(685,440, 'right', goRight, this, 1,0,2);
+    right=game.add.button(720,440, 'right', goRight, this, 1,0,2);
     right.visible=false;
     voice_button = game.add.button(425, 520, 'buttonAudio', play_sound ,this);
     A_button=game.add.button(posAx, posAy, 'Abutton', goA ,this, 0);
@@ -82,10 +85,11 @@ function create() {
 
 		left_mini = game.add.button(460,460,'left_mini',table_left,this,0);
 		right_mini = game.add.button(660,460,'right_mini',table_right,this,0);
-    var style = { font: "18px Arial", align: "center" };
-    var style2 = { font: "16px Arial", align: "center" };
+    var style = { font: "14px Arial", align: "center" };
+    var style2 = { font: "20px Arial", align: "center" };
 		var style3 = { font: "32px Arial", align: "center" };
-			var style4 = { font: "26px Arial", align: "center" };
+		var style4 = { font: "26px Arial", align: "center" };
+		var style5 = { font: "15px Arial", align: "center" };
 
 		balance_label = game.add.text(527,465,"Balanza",style3);
 		balance_label.visible=false;
@@ -93,17 +97,17 @@ function create() {
 		termomether_label.visible=false;
 		ruler_label = game.add.text(545,466,"Regla",style3);
 		ruler_label.visible=false;
-    mesb1= game.add.text(610, 225, sessionStorage.getItem('b_m1'), style2);
-    mesb1= game.add.text(610, 302, sessionStorage.getItem('b_m2'), style2);
-    mesb3= game.add.text(610, 380, sessionStorage.getItem('b_m3'), style2);
-    mesr1= game.add.text(610, 225, sessionStorage.getItem('r_m1'), style);
-    mesr2= game.add.text(610, 302, sessionStorage.getItem('r_m2'), style);
-    mesr3= game.add.text(610, 380, sessionStorage.getItem('r_m3'), style);
-    mest1= game.add.text(610, 225, sessionStorage.getItem('t_m1'), style);
-    mest2= game.add.text(610, 302, sessionStorage.getItem('t_m2'), style);
-    mest3= game.add.text(610, 380, sessionStorage.getItem('t_m3'), style);
+    mesb1= game.add.text(610, 228, sessionStorage.getItem('b_m1'), style5);
+    mesb2= game.add.text(610, 305, sessionStorage.getItem('b_m2'), style5);
+    mesb3= game.add.text(610, 384, sessionStorage.getItem('b_m3'), style5);
+    mesr1= game.add.text(610, 240, sessionStorage.getItem('r_m1'), style);
+    mesr2= game.add.text(610, 322, sessionStorage.getItem('r_m2'), style);
+    mesr3= game.add.text(610, 400, sessionStorage.getItem('r_m3'), style);
+    mest1= game.add.text(597, 253, sessionStorage.getItem('t_m1'), style);
+    mest2= game.add.text(597, 332, sessionStorage.getItem('t_m2'), style);
+    mest3= game.add.text(597, 410, sessionStorage.getItem('t_m3'), style);
 		mesb1.visible=false;
-		mesb1.visible=false;
+		mesb2.visible=false;
 		mesb3.visible=false;
 		mesr1.visible=false;
     mesr2.visible=false;
@@ -112,9 +116,17 @@ function create() {
     mest2.visible=false;
     mest3.visible=false;
 
-    text_m1b = game.add.text(490, 250, "Medida 1", style);
-    text_m2b = game.add.text(490, 328, "Medida 2", style);
-    text_m3b = game.add.text(490, 404, "Medida 3", style);
+    text_m1b = game.add.text(485, 250, "Medida 1", style2);
+    text_m2b = game.add.text(485, 328, "Medida 2", style2);
+    text_m3b = game.add.text(485, 404, "Medida 3", style2);
+
+		if((sessionStorage.getItem('b_m1')!=null && sessionStorage.getItem('b_m2')!=null) || (sessionStorage.getItem('b_m1')!=null && sessionStorage.getItem('b_m3')!=null) || (sessionStorage.getItem('b_m2')!=null && sessionStorage.getItem('b_m3')!=null)
+	|| (sessionStorage.getItem('r_m1')!=null && sessionStorage.getItem('r_m2')!=null) || (sessionStorage.getItem('r_m1')!=null && sessionStorage.getItem('r_m3')!=null) || (sessionStorage.getItem('r_m2')!=null && sessionStorage.getItem('r_m3')!=null)
+	|| (sessionStorage.getItem('t_m1')!=null && sessionStorage.getItem('t_m2')!=null) || (sessionStorage.getItem('t_m1')!=null && sessionStorage.getItem('t_m3')!=null) || (sessionStorage.getItem('t_m2')!=null && sessionStorage.getItem('t_m3')!=null))
+			sessionStorage.setItem('i24','1');
+		else {
+			sessionStorage.setItem('i24','0');
+		}
 
     // text_m1t = game.add.text(450, 253, "Medida 1", style);
     // text_m2t = game.add.text(450, 318, "Medida 2", style);
@@ -124,9 +136,15 @@ function create() {
     // text_m2r = game.add.text(640, 318, "Medida 2", style);
     // text_m3r = game.add.text(640, 383, "Medida 3", style);
 
+		moreTools=game.add.button(70, 300, 'moreTools', goTools ,this, 1, 0, 2);
+		moreTools.scale.setTo(0.6,0.6);
 
 
+}
+function goTools()
+{
 
+	window.open("s11.html", "_self");
 }
 function table_left()
 {
@@ -160,10 +178,21 @@ function play_sound(){
     voice.play();
 }
 function goRight(){
-    window.open("s14.html", "_self");
+    window.open("s13.html", "_self");
 }
 function goLeft(){
-    window.open("s11.html", "_self");
+		if(sessionStorage.setItem('before_dw','balance'))
+		{
+			window.open("index.html", "_self");
+		}
+		else if(sessionStorage.setItem('before_dw','termometers'))
+		{
+			window.open("termometros.html", "_self");
+		}
+		else if(sessionStorage.setItem('before_dw','rulers'))
+		{
+			window.open("reglas.html", "_self");
+		}
 }
 function goA(){
     A_button_bool=true;
@@ -207,7 +236,7 @@ function update(){
 		{
 			balance_label.visible=true;
 			mesb1.visible=true;
-			mesb1.visible=true;
+			mesb2.visible=true;
 			mesb3.visible=true;
 
 
@@ -226,7 +255,7 @@ function update(){
 		{
 			balance_label.visible=false;
 			mesb1.visible=false;
-			mesb1.visible=false;
+			mesb2.visible=false;
 			mesb3.visible=false;
 
 			ruler_label.visible=true;
@@ -244,7 +273,7 @@ function update(){
 		{
 			balance_label.visible=false;
 			mesb1.visible=false;
-			mesb1.visible=false;
+			mesb2.visible=false;
 			mesb3.visible=false;
 
 			ruler_label.visible=false;

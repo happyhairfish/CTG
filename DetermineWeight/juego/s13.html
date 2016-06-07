@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,14 +13,29 @@
 <body>
 
 <script type="text/javascript">
-    
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var game = new Phaser.Game(1000, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
+var dialogo;
 var left;
-var buttontools;
+var right;
+var voice;
+var voice_button;
+var moreTools;
+var moreTools2;
+var block1;
+var block2;
+var block3;
+var block1used=false;
+var block2used=false;
+var block3used=false;
+var rocks;
+var rock1;
+var rock2;
+var rock3;
 var mesb1;
-var mesb1;
+var mesb2;
 var mesb3;
 var mesr1;
 var mesr2;
@@ -28,43 +43,341 @@ var mesr3;
 var mest1;
 var mest2;
 var mest3;
-
-
+var balance_label;
+var termomether_label;
+var ruler_label;
+var balance_label_bool=true;
+var termomether_label_bool=false;
+var ruler_label_bool=false;
+var left_mini;
+var right_mini;
 
 function preload() {
-    game.load.image('ill', 'assetsImg/s13.jpg');
-    game.load.spritesheet('left', 'assetsImg/arrowLeft.png', 98, 95);
-    game.load.spritesheet('right', 'assetsImg/arrowRight.png', 98, 95);
-    game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
+    game.load.image('dialogue','assetsImg/dialogo14.JPG')
+    game.load.audio('voice', 'assetsAudio/voice_s13.mp3');
+    game.load.image('ill', 'assetsImg/s13.png');
+    game.load.image('A', 'assetsImg/Aac.png');
+    game.load.image('B', 'assetsImg/Bbc.png');
+    game.load.image('C', 'assetsImg/Ccc.png');
+    game.load.image('block', 'assetsImg/littleBlock.png');
+    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
+    game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
+    game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 50, 50);
+    game.load.spritesheet('moreTools', 'assetsImg/more_tools.png', 200,100);
+    game.load.spritesheet('ready', 'assetsImg/readybutton_3.png', 100,50);
+    game.load.spritesheet('again', 'assetsImg/refresh-button.png', 103,43);
+
+		game.load.spritesheet('left_mini', 'assets/mini_left.png', 50, 50);
+		game.load.spritesheet('right_mini', 'assets/mini_right.png', 50, 50);
+
 }
-function create() {    
+function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(game.world.centerX, game.world.centerY, 'ill');
-    ill.anchor.setTo(0.5);
-    buttontools=game.add.button(685,100,'tools', goTools, this,1,0,2);
-    left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);
 
-    var style = { font: "14px Arial", align: "center" };
-    mesb1= game.add.text(140, 260, localStorage.getItem('b_m1'), style);
-    mesb1= game.add.text(140, 345, localStorage.getItem('b_m2'), style);
-    mesb3= game.add.text(140, 435, localStorage.getItem('b_m3'), style);
-    mesr1= game.add.text(365, 260, localStorage.getItem('r_m1'), style);
-    mesr2= game.add.text(365, 345, localStorage.getItem('r_m2'), style);
-    mesr3= game.add.text(365, 435, localStorage.getItem('r_m3'), style);
-    mest1= game.add.text(550, 260, localStorage.getItem('t_m1'), style);
-    mest2= game.add.text(550, 345, localStorage.getItem('t_m2'), style);
-    mest3= game.add.text(550, 435, localStorage.getItem('t_m3'), style);
+
+    ill=game.add.sprite(70, 30, 'ill');
+    // dialogo=game.add.sprite(80,30,'dialogue');
+
+    // ill.scale.setTo(0.9,0.9);
+    voice=game.add.audio('voice');
+    voice.play();
+    left=game.add.button(20,450, 'left', goLeft, this, 0);
+    right=game.add.button(785,450, 'right', goRight, this, 0);
+    right.visible=false;
+    voice_button = game.add.button(420, 500, 'buttonAudio', play_sound ,this, 1, 0, 2);
+    moreTools=game.add.button(670, 80, 'moreTools', goTools ,this, 1, 0, 2);
+		moreTools.scale.setTo(0.6,0.6);
+		moreTools2=game.add.button(220, 400, 'again', eraseAns ,this, 1, 0, 2);
+
+    var style = { font: "10px Arial", align: "center" };
+
+		left_mini = game.add.button(480,435,'left_mini',table_left,this,0);
+		right_mini = game.add.button(675,435,'right_mini',table_right,this,0);
+		var style = { font: "12px Arial", align: "center", fontWeight: "bold" };
+		var style_r = { font: "14px Arial", align: "center", fontWeight: "bold" };
+		var style_1 = { font: "14px Arial", align: "center", fontWeight: "bold" };
+		var style2 = { font: "20px Arial", align: "center" };
+		var style3 = { font: "32px Arial", align: "center" };
+		var style4 = { font: "26px Arial", align: "center" };
+		var style5 = { font: "15px Arial", align: "center" };
+
+		balance_label = game.add.text(544,443,"Balanza",style3);
+		balance_label.visible=false;
+		termomether_label = game.add.text(530,443,"Termómetro",style4);
+		termomether_label.visible=false;
+		ruler_label = game.add.text(560,443,"Regla",style3);
+		ruler_label.visible=false;
+    mesb1= game.add.text(635, 225, sessionStorage.getItem('b_m1'), style);
+    mesb2= game.add.text(635, 295, sessionStorage.getItem('b_m2'), style);
+    mesb3= game.add.text(635, 367, sessionStorage.getItem('b_m3'), style);
+    mesr1= game.add.text(632, 233, sessionStorage.getItem('r_m1'), style_r);
+    mesr2= game.add.text(632, 305, sessionStorage.getItem('r_m2'), style_r);
+    mesr3= game.add.text(632, 373, sessionStorage.getItem('r_m3'), style_r);
+    mest1= game.add.text(615, 248, sessionStorage.getItem('t_m1'), style_r);
+    mest2= game.add.text(615, 315, sessionStorage.getItem('t_m2'), style_r);
+    mest3= game.add.text(615, 387, sessionStorage.getItem('t_m3'), style_r);
+		mesb1.visible=false;
+		mesb2.visible=false;
+		mesb3.visible=false;
+		mesr1.visible=false;
+    mesr2.visible=false;
+    mesr3.visible=false;
+    mest1.visible=false;
+    mest2.visible=false;
+    mest3.visible=false;
+
+		text_m1b = game.add.text(503, 243, "Medida 1", style2);
+    text_m2b = game.add.text(503, 315, "Medida 2", style2);
+    text_m3b = game.add.text(503, 384, "Medida 3", style2);
+
+
+
+    //Creamos los bloques.
+    block1=game.add.sprite(15,225,'block');
+    block1.enableBody=true;
+    block1.inputEnabled=true;
+    block2=game.add.sprite(185,225,'block');
+
+    block2.enableBody=true;
+    block3=game.add.sprite(355,225,'block');
+
+    block3.enableBody=true;
+
+    //Creamos las rocas, le agregamos el cuerpo solido
+    rocks=game.add.group();
+    rocks.enableBody=true;
+
+    rock1=rocks.create(110,320,'A');
+    rock1.body.collideWorldBounds = true;
+    rock2=rocks.create(215,320,'B');
+    rock2.body.collideWorldBounds = true;
+    rock3=rocks.create(300,320,'C');
+    rock3.body.collideWorldBounds = true;
+
+    //Habilitamos el drag and drop
+    rock1.inputEnabled=true;
+    rock1.input.enableDrag(false,true);
+    rock1.events.onDragStart.add(startDrag,this);
+    rock1.events.onDragStop.add(stopDrag,this);
+    rock2.inputEnabled=true;
+    rock2.input.enableDrag(false,true);
+    rock2.events.onDragStart.add(startDrag,this);
+    rock2.events.onDragStop.add(stopDrag,this);
+    rock3.inputEnabled=true;
+    rock3.input.enableDrag(false,true);
+    rock3.events.onDragStart.add(startDrag,this);
+    rock3.events.onDragStop.add(stopDrag,this);
+
+    // text_m1b = game.add.text(500, 283, "Medida 1", style);
+    // text_m2b = game.add.text(500, 343, "Medida 2", style);
+    // text_m3b = game.add.text(500, 403, "Medida 3", style);
+
+    text_1 = game.add.text(130, 230, "es más\npesada\nque", style_1);
+    text_2 = game.add.text(300, 230, "es más\npesada\nque", style_1);
+}
+function table_left()
+{
+	if(ruler_label_bool)
+	{
+		balance_label_bool=true;
+		ruler_label_bool=false;
+	}
+	else if(termomether_label_bool)
+	{
+		ruler_label_bool=true;
+		termomether_label_bool=false;
+	}
+
+}
+function table_right()
+{
+	if(balance_label_bool)
+	{
+		balance_label_bool=false;
+		ruler_label_bool=true;
+	}
+	else if(ruler_label_bool)
+	{
+		ruler_label_bool=false;
+		termomether_label_bool=true;
+	}
+
+}
+function update(){
+    if(checkOverlap(block1, rock1) || checkOverlap(block1, rock2) || checkOverlap(block1, rock3)){
+        onTouch(1);
+    }
+    else{
+        offTouch(1);
+    }
+    if(checkOverlap(block2, rock1) || checkOverlap(block2, rock2) || checkOverlap(block2, rock3)){
+        onTouch(2);
+    }
+    else{
+        offTouch(2);
+    }
+    if(checkOverlap(block3, rock1) || checkOverlap(block3, rock2) || checkOverlap(block3, rock3)){
+        onTouch(3);
+    }
+    else{
+        offTouch(3);
+    }
+
+		if(balance_label_bool)
+		{
+			balance_label.visible=true;
+			mesb1.visible=true;
+			mesb2.visible=true;
+			mesb3.visible=true;
+
+
+			ruler_label.visible=false;
+			mesr1.visible=false;
+	    mesr2.visible=false;
+	    mesr3.visible=false;
+
+			termomether_label.visible=false;
+	    mest1.visible=false;
+	    mest2.visible=false;
+	    mest3.visible=false;
+		}
+
+		if(ruler_label_bool)
+		{
+			balance_label.visible=false;
+			mesb1.visible=false;
+			mesb2.visible=false;
+			mesb3.visible=false;
+
+			ruler_label.visible=true;
+			mesr1.visible=true;
+	    mesr2.visible=true;
+	    mesr3.visible=true;
+
+			termomether_label.visible=false;
+	    mest1.visible=false;
+	    mest2.visible=false;
+	    mest3.visible=false;
+		}
+
+		if(termomether_label_bool)
+		{
+			balance_label.visible=false;
+			mesb1.visible=false;
+			mesb2.visible=false;
+			mesb3.visible=false;
+
+			ruler_label.visible=false;
+			mesr1.visible=false;
+	    mesr2.visible=false;
+	    mesr3.visible=false;
+
+			termomether_label.visible=true;
+	    mest1.visible=true;
+	    mest2.visible=true;
+	    mest3.visible=true;
+		}
+
+		if(checkOverlap(block1,rock3) && checkOverlap(block2,rock2) && checkOverlap(block3,rock1))
+			sessionStorage.setItem('i3','1');
+		else {
+			sessionStorage.setItem('i3','0');
+		}
+}
+function checkOverlap(spriteA, spriteB) {
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
 }
 
+function onTouch(obj2){
+    if(obj2==1){
+        block1used=true;
+    }else if(obj2==2){
+        block2used=true;
+    }else{
+        block3used=true;
+    }
+    checkRight();
+}
+function offTouch(obj2){
+    if(obj2==1){
+        block1used=false;
+    }else if(obj2==2){
+        block2used=false;
+    }else{
+        block3used=false;
+    }
+    checkRight();
+}
+
+
+function play_sound(){
+    voice.play();
+}
+function goRight(){
+    window.open("s14.html", "_self");
+}
 function goLeft(){
     window.open("s12.html", "_self");
 }
 function goTools(){
-    window.open("s11.html", "_self");
+	sessionStorage.setItem('before_dw','s13');
+	window.open("s11.html", "_self");
 }
-function update(){
+function checkRight(){
+/*    console.log(block1used +" "+ block2used +" "+ block3used)
+*/    if(block1used==true && block2used==true&&block3used==true){
+        right.visible=true;
+    }
+    else{
+        right.visible=false;
+    }
+}
+
+function eraseAns(){
+    rock1.destroy();
+    rock2.destroy();
+    rock3.destroy();
+    rock1=rocks.create(60,320,'A');
+    rock1.body.collideWorldBounds = true;
+    rock2=rocks.create(170,320,'B');
+    rock2.body.collideWorldBounds = true;
+    rock3=rocks.create(260,320,'C');
+    rock3.body.collideWorldBounds = true;
+
+    rock1.inputEnabled=true;
+    rock1.input.enableDrag(false,true);
+    rock1.events.onDragStart.add(startDrag,this);
+    rock1.events.onDragStop.add(stopDrag,this);
+    rock2.inputEnabled=true;
+    rock2.input.enableDrag(false,true);
+    rock2.events.onDragStart.add(startDrag,this);
+    rock2.events.onDragStop.add(stopDrag,this);
+    rock3.inputEnabled=true;
+    rock3.input.enableDrag(false,true);
+    rock3.events.onDragStart.add(startDrag,this);
+    rock3.events.onDragStop.add(stopDrag,this);
+
+    block1used=false;
+    block2used=false;
+    block3used=false;
+
+    if (right.visible!=false){
+        right.visible=false;
+    }
+}
+
+function startDrag(sprite){
+    sprite.body.moves=false;
+}
+
+function stopDrag(sprite){
+    sprite.body.moves=true;
 }
 function render() {
+    //game.debug.inputInfo(32, 32);
 }
 </script>
 

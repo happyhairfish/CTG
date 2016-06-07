@@ -18,6 +18,10 @@
 var width=800;
 var height=600;
 var game = new Phaser.Game(width, height, Phaser.CANVAS, '', { preload: preload, create: create, update: update, render: render});
+var left;
+var right;
+var voice_button;
+var tutorial_button;
 
 function preload(){
 	//Se cargan las imagenes a usar
@@ -32,6 +36,14 @@ function preload(){
     game.load.image('tfull', 'assets/tablaCompleta3.png');
     // game.load.spritesheet('tools', 'assetsImg/choose_tool.png', 115,58);
     game.load.image('ok', 'assets/ticket_nuevo.png');
+
+		game.load.spritesheet('left', 'assets/arrowleft_choose_tool2.png', 100, 100);
+		game.load.spritesheet('right', 'assets/arrowright_2.png', 100, 100);
+
+		game.load.audio('voice', 'assets/voice2.mp3');
+		game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
+		game.load.spritesheet('button_tutorial','assets/tutorial.png',201,100);
+
 }
 
 //Variables globales que se usaran.
@@ -55,6 +67,9 @@ var style = { font: "12px Arial", align: "center" };
 var textA=null;
 var textB=null;
 var textC=null;
+var mAdone=false;
+var mBdone=false;
+var mCdone=false;
 
 var fondo;
 
@@ -62,10 +77,23 @@ function create(){
 	// Se habilita la física, Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
+	voice=game.add.audio('voice');
+	voice.play();
+	voice_button = game.add.button(675, 550, 'buttonAudio', play_sound ,this);
+
 	// Se crea el fondo
 	game.stage.backgroundColor = "#FFFFFF";
 	fondo=game.add.sprite(10, 30, 'back');
 	fondo.scale.setTo(0.9,0.9);
+
+	tutorial_button=game.add.button(635,460,'button_tutorial', watch_tutorial, this);
+	tutorial_button.scale.setTo(0.6,0.6);
+
+	left=game.add.button(10,10, 'left', goLeft, this, 1,0,2);
+	left.scale.setTo(0.8,0.8);
+	right=game.add.button(685,10, 'right', goRight, this, 1,0,2);
+	right.scale.setTo(0.8,0.8);
+	right.visible=false;
 
 	//Se crean los tres bloques de medición.
 	block1=game.add.sprite(6,203,'block');
@@ -135,13 +163,45 @@ function create(){
 	text_m1 = game.add.text(630, 255, "Medida 1", style);
 	text_m2 = game.add.text(630, 328, "Medida 2", style);
 	text_m3 = game.add.text(630, 400, "Medida 3", style);
+
 }
 
 function update(){
 	//Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función measure.
+	if((mAdone && mBdone && mCdone) || (sessionStorage.getItem('b_m1')!=null || sessionStorage.getItem('b_m2')!=null || sessionStorage.getItem('b_m3')!=null))
+	{
+		right.visible=true;
+	}
+	else {
+		right.visible=false;
+	}
+
 	game.physics.arcade.collide(rocks, rules, measure, null, this);
 }
-
+function play_sound()
+{
+	  voice.play();
+}
+function watch_tutorial()
+{
+	window.open("s12.html", "_self");
+}
+function goRight()
+{
+	if(sessionStorage.getItem('before_dw')=='s14')
+		window.open("s14.html", "_self");
+	else
+		window.open("s12.html", "_self");
+}
+function goLeft(){
+	//ir al tutorial
+	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
+	// 	sessionStorage.setItem('i24','1');
+	// else {
+	// 	sessionStorage.setItem('i24','0');
+	// }
+    window.open("s11.html", "_self");
+}
 //Se despliegan mediciones anteriores
 function reloadTable(){
 	if(sessionStorage.getItem('t_m1')!=null){
@@ -163,14 +223,17 @@ function reloadTable(){
 function measure(obj1, obj2){
 	console.log("Medida");
 	if (obj2.overlap(block1)&& !measure1.blockused){
+		mAdone=true;
 		console.log("Medicion 1");
     	var text = game.add.text(707, 255, textRock(obj1), style);
     	doMeasure(measure1, obj1, obj2, text);
 	} else if(obj2.overlap(block2)&& !measure2.blockused){
+		mBdone=true;
 		console.log("Medicion 2");
     	var text = game.add.text(707, 328, textRock(obj1), style);
     	doMeasure(measure2, obj1, obj2, text);
 	} else if(obj2.overlap(block3)&& !measure3.blockused){
+		mCdone=true;
 		console.log("Medicion 3");
     	var text = game.add.text(707, 400, textRock(obj1), style);
     	doMeasure(measure3, obj1, obj2, text);

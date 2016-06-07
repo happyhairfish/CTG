@@ -49,11 +49,12 @@ function preload(){
 		game.load.image('pesaBigualB', 'assets/pesaBigualB.png');
 		game.load.image('pesaCigualC', 'assets/pesaCigualC.png');
 
-		game.load.spritesheet('left', 'assets/arrowleft_3.png', 100, 100);
+		game.load.spritesheet('left', 'assets/arrowleft_choose_tool2.png', 100, 100);
 		game.load.spritesheet('right', 'assets/arrowright_2.png', 100, 100);
 
 		game.load.audio('voice', 'assets/voice1.mp3');
-
+		game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
+		game.load.spritesheet('button_tutorial','assets/tutorial.png',201,100);
 }
 
 var fondo;
@@ -114,12 +115,15 @@ var right;
 var mAdone=false;
 var mBdone=false;
 var mCdone=false;
-
+var voice_button;
+var tutorial_button;
 
 function create(){
 
 	voice=game.add.audio('voice');
 	voice.play();
+	voice_button = game.add.button(675, 550, 'buttonAudio', play_sound ,this);
+
 	// Habilitar Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.arcade.gravity.y = 100;
@@ -128,6 +132,9 @@ function create(){
 	game.stage.backgroundColor = "#FFFFFF";
 	fondo=game.add.sprite(10,30, 'back');
 	fondo.scale.setTo(0.9,0.9);
+
+	tutorial_button=game.add.button(635,460,'button_tutorial', watch_tutorial, this);
+	tutorial_button.scale.setTo(0.6,0.6);
 
 	left=game.add.button(10,10, 'left', goLeft, this, 1,0,2);
 	left.scale.setTo(0.8,0.8);
@@ -328,6 +335,10 @@ function create(){
 	console.log(sessionStorage.getItem('b_m2'));
 	console.log(sessionStorage.getItem('b_m3'));
 }
+function play_sound()
+{
+	  voice.play();
+}
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
 function update(){
 	if((mAdone && mBdone && mCdone) || (sessionStorage.getItem('b_m1')!=null || sessionStorage.getItem('b_m2')!=null || sessionStorage.getItem('b_m3')!=null))
@@ -337,10 +348,16 @@ function update(){
 	else {
 		right.visible=false;
 	}
+
 	game.physics.arcade.collide(rocks, floors);
 	game.physics.arcade.collide(rocks, plates, onTouch, null, this);
 }
 
+function watch_tutorial()
+{
+
+	window.open("s12.html", "_self");
+}
 function reloadTable(){
 	console.log(sessionStorage.getItem('b_m1'));
 	if(sessionStorage.getItem('b_m1')!=null){
@@ -417,11 +434,20 @@ function measure(measureTemp, obj1, obj2){
 	}
 
 }
-function goRight(){
+function goRight()
+{
+	if(sessionStorage.getItem('before_dw')=='s14')
+		window.open("s14.html", "_self");
+	else
     window.open("s12.html", "_self");
 }
 function goLeft(){
 	//ir al tutorial
+	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
+	// 	sessionStorage.setItem('i24','1');
+	// else {
+	// 	sessionStorage.setItem('i24','0');
+	// }
     window.open("s11.html", "_self");
 }
 
