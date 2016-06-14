@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -119,7 +119,7 @@ var lastRockTile;
 
 var mapCopy=new Array(16);
 var mapBackup=new Array(16);
-    
+
 var sprite;
 var text;
 
@@ -170,7 +170,7 @@ function preload() {
 
     game.load.spritesheet('buttonreleasewater', 'assets/textures/button_r_water.png', 100,50);
 
-    game.load.spritesheet('buttonenteranswer', 'assets/textures/boton_enter_answer.png', 100,50);
+    game.load.spritesheet('buttonenteranswer', 'assets/arrowright_2.png', 100,100);
     game.load.spritesheet('buttonresetchico', 'assets/textures/boton_reset.png', 100,50);
 
     game.load.spritesheet('button_num1', 'assets/ins/1_2.png', 50,50);
@@ -190,12 +190,12 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/textures/boton_reset.png', 100, 50);
     game.load.spritesheet('buttoncontinue', 'assets/boton_continue3.png', 100, 50);
 
-    game.load.tilemap('map', 'assets/tilemap_big4.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_big8.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
     game.load.image('popup_win', 'assets/popup_w3.png');
-    game.load.image('popup_lose', 'assets/textures/popup_l2.png');
+    game.load.image('popup_lose', 'assets/textures/popup_l3.png');
     game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/textures/boton_reset.png');
 
@@ -203,7 +203,10 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/dialogue_ins2.png');
+    game.load.image('dialogo', 'assets/dialogue_ins2_2.png');
+
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
+    game.load.audio('voice', 'assets/voice_part2_ins.mp3');
 }
 function copyMap()
 {
@@ -219,7 +222,7 @@ function copyMap()
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -235,14 +238,14 @@ function copyMap()
 }
 
 function pasteMap()
-{   
+{
     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
 
     for(i=0; i<16; i++)
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -278,7 +281,7 @@ function create() {
 
     //  Now add in the tileset
     map.addTilesetImage('tiles');
-    
+
     //  Create our layer
     layer1 = map.createLayer(0);
     //  layer1 = map.create('background', 16, 15, 50, 50);
@@ -318,7 +321,7 @@ function create() {
     line5 = new Phaser.Line(600, 0, 600, 600);
 
     game.input.addMoveCallback(updateMarker, this);
-    
+
     //botón dig
     buttondig=game.add.button(520, 450, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
@@ -382,7 +385,7 @@ function create() {
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
     button2.input.useHandCursor = true;
     eraseDigBool=false;
-    
+
 */
     /*
     popups = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_start');
@@ -402,22 +405,25 @@ function create() {
     */
 
     //Botón release water
-    button3 = game.add.button(50, 380, 'buttonreleasewater', waterPath, this, 0, 0, 1);
+    button3 = game.add.button(50, 460, 'buttonreleasewater', waterPath, this, 0, 0, 1);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
     //Botón quitar water
-    button4 = game.add.button(50, 450, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
+    button4 = game.add.button(50, 530, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
     button4.input.useHandCursor = true;
 
-    buttonEnterAnswer = game.add.button(50, 520, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
+    buttonEnterAnswer = game.add.button(380, 480, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
     buttonEnterAnswer.input.useHandCursor = true;
+
+    voice_button = game.add.button(260, 500, 'voice_button', play_sound ,this, 1, 0, 2);
+
 
     for(i=0; i<16; i++)
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -481,7 +487,7 @@ function create() {
     var table_left_title = game.add.text(513, 210, "Porque el agua se detiene en", style_title);
 
     var table_left_title = game.add.text(513, 240, "la celda", style_title);
-    
+
     var table_right_title = game.add.text(513, 410, "que tiene", style_title);
 
     var tile = game.add.text(218, 214, "1", style_map2);
@@ -502,10 +508,12 @@ function create() {
     var table6 = game.add.text(568, 512, "6", style_map2);
     var table7 = game.add.text(568, 562, "7", style_map2);
 
-    
-*/
 
-   buttonnum1 = game.add.button(540, 285, 'button_num1', buttonAction1, this, 1, 0, 0);
+*/voice=game.add.audio('voice');
+  voice.play();
+
+
+    buttonnum1 = game.add.button(540, 285, 'button_num1', buttonAction1, this, 1, 0, 0);
     buttonnum1.input.useHandCursor = true;
 
     buttonnum2 = game.add.button(600, 285, 'button_num2', buttonAction2, this, 1, 0, 0);
@@ -526,8 +534,8 @@ function create() {
     buttonnum7 = game.add.button(690, 352, 'button_num7', buttonAction7, this, 1, 0, 0);
     buttonnum7.input.useHandCursor = true;
 
-    dialogo=game.add.image(250, 25, 'dialogo');
-
+    dialogo=game.add.image(210, 30, 'dialogo');
+    dialogo.scale.setTo(0.40,0.40);
 
 
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
@@ -571,84 +579,83 @@ function create() {
     // back_button=game.add.button(25,525,'back', goBack, 0,1);
 
 
-    
+
 }
+
+function play_sound()
+{
+    voice.play();
+}
+
 function buttonAction1()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum1bool=true;
-    }
-    else
-    {
-        buttonnum1bool=false;
-    }
+  buttonnum1bool=true;
+  buttonnum2bool=false;
+  buttonnum3bool=false;
+  buttonnum4bool=false;
+  buttonnum5bool=false;
+  buttonnum6bool=false;
+  buttonnum7bool=false;
 }
 function buttonAction2()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum2bool=true;
-    }
-    else
-    {
-        buttonnum2bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=true;
+  buttonnum3bool=false;
+  buttonnum4bool=false;
+  buttonnum5bool=false;
+  buttonnum6bool=false;
+  buttonnum7bool=false;
 }
 function buttonAction3()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum3bool=true;
-    }
-    else
-    {
-        buttonnum3bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=false;
+  buttonnum3bool=true;
+  buttonnum4bool=false;
+  buttonnum5bool=false;
+  buttonnum6bool=false;
+  buttonnum7bool=false;
 }
 function buttonAction4()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum4bool=true;
-    }
-    else
-    {
-        buttonnum4bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=false;
+  buttonnum3bool=false;
+  buttonnum4bool=true;
+  buttonnum5bool=false;
+  buttonnum6bool=false;
+  buttonnum7bool=false;
 }
 function buttonAction5()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum5bool=true;
-    }
-    else
-    {
-        buttonnum5bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=false;
+  buttonnum3bool=false;
+  buttonnum4bool=false;
+  buttonnum5bool=true;
+  buttonnum6bool=false;
+  buttonnum7bool=false;
 }
 function buttonAction6()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum6bool=true;
-    }
-    else
-    {
-        buttonnum6bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=false;
+  buttonnum3bool=false;
+  buttonnum4bool=false;
+  buttonnum5bool=false;
+  buttonnum6bool=true;
+  buttonnum7bool=false;
 }
 function buttonAction7()
 {
-    if(!buttonnum1bool && !buttonnum2bool && !buttonnum3bool && !buttonnum4bool && !buttonnum5bool && !buttonnum6bool && !buttonnum7bool)
-    {
-        buttonnum7bool=true;
-    }
-    else
-    {
-        buttonnum7bool=false;
-    }
+  buttonnum1bool=false;
+  buttonnum2bool=false;
+  buttonnum3bool=false;
+  buttonnum4bool=false;
+  buttonnum5bool=false;
+  buttonnum6bool=false;
+  buttonnum7bool=true;
 }
 function checkAnswer()
 {
@@ -656,7 +663,7 @@ function checkAnswer()
 
     console.log(currentTile);
 
-    if((currentTile>=3 && currentTile<=9) && (buttonnum1bool || buttonnum2bool || buttonnum3bool || buttonnum4bool || buttonnum5bool || buttonnum6bool || buttonnum7bool))
+    if((buttonnum1bool || buttonnum2bool || buttonnum3bool || buttonnum4bool || buttonnum5bool || buttonnum6bool || buttonnum7bool) && (buttondigbool || buttonpipe1bool || buttonpipe2bool || buttonpipe3bool || buttonpipe4bool || buttonpipe5bool || buttonpipe6bool))
         bAux=true;
 
     if(bAux)
@@ -756,7 +763,7 @@ function waterPath()
     if(!waterPathBool)
     {
         findPathGround(4,4);
-        
+
         if(end1)
             findPathRock(6,5,0);
 
@@ -822,10 +829,10 @@ function waterPath()
     {
         waterPathBool=false;
     }
-    
+
 }
 
-function update() 
+function update()
 {
     if(buttonnum1bool)
         buttonnum1.frame=1;
@@ -965,12 +972,25 @@ function createTileSelector() {
 
 function render() {
 
-    // game.debug.text('I AM NUMBER 0');
-    game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
-    game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
+    // // game.debug.text('I AM NUMBER 0');
+    // game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
+    // game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
+    //
+    // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
+    // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
+    // if(buttonpipe1bool)
+    //   game.debug.text('1',30,30,'rgb(0,0,0)');
+    // else if(buttonpipe2bool)
+    //   game.debug.text('2',30,30,'rgb(0,0,0)');
+    // else if(buttonpipe3bool)
+    //   game.debug.text('3',30,30,'rgb(0,0,0)');
+    // else if(buttonpipe4bool)
+    //   game.debug.text('4',30,30,'rgb(0,0,0)');
+    // else if(buttonpipe5bool)
+    //   game.debug.text('5',30,30,'rgb(0,0,0)');
+    // else if(buttonpipe6bool)
+    //   game.debug.text('6',30,30,'rgb(0,0,0)');
 
-    game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
-    game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
 }
 
@@ -1007,7 +1027,7 @@ function findPathGround(x,y)
     if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21 || mapCopy[x][y]==13 || mapCopy[x][y]==30 || mapCopy[x][y]==31)
         return false;
 
-  
+
     if(x==endCoords[0] && y==endCoords[1] && !end1)
     {
         console.log("XXXXasdasd1");
@@ -1063,7 +1083,7 @@ function findPathGround(x,y)
     if(findPathGround(x,y+1)) return true;
     //go west
     if(findPathGround(x-1,y)) return true;
-        
+
     mapCopy[x][y]=21;
 
     return false;
@@ -1132,7 +1152,7 @@ function findPathRock(x,y,lastRockTile,direction)
     {
         lastRockTile=auxTile.index;
         rockFirstStep=false;
-      
+
         if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9))
             return false;
         else
@@ -1202,7 +1222,7 @@ function findPathRock(x,y,lastRockTile,direction)
     }
     //console.log('\nRock2 X:'+markerX+' Y: '+markerY);
 
-    
+
     //marco la tile como parte de la solución (distinta a la marca de ground)
     mapCopy[x][y]=30;
 
@@ -1256,7 +1276,7 @@ function findPathRock(x,y,lastRockTile,direction)
         if(findPathRock(x,y-1,lastRockTile, 'n'))
             return true;
     }
-        
+
     mapCopy[x][y]=31;
 
     return false;
@@ -1278,106 +1298,80 @@ function printMatrix()
 
 function buttonDig()
 {
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttondigbool=true;
-        currentTile=3;
-    }
-    else
-    {
-        currentTile=20;
-        buttondigbool=false;
-    }
+  buttondigbool=true;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+
 }
 
 function buttonPipe1Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe1bool=true;
-        currentTile=5;
-    }
-    else
-    {
-        currentTile=20;
-        buttonpipe1bool=false;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=true;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
 }
 
 function buttonPipe2Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe2bool=true;
-        currentTile=4;
-    }
-    else
-    {
-        buttonpipe2bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=true;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
 }
 
 function buttonPipe3Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe3bool=true;
-        currentTile=8;
-    }
-    else
-    {
-        buttonpipe3bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=true;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
 }
 
 function buttonPipe4Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe4bool=true;
-        currentTile=9;
-    }
-    else
-    {
-        buttonpipe4bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=true;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
 }
 
 function buttonPipe5Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe5bool=true;
-        currentTile=7;
-    }
-    else
-    {
-        buttonpipe5bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=true;
+  buttonpipe6bool=false;
 }
 
 function buttonPipe6Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe6bool=true;
-        currentTile=6;
-    }
-    else
-    {
-        buttonpipe6bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=true;
 }
 
 function buttonEraseDig()
@@ -1414,9 +1408,13 @@ function buttonResetAction()
 {
     window.open("../Mechanism/part2_ins.html", "_self");
 }
-
 function buttonContinueAction()
 {
+    if(buttonnum5bool && buttonpipe3bool)
+      sessionStorage.setItem('i26','1');
+    else {
+      sessionStorage.setItem('i26','0');
+    }
     window.open("../Mechanism/mid5.html", "_self");
 }
 
@@ -1426,7 +1424,7 @@ function openPopupS()
     {
         return;
     }
-    
+
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }

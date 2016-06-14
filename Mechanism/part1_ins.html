@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -73,11 +73,13 @@ var buttonpipe4bool;
 var buttonpipe5bool;
 var buttonpipe6bool;
 
+var buttonerase;
 var buttonerasedig;
 var buttonerasedigbool;
 
 var buttonerasepipe;
 var buttonerasepipebool;
+var buttonerasebool;
 
 var buttonreset;
 var buttoncontinue;
@@ -120,7 +122,7 @@ var lastRockTile;
 
 var mapCopy=new Array(16);
 var mapBackup=new Array(16);
-    
+
 var sprite;
 var text;
 
@@ -149,12 +151,12 @@ function preload() {
     game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe7.png', 75,75);
     game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe6.png', 75,75);
 
-    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase2.png', 75,75);
+    game.load.spritesheet('buttonerasedig', 'assets/boton_goma_sprite.png', 100,100);
     game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe2.png', 75,75);
 
     game.load.spritesheet('buttonreleasewater', 'assets/textures/button_r_water.png', 100,50);
 
-    game.load.spritesheet('buttonenteranswer', 'assets/textures/boton_enter_answer.png', 100,50);
+    game.load.spritesheet('buttonenteranswer', 'assets/arrowright_2.png', 100,100);
     game.load.spritesheet('buttonresetchico', 'assets/textures/boton_reset.png', 100,50);
 
 
@@ -167,7 +169,7 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/textures/boton_reset.png', 200, 100);
     game.load.spritesheet('buttoncontinue', 'assets/boton_continue3.png', 100, 50);
 
-    game.load.tilemap('map', 'assets/tilemap_big3.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_big7.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -180,7 +182,11 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/dialogo8.png');
+    game.load.image('dialogo', 'assets/dialogo8_2.png');
+    game.load.audio('voice', 'assets/voice_part1_ins.mp3');
+
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
+
 }
 function copyMap()
 {
@@ -197,7 +203,7 @@ function copyMap()
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -225,14 +231,14 @@ function printBackup()
 }
 
 function pasteMap()
-{   
+{
     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
 
     for(i=0; i<16; i++)
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -268,7 +274,7 @@ function create() {
 
     //  Now add in the tileset
     map.addTilesetImage('tiles');
-    
+
     //  Create our layer
     layer1 = map.createLayer(0);
     //  layer1 = map.create('background', 16, 15, 50, 50);
@@ -294,7 +300,7 @@ function create() {
 
 
     // var text1 = game.add.text(50, 23, "Cavar:", style_title);
-    var text2 = game.add.text(20, 360, "Borrar:", style_title);
+    // var text2 = game.add.text(20, 360, "Borrar:", style_title);
 
 /*    var text_a = game.add.text(214, 210, "A", style_map1);
     var text_b = game.add.text(465, 210, "B", style_map1);*/
@@ -308,9 +314,9 @@ function create() {
     line5 = new Phaser.Line(600, 0, 600, 600);
 
     game.input.addMoveCallback(updateMarker, this);
-    
+
     //botón dig
-    buttondig=game.add.button(20, 0, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(45,0, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
@@ -344,17 +350,15 @@ function create() {
     buttonpipe6.input.useHandCursor = true;
     buttonpipe6bool=false;
 
-
-
     //Botón erase dig
-    buttonerasedig = game.add.button(20, 385, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
-    buttonerasedig.input.useHandCursor = true;
-    buttonerasedigbool=false;
+    buttonerase = game.add.button(45, 350, 'buttonerasedig', buttonErase, this, 0, 0, 1, 0);
+    buttonerase.input.useHandCursor = true;
+    buttonerasebool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(100, 385, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
-    buttonerasepipe.input.useHandCursor = true;
-    buttonerasepipebool=false;
+    // buttonerasepipe = game.add.button(100, 385, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    // buttonerasepipe.input.useHandCursor = true;
+    // buttonerasepipebool=false;
 
      /*   //Botón erase dig
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
@@ -380,22 +384,24 @@ function create() {
     */
 
     //Botón release water
-    button3 = game.add.button(0, 480, 'buttonreleasewater', waterPath, this, 0, 0, 1);
+    button3 = game.add.button(50, 460, 'buttonreleasewater', waterPath, this, 0, 0, 1);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
     //Botón quitar water
-    button4 = game.add.button(100, 480, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
+    button4 = game.add.button(50, 530, 'buttonresetchico', buttonResetAction, this, 0, 0, 1);
     button4.input.useHandCursor = true;
 
-    buttonEnterAnswer = game.add.button(50, 540, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
+    buttonEnterAnswer = game.add.button(380, 480, 'buttonenteranswer', checkAnswer, this, 0, 0, 1, 0);
     buttonEnterAnswer.input.useHandCursor = true;
+
+    voice_button = game.add.button(260, 500, 'voice_button', play_sound ,this, 1, 0, 2);
 
     for(i=0; i<16; i++)
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -478,9 +484,13 @@ function create() {
     var table7 = game.add.text(568, 562, "7", style_map2);
 
 
-    dialogo=game.add.image(250, 25, 'dialogo');
+
+    dialogo=game.add.image(210, 30, 'dialogo');
+    dialogo.scale.setTo(0.40,0.40);
 
 
+    voice=game.add.audio('voice');
+    voice.play();
 
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
     popupw.anchor.set(0.5);
@@ -521,11 +531,11 @@ function create() {
     popupl.addChild(buttonreset);*/
 
     // back_button=game.add.button(25,525,'back', goBack, 0,1);
-
-
-    
 }
-
+function play_sound()
+{
+    voice.play();
+}
 function checkAnswer()
 {
     if(mapCopiedBool)
@@ -540,7 +550,7 @@ function checkAnswer()
     if(mapCopiedBool)
     {
         if(mapBackup[4][4]==3 && mapBackup[5][4]==3 && mapBackup[6][4]==3 && mapBackup[6][5]==5 && mapBackup[6][6]==8 && mapBackup[6][7]==5 && mapBackup[6][8]==6)
-            bAux=true;  
+            bAux=true;
     }
 
 
@@ -576,23 +586,23 @@ function updateMarker() {
     tileType=auxTile.index;
 
     //solo cavar
-    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
+    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3 && !buttonerasebool)
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
         // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
     }
     //poner tuberías
-    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
+    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasebool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool )
+    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasebool )
     {
-        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+        map.putTile(2, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool )
+    else if(game.input.mousePointer.isDown && tileType==3 && buttonerasebool )
     {
-        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+        map.putTile(12, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
 
 }
@@ -634,7 +644,7 @@ function waterPath()
     if(!waterPathBool)
     {
         findPathGround(4,4);
-        
+
         if(end1)
             findPathRock(6,5,0);
 
@@ -698,10 +708,10 @@ function waterPath()
     {
         waterPathBool=false;
     }
-    
+
 }
 
-function update() 
+function update()
 {
     if(buttondigbool)
         buttondig.frame=1;
@@ -738,49 +748,16 @@ function update()
     else
         buttonpipe6.frame=0;
 
-    if(buttonerasedigbool)
-        buttonerasedig.frame=1;
+    if(buttonerasebool)
+        buttonerase.frame=1;
     else
-        buttonerasedig.frame=0;
+        buttonerase.frame=0;
 
-    if(buttonerasepipebool)
-        buttonerasepipe.frame=1;
-    else
-        buttonerasepipe.frame=0;
 
    /* if(waterPathBool)
         button3.frame=1;
     else
         button3.frame=0;*/
-}
-
-function erasePipe()
-{
-    if(!erasePipeBool)
-    {
-        erasePipeBool=true;
-        currentTile=2;
-    }
-    else
-    {
-        erasePipeBool=false;
-        currentTile=0;
-    }
-
-}
-function eraseDig()
-{
-    if(!eraseDigBool)
-    {
-        eraseDigBool=true;
-        currentTile=12;
-    }
-    else
-    {
-        eraseDigBool=false;
-        currentTile=3;
-    }
-
 }
 
 function createTileSelector() {
@@ -807,12 +784,12 @@ function createTileSelector() {
 
 function render() {
 
-    // game.debug.text('I AM NUMBER 0');
-    game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
-    game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
-
-    game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
-    game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
+    // // game.debug.text('I AM NUMBER 0');
+    // game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
+    // game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
+    //
+    // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
+    // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
 }
 
@@ -849,7 +826,7 @@ function findPathGround(x,y)
     if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21 || mapCopy[x][y]==13 || mapCopy[x][y]==30 || mapCopy[x][y]==31)
         return false;
 
-  
+
     if(x==endCoords[0] && y==endCoords[1] && !end1)
     {
         console.log("XXXXasdasd1");
@@ -905,7 +882,7 @@ function findPathGround(x,y)
     if(findPathGround(x,y+1)) return true;
     //go west
     if(findPathGround(x-1,y)) return true;
-        
+
     mapCopy[x][y]=21;
 
     return false;
@@ -974,7 +951,7 @@ function findPathRock(x,y,lastRockTile,direction)
     {
         lastRockTile=auxTile.index;
         rockFirstStep=false;
-      
+
         if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9))
             return false;
         else
@@ -1044,7 +1021,7 @@ function findPathRock(x,y,lastRockTile,direction)
     }
     //console.log('\nRock2 X:'+markerX+' Y: '+markerY);
 
-    
+
     //marco la tile como parte de la solución (distinta a la marca de ground)
     mapCopy[x][y]=30;
 
@@ -1098,7 +1075,7 @@ function findPathRock(x,y,lastRockTile,direction)
         if(findPathRock(x,y-1,lastRockTile, 'n'))
             return true;
     }
-        
+
     mapCopy[x][y]=31;
 
     return false;
@@ -1120,136 +1097,123 @@ function printMatrix()
 
 function buttonDig()
 {
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttondigbool=true;
-        currentTile=3;
-    }
-    else
-    {
-        currentTile=20;
-        buttondigbool=false;
-    }
+  buttondigbool=true;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+  buttonerasepipebool=false;
+  currentTile=3;
 }
 
 function buttonPipe1Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe1bool=true;
-        currentTile=5;
-    }
-    else
-    {
-        currentTile=20;
-        buttonpipe1bool=false;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=true;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=5;
 }
 
 function buttonPipe2Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe2bool=true;
-        currentTile=4;
-    }
-    else
-    {
-        buttonpipe2bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=true;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=4;
 }
 
 function buttonPipe3Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe3bool=true;
-        currentTile=8;
-    }
-    else
-    {
-        buttonpipe3bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=true;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=8;
 }
 
 function buttonPipe4Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe4bool=true;
-        currentTile=9;
-    }
-    else
-    {
-        buttonpipe4bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=true;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+  currentTile=9;
 }
 
 function buttonPipe5Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe5bool=true;
-        currentTile=7;
-    }
-    else
-    {
-        buttonpipe5bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=true;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=7;
 }
 
 function buttonPipe6Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe6bool=true;
-        currentTile=6;
-    }
-    else
-    {
-        buttonpipe6bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=true;
+  buttonerasebool=false;
+
+  currentTile=6;
 }
 
-function buttonEraseDig()
+function buttonErase()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonerasedigbool=true;
-        currentTile=12;
-    }
-    else
-    {
-        buttonerasedigbool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=true;
 }
 
 function buttonErasePipe()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonerasepipebool=true;
-        currentTile=2;
-    }
-    else
-    {
-        buttonerasepipebool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
 }
 
 function buttonResetAction()
@@ -1268,7 +1232,7 @@ function openPopupS()
     {
         return;
     }
-    
+
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }

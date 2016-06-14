@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -71,14 +71,17 @@ var buttonpipe4bool;
 var buttonpipe5bool;
 var buttonpipe6bool;
 
+var buttonerase;
 var buttonerasedig;
-var buttonerasedigbool;
+var buttonerasebool;
 
 var buttonerasepipe;
 var buttonerasepipebool;
+var buttonerasebool;
 
 var buttonreset;
 var buttoncontinue;
+var buttoncontinue2;
 
 var erasePipeBool;
 var eraseDigBool;
@@ -114,7 +117,7 @@ var rockFirstStep=true;
 var lastRockTile;
 
 var mapCopy=new Array(16);
-    
+
 var sprite;
 var text;
 
@@ -141,7 +144,7 @@ function preload() {
     game.load.spritesheet('buttonpipe7', 'assets/textures/button_pipe7.png', 75,75);
     game.load.spritesheet('buttonpipe6', 'assets/textures/button_pipe6.png', 75,75);
 
-    game.load.spritesheet('buttonerasedig', 'assets/textures/button_erase2.png', 75,75);
+    game.load.spritesheet('buttonerasedig', 'assets/boton_goma_sprite.png', 100,100);
     game.load.spritesheet('buttonerasepipe', 'assets/textures/button_erase_pipe2.png', 75,75);
 
     game.load.spritesheet('buttonreleasewater', 'assets/textures/button_r_water.png', 100,50);
@@ -159,7 +162,7 @@ function preload() {
     game.load.image('tiles', 'assets/tiles15.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
-    game.load.image('popup_win', 'assets/popup_win2.png');
+    game.load.image('popup_win', 'assets/popup_win3.png');
     game.load.image('popup_lose', 'assets/popup_lose2.png');
     game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/boton_reset2.png');
@@ -168,7 +171,9 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/choose/dialogo5.png');
+    game.load.image('dialogo', 'assets/dialogo_big.png');
+    game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
+    game.load.audio('voice', 'assets/voice_big.mp3');
 }
 
 function create() {
@@ -193,7 +198,7 @@ function create() {
 
     //  Now add in the tileset
     map.addTilesetImage('tiles');
-    
+
     //  Create our layer
     layer1 = map.createLayer(0);
     //  layer1 = map.create('background', 16, 15, 50, 50);
@@ -218,11 +223,11 @@ function create() {
     */
 
 
-    // var text1 = game.add.text(50, 23, "Cavar:", style_title);
-    var text2 = game.add.text(20, 400, "Borrar:", style_title);
+    var style_map= { font: "bold 24px Arial", fill: "#000000", align: "center" };
+		var style_map2= { font: "bold 14px Arial", fill: "#000000", align: "center" };
 
-    var text_a = game.add.text(219, 214, "A", style_map);
-    var text_b = game.add.text(766, 564, "B", style_map);
+    var text_a = game.add.text(203, 218, "INICIO", style_map2);
+    var text_b = game.add.text(758, 560, "FIN", style_map);
 
     createTileSelector();
 
@@ -233,9 +238,9 @@ function create() {
     line5 = new Phaser.Line(600, 0, 600, 600);
 
     game.input.addMoveCallback(updateMarker, this);
-    
+
     //botón dig
-    buttondig=game.add.button(20, 30, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
+    buttondig=game.add.button(45, 30, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
     buttondigbool=false;
 
@@ -272,14 +277,14 @@ function create() {
 
 
     //Botón erase dig
-    buttonerasedig = game.add.button(20, 430, 'buttonerasedig', buttonEraseDig, this, 0, 0, 1, 0);
-    buttonerasedig.input.useHandCursor = true;
-    buttonerasedigbool=false;
+    buttonerase = game.add.button(45, 400, 'buttonerasedig', buttonErase, this, 0, 0, 1, 0);
+    buttonerase.input.useHandCursor = true;
+    buttonerasebool=false;
 
     //Botón erase pipe
-    buttonerasepipe = game.add.button(100, 430, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
-    buttonerasepipe.input.useHandCursor = true;
-    buttonerasepipebool=false;
+    // buttonerasepipe = game.add.button(100, 430, 'buttonerasepipe', buttonErasePipe, this, 0, 0, 1, 0);
+    // buttonerasepipe.input.useHandCursor = true;
+    // buttonerasepipebool=false;
 
      /*   //Botón erase dig
     button2 = game.add.button(1000, 1000, 'button2', null, this, 0, 0, 1, 0);
@@ -305,7 +310,7 @@ function create() {
     */
 
     //Botón release water
-    button3 = game.add.button(50, 520, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
+    button3 = game.add.button(85, 525, 'buttonreleasewater', waterPath, this, 0, 0, 1, 0);
     button3.input.useHandCursor = true;
     waterPathBool=false;
 
@@ -313,7 +318,7 @@ function create() {
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -331,8 +336,13 @@ function create() {
 
 
 
-    dialogo=game.add.image(250, 25, 'dialogo');
+    dialogo=game.add.image(210, 30, 'dialogo');
+		dialogo.scale.setTo(0.40,0.40);
 
+    voice_button = game.add.button(20, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+
+    voice=game.add.audio('voice');
+    voice.play();
 
 
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
@@ -342,7 +352,7 @@ function create() {
 
     popupw.scale.set(0);
 
-    buttoncontinue=game.make.sprite(-45, 30, 'buttoncontinue');
+    buttoncontinue=game.make.sprite(-50, 45, 'buttoncontinue');
     buttoncontinue.inputEnabled = true;
     buttoncontinue.input.priorityID=-1000;
     buttoncontinue.events.onInputDown.add(buttonContinueAction, this);
@@ -358,12 +368,19 @@ function create() {
     popupl.scale.set(0);
 
 
-    buttonreset=game.make.sprite(-45, 30, 'buttonreset');
+    buttonreset=game.make.sprite(-110, 35, 'buttonreset');
     buttonreset.inputEnabled = true;
     buttonreset.input.priorityID=-1000;
     buttonreset.events.onInputDown.add(buttonResetAction, this);
 
+    buttoncontinue2=game.make.sprite(15, 37, 'buttoncontinue');
+    buttoncontinue2.inputEnabled = true;
+    buttoncontinue2.input.priorityID=-1000;
+    buttoncontinue2.events.onInputDown.add(buttonContinueAction2, this);
+
+
     popupl.addChild(buttonreset);
+    popupl.addChild(buttoncontinue2)
 
     // back_button=game.add.button(25,525,'back', goBack, 0,1);
 
@@ -373,7 +390,10 @@ function goBack()
 {
     window.open("../Mechanism/choose.html", "_self");
 }
-
+function play_sound()
+{
+    voice.play();
+}
 function updateMarker() {
 
     marker.x = layer1.getTileX(game.input.activePointer.worldX) * 50;
@@ -388,23 +408,23 @@ function updateMarker() {
     tileType=auxTile.index;
 
     //solo cavar
-    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
+    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3 && !buttonerasebool)
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
         // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
     }
     //poner tuberías
-    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
+    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasebool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool )
+    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasebool )
     {
-        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+        map.putTile(2, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool )
+    else if(game.input.mousePointer.isDown && tileType==3 && buttonerasebool )
     {
-        map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
+        map.putTile(12, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
 
 }
@@ -439,7 +459,7 @@ function waterPath()
     if(!waterPathBool)
     {
         findPathGround(4,4);
-        
+
         if(end1)
             findPathRock(6,5,0);
 
@@ -503,10 +523,10 @@ function waterPath()
     {
         waterPathBool=false;
     }
-    
+
 }
 
-function update() 
+function update()
 {
     if(buttondigbool)
         buttondig.frame=1;
@@ -543,15 +563,11 @@ function update()
     else
         buttonpipe6.frame=0;
 
-    if(buttonerasedigbool)
-        buttonerasedig.frame=1;
+    if(buttonerasebool)
+        buttonerase.frame=1;
     else
-        buttonerasedig.frame=0;
+        buttonerase.frame=0;
 
-    if(buttonerasepipebool)
-        buttonerasepipe.frame=1;
-    else
-        buttonerasepipe.frame=0;
 
     if(waterPathBool)
         button3.frame=1;
@@ -559,34 +575,6 @@ function update()
         button3.frame=0;
 }
 
-function erasePipe()
-{
-    if(!erasePipeBool)
-    {
-        erasePipeBool=true;
-        currentTile=2;
-    }
-    else
-    {
-        erasePipeBool=false;
-        currentTile=0;
-    }
-
-}
-function eraseDig()
-{
-    if(!eraseDigBool)
-    {
-        eraseDigBool=true;
-        currentTile=12;
-    }
-    else
-    {
-        eraseDigBool=false;
-        currentTile=3;
-    }
-
-}
 
 function createTileSelector() {
 
@@ -612,11 +600,11 @@ function createTileSelector() {
 
 function render() {
 
-    // game.debug.text('I AM NUMBER 0');
-    game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
-    game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
-
-    game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
+    // // game.debug.text('I AM NUMBER 0');
+    // game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 32, 'rgb(0,0,0)');
+    // game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 48, 'rgb(0,0,0)');
+    //
+    // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
 }
 
@@ -653,7 +641,7 @@ function findPathGround(x,y)
     if(mapCopy[x][y]==1 || mapCopy[x][y]==2 || auxTile.index==12 || mapCopy[x][y]==20 || mapCopy[x][y]==21 || mapCopy[x][y]==13 || mapCopy[x][y]==30 || mapCopy[x][y]==31)
         return false;
 
-  
+
     if(x==endCoords[0] && y==endCoords[1] && !end1)
     {
         console.log("XXXXasdasd1");
@@ -709,7 +697,7 @@ function findPathGround(x,y)
     if(findPathGround(x,y+1)) return true;
     //go west
     if(findPathGround(x-1,y)) return true;
-        
+
     mapCopy[x][y]=21;
 
     return false;
@@ -778,7 +766,7 @@ function findPathRock(x,y,lastRockTile,direction)
     {
         lastRockTile=auxTile.index;
         rockFirstStep=false;
-      
+
         if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9))
             return false;
         else
@@ -848,7 +836,7 @@ function findPathRock(x,y,lastRockTile,direction)
     }
     //console.log('\nRock2 X:'+markerX+' Y: '+markerY);
 
-    
+
     //marco la tile como parte de la solución (distinta a la marca de ground)
     mapCopy[x][y]=30;
 
@@ -902,7 +890,7 @@ function findPathRock(x,y,lastRockTile,direction)
         if(findPathRock(x,y-1,lastRockTile, 'n'))
             return true;
     }
-        
+
     mapCopy[x][y]=31;
 
     return false;
@@ -924,136 +912,124 @@ function printMatrix()
 
 function buttonDig()
 {
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttondigbool=true;
-        currentTile=3;
-    }
-    else
-    {
-        currentTile=20;
-        buttondigbool=false;
-    }
+  buttondigbool=true;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+  buttonerasepipebool=false;
+
+  currentTile=3;
 }
 
 function buttonPipe1Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe1bool=true;
-        currentTile=5;
-    }
-    else
-    {
-        currentTile=20;
-        buttonpipe1bool=false;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=true;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=5;
 }
 
 function buttonPipe2Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe2bool=true;
-        currentTile=4;
-    }
-    else
-    {
-        buttonpipe2bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=true;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=4;
 }
 
 function buttonPipe3Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe3bool=true;
-        currentTile=8;
-    }
-    else
-    {
-        buttonpipe3bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=true;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=8;
 }
 
 function buttonPipe4Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe4bool=true;
-        currentTile=9;
-    }
-    else
-    {
-        buttonpipe4bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=true;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+  currentTile=9;
 }
 
 function buttonPipe5Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe5bool=true;
-        currentTile=7;
-    }
-    else
-    {
-        buttonpipe5bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=true;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
+
+  currentTile=7;
 }
 
 function buttonPipe6Bool()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonpipe6bool=true;
-        currentTile=6;
-    }
-    else
-    {
-        buttonpipe6bool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=true;
+  buttonerasebool=false;
+
+  currentTile=6;
 }
 
-function buttonEraseDig()
+function buttonErase()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonerasedigbool=true;
-        currentTile=12;
-    }
-    else
-    {
-        buttonerasedigbool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=true;
 }
 
 function buttonErasePipe()
 {
-    //console.log("hola");
-    if(!buttondigbool && !buttonpipe1bool && !buttonpipe2bool && !buttonpipe3bool && !buttonpipe4bool && !buttonpipe5bool && !buttonpipe6bool && !buttonerasedigbool && !buttonerasepipebool)
-    {
-        buttonerasepipebool=true;
-        currentTile=2;
-    }
-    else
-    {
-        buttonerasepipebool=false;
-        currentTile=20;
-    }
+  buttondigbool=false;
+  buttonpipe1bool=false;
+  buttonpipe2bool=false;
+  buttonpipe3bool=false;
+  buttonpipe4bool=false;
+  buttonpipe5bool=false;
+  buttonpipe6bool=false;
+  buttonerasebool=false;
 }
 
 function buttonResetAction()
@@ -1063,6 +1039,13 @@ function buttonResetAction()
 
 function buttonContinueAction()
 {
+    sessionStorage.setItem('i17','0.5');
+    window.open("../Mechanism/mid0_1.html", "_self");
+
+}
+function buttonContinueAction2()
+{
+    sessionStorage.setItem('i17','0');
     window.open("../Mechanism/mid0_1.html", "_self");
 }
 
@@ -1072,7 +1055,7 @@ function openPopupS()
     {
         return;
     }
-    
+
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
@@ -1119,6 +1102,7 @@ function openPopupL()
     }
     //console.log("hola");
     buttonreset.input.priorityID=1;
+    buttoncontinue2.input.priorityID=1;
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupl.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }

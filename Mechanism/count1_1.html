@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -73,6 +73,7 @@ function create() {
 
 
     dialogo=game.add.image(75, 40, 'dialogo');
+		dialogo.scale.setTo(0.9,0.9);
     // map=game.add.image(175,175, 'mapa');
     //map.scale.setTo(0.75,0.75);
 
@@ -80,21 +81,19 @@ function create() {
     // button33 = game.add.button(300, 200, 'button33', null, this, 1, 0, 2);
     // button3 = game.add.button(500, 200, 'button3', null, this, 1, 0, 2);
 
-    button30 = game.add.button(360,225,'option30',option_30,this,0,0);
-    button33 = game.add.button(360,310,'option33',option_33,this,0,0);
-    button34 = game.add.button(360,395,'option34',option_34,this,0,0);
+    button30 = game.add.button(340,200,'option30',option_30,this,0,0);
+    button33 = game.add.button(340,285,'option33',option_33,this,0,0);
+    button34 = game.add.button(340,370,'option34',option_34,this,0,0);
 
 
-    voice_button = game.add.button(250, 500, 'voice_button', play_sound ,this, 0);
+    voice_button = game.add.button(370, 450, 'voice_button', play_sound ,this, 0);
 
-    answer_button = game.add.button(450, 500, 'enter_answer_button', answer ,this, 0);
+    //answer_button = game.add.button(450, 500, 'enter_answer_button', answer ,this, 0);
 
     voice=game.add.audio('voice');
     voice.play();
 
-    left=game.add.button(0,250, 'left', goLeft);
-    right=game.add.button(700,250, 'right', goRight);
-    right.visible=false;
+    // left=game.add.button(0,250, 'left', goLeft);
 
     popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
     popup.anchor.set(0.5);
@@ -114,10 +113,34 @@ function create() {
 
     popup.scale.set(0);
 
+		right=game.add.button(700,250, 'right', goRight);
+    right.visible=false;
+
+
 }
-function update() 
+function update()
 {
-    
+	if(button30_bool || button34_bool || button33_bool)
+		right.visible=true;
+
+	if(button30_bool)
+		button30.frame=1;
+	else {
+		button30.frame=0;
+	}
+
+	if(button33_bool)
+		button33.frame=1;
+	else {
+			button33.frame=0;
+	}
+
+	if(button34_bool)
+		button34.frame=1;
+	else {
+		button34.frame=0;
+	}
+
 }
 function closeWindow() {
 
@@ -144,60 +167,30 @@ function answer()
     }
     else
     {
-        window.open("../Mechanism/count2.html", "_self");   
+        window.open("../Mechanism/count2.html", "_self");
     }
 
 }
 
 function option_33()
 {
-    if(!button33_bool)
-    {
-        if(button34_bool==false && button30_bool==false)
-        {
-            button33.setFrames(1,1);
-            button33_bool=true;
-        }
-    }
-    else
-    {
-        button33.setFrames(0,0);
-        button33_bool=false;
-    }
+		button34_bool=false;
+		button30_bool=false;
+    button33_bool=true;
 }
 
 function option_34()
 {
-    if(!button34_bool)
-    {
-        if(button33_bool==false && button30_bool==false)
-        {
-            button34.setFrames(1,1);
-            button34_bool=true;
-        }
-    }
-    else
-    {
-        button34.setFrames(0,0);
-        button34_bool=false;
-    }
+	button34_bool=true;
+	button30_bool=false;
+	button33_bool=false;
 }
 
 function option_30()
 {
-    if(!button30_bool)
-    {
-        if(button34_bool==false && button33_bool==false)
-        {
-            button30.setFrames(1,1);
-            button30_bool=true;
-        }
-    }
-    else
-    {
-        button30.setFrames(0,0);
-        button30_bool=false;
-    }
+	button34_bool=false;
+	button30_bool=true;
+	button33_bool=false;
 }
 
 function update_right()
@@ -207,12 +200,17 @@ function update_right()
 
 function goLeft()
 {
-    window.open("../Mechanism/start2.html", "_self");
+    window.open("../Mechanism/count1.html", "_self");
 }
 
 function goRight()
 {
-    window.open("../Mechanism/choose_decision.html", "_self");
+		if(button30_bool || button33_bool)
+			sessionStorage.setItem('i7','0');
+		else if (button34_bool) {
+			sessionStorage.setItem('i7','1');
+		}
+    window.open("../Mechanism/count2.html", "_self");
 }
 function actionOnClick1()
 {
@@ -241,7 +239,7 @@ function render() {
 
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 */
-    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)'); 
+    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)');
     //game.debug.geom(line1);
     //game.debug.geom(line2);
     //game.debug.geom(line3);

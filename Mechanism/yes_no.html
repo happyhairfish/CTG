@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -99,7 +99,7 @@ var rockFirstStep=true;
 var lastRockTile;
 
 var mapCopy=new Array(16);
-    
+
 var sprite;
 var text;
 
@@ -110,6 +110,8 @@ var tween;
 
 var button_yes;
 var button_no;
+var yes_bool=false;
+var no_bool=false;
 
 var style_title = { font: "bold 20px Arial", fill: "#ffffff", align: "center" };
 var style_map= { font: "bold 24px Arial", fill: "#000000", align: "center" };
@@ -161,11 +163,11 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/yes_no/yes_no_dialogue2.png');
+    game.load.image('dialogo', 'assets/yes_no/yes_no_dialogue3.png');
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
 
-    game.load.audio('voice', 'assets/yes_no/yes_no_voice2.mp3');
+    game.load.audio('voice', 'assets/yes_no/yes_no_voice3.mp3');
 }
 
 function create() {
@@ -173,7 +175,7 @@ function create() {
 
     //popupl.scale.set(0);
 
-    
+
     for(i=0; i<16; i++)
     {
         mapCopy[i]=new Array(12);
@@ -190,7 +192,7 @@ function create() {
 
     //  Now add in the tileset
     map.addTilesetImage('tiles');
-    
+
     //  Create our layer
     layer1 = map.createLayer(0);
     //  layer1 = map.create('background', 16, 15, 50, 50);
@@ -232,7 +234,7 @@ function create() {
     line5 = new Phaser.Line(600, 0, 600, 600);
 
     game.input.addMoveCallback(updateMarker, this);
-    
+
     //botón dig
     buttondig=game.add.button(1000, 50, 'buttoncavar', buttonDig, this, 0, 0, 1, 0);
     buttondig.input.useHandCursor = true;
@@ -305,7 +307,7 @@ function create() {
     {
         for(j=0; j<12; j++)
         {
-        
+
             var markerX = layer1.getTileX(i*50) ;
             var markerY = layer1.getTileY(j*50) ;
 
@@ -324,15 +326,19 @@ function create() {
 
     back_button=game.add.button(30,525,'back', goBack, 0,1);
 
-    dialogo=game.add.image(250, 25, 'dialogo');
+    dialogo=game.add.image(210, 30, 'dialogo');
+		dialogo.scale.setTo(0.40,0.40);
 
     voice_button = game.add.button(120, 525, 'voice_button', play_sound ,this, 1, 0, 2);
 
     voice=game.add.audio('voice');
     voice.play();
 
-    var text_a = game.add.text(219, 214, "A", style_map);
-    var text_b = game.add.text(766, 564, "B", style_map);
+		var style_map= { font: "bold 24px Arial", fill: "#000000", align: "center" };
+		var style_map2= { font: "bold 14px Arial", fill: "#000000", align: "center" };
+
+    var text_a = game.add.text(203, 218, "INICIO", style_map2);
+    var text_b = game.add.text(758, 560, "FIN", style_map);
 
 }
 function goBack()
@@ -422,13 +428,13 @@ function waterPath()
     {
         console.log("asd");
         findPathGround(4,4);
-        
+
         if(end1)
             findPathRock(startRock[0],startRock[1],0);
 
         if(end2)
             findPathGround(3,9);
-        
+
 
         for(i=0; i<16; i++)
         {
@@ -457,10 +463,10 @@ function waterPath()
     {
         waterPathBool=false;
     }
-    
+
 }
 
-function update() 
+function update()
 {
     if(buttondigbool)
         buttondig.frame=1;
@@ -572,7 +578,7 @@ function render() {
 
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 */
-    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)'); 
+    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)');
     //game.debug.geom(line1);
     //game.debug.geom(line2);
     //game.debug.geom(line3);
@@ -634,7 +640,7 @@ function findPathGround(x,y)
     if(findPathGround(x,y+1)) return true;
     //go west
     if(findPathGround(x-1,y)) return true;
-        
+
     mapCopy[x][y]=21;
 
     return false;
@@ -672,7 +678,7 @@ function findPathRock(x,y,lastRockTile,direction)
     {
         lastRockTile=auxTile.index;
         rockFirstStep=false;
-      
+
         if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9))
             return false;
         else
@@ -742,7 +748,7 @@ function findPathRock(x,y,lastRockTile,direction)
     }
     //console.log('\nRock2 X:'+markerX+' Y: '+markerY);
 
-    
+
     //marco la tile como parte de la solución (distinta a la marca de ground)
     mapCopy[x][y]=30;
 
@@ -796,7 +802,7 @@ function findPathRock(x,y,lastRockTile,direction)
         if(findPathRock(x,y-1,lastRockTile, 'n'))
             return true;
     }
-        
+
     mapCopy[x][y]=31;
 
     return false;
@@ -961,7 +967,7 @@ function openPopupS()
     {
         return;
     }
-    
+
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popups.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
@@ -994,7 +1000,7 @@ function openPopupW()
     {
         return;
     }
-    
+
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupw.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
