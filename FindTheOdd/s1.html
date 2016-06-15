@@ -71,7 +71,7 @@ function create() {
 }
 function rep_hist_action()
 {
-    sessionStorage.setItem('before', '51');
+    localStorage.setItem('before', '51');
     window.open("h0.html", "_self");
 }
 function AnsA(){
@@ -114,22 +114,22 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
-        sessionStorage.setItem("i2","0");
+        localStorage.setItem("i2","0");
     else if(b_b_bool)
-        sessionStorage.setItem("i2","1");
+        localStorage.setItem("i2","1");
     else if(b_c_bool)
-        sessionStorage.setItem("i2","0");
+        localStorage.setItem("i2","0");
 
     window.open("context2.html", "_self");
 }
 function goLeft(){
-    if(sessionStorage.getItem('before_fo')=='1')
+    if(localStorage.getItem('before_fo')=='1')
       window.open("s0_1.html", "_self");
-    else if(sessionStorage.getItem('before_fo')=='2')
+    else if(localStorage.getItem('before_fo')=='2')
         window.open("s0_2.html", "_self");
-    else if(sessionStorage.getItem('before_fo')=='3')
+    else if(localStorage.getItem('before_fo')=='3')
         window.open("s0_3.html", "_self");
-    else if(sessionStorage.getItem('before_fo')=='4')
+    else if(localStorage.getItem('before_fo')=='4')
         window.open("s0_4.html", "_self");
 }
 function update(){

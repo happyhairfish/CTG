@@ -331,9 +331,9 @@ function create(){
 	// text_back = game.add.text(100,30,"Volver al \ntutorial",style);
 	// text_back2 = game.add.text(560,30,"Medir con \notra herramienta",style);
 
-	console.log(sessionStorage.getItem('b_m1'));
-	console.log(sessionStorage.getItem('b_m2'));
-	console.log(sessionStorage.getItem('b_m3'));
+	console.log(localStorage.getItem('b_m1'));
+	console.log(localStorage.getItem('b_m2'));
+	console.log(localStorage.getItem('b_m3'));
 }
 function play_sound()
 {
@@ -341,7 +341,7 @@ function play_sound()
 }
 //Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función onTouch.
 function update(){
-	if((mAdone && mBdone && mCdone) || (sessionStorage.getItem('b_m1')!=null || sessionStorage.getItem('b_m2')!=null || sessionStorage.getItem('b_m3')!=null))
+	if((mAdone && mBdone && mCdone) || (localStorage.getItem('b_m1')!=null || localStorage.getItem('b_m2')!=null || localStorage.getItem('b_m3')!=null))
 	{
 		right.visible=true;
 	}
@@ -355,21 +355,20 @@ function update(){
 
 function watch_tutorial()
 {
-
-	window.open("s12.html", "_self");
+	window.open("balance_tut1.html", "_self");
 }
 function reloadTable(){
-	console.log(sessionStorage.getItem('b_m1'));
-	if(sessionStorage.getItem('b_m1')!=null){
-		textA = game.add.text(727, 233, sessionStorage.getItem('b_m1'), style);
+	console.log(localStorage.getItem('b_m1'));
+	if(localStorage.getItem('b_m1')!=null){
+		textA = game.add.text(727, 233, localStorage.getItem('b_m1'), style);
 		tableup.measures++;
 	}
-	if(sessionStorage.getItem('b_m2')!=null){
-		textB = game.add.text(727, 305, sessionStorage.getItem('b_m2'), style);
+	if(localStorage.getItem('b_m2')!=null){
+		textB = game.add.text(727, 305, localStorage.getItem('b_m2'), style);
 		tableup.measures++;
 	}
-	if(sessionStorage.getItem('b_m3')!=null){
-		textC = game.add.text(727, 378, sessionStorage.getItem('b_m3'), style);
+	if(localStorage.getItem('b_m3')!=null){
+		textC = game.add.text(727, 378, localStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -436,17 +435,17 @@ function measure(measureTemp, obj1, obj2){
 }
 function goRight()
 {
-	if(sessionStorage.getItem('before_dw')=='s14')
-		window.open("s14.html", "_self");
+	if(localStorage.getItem('before_dw')!='0')
+		window.open(localStorage.getItem('before_dw')+".html", "_self");
 	else
     window.open("s12.html", "_self");
 }
 function goLeft(){
 	//ir al tutorial
 	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
-	// 	sessionStorage.setItem('i24','1');
+	// 	localStorage.setItem('i24','1');
 	// else {
-	// 	sessionStorage.setItem('i24','0');
+	// 	localStorage.setItem('i24','0');
 	// }
     window.open("s11.html", "_self");
 }
@@ -585,7 +584,7 @@ function eraseMeasure1(){
 			measure1.intable=false;
 			tableup.measures--;
 			erasefull();
-			sessionStorage.removeItem("b_m1");
+			localStorage.removeItem("b_m1");
 		}
 	}
 	if (measure1.pl!=null){
@@ -632,7 +631,7 @@ function eraseMeasure2(){
 			measure2.intable=false;
 			tableup.measures--;
 			erasefull();
-			sessionStorage.removeItem("b_m2");
+			localStorage.removeItem("b_m2");
 		}
 	}
 	if (measure2.pl!=null){
@@ -679,7 +678,7 @@ function eraseMeasure3(){
 			measure3.intable=false;
 			tableup.measures--;
 			erasefull();
-			sessionStorage.removeItem("b_m3");
+			localStorage.removeItem("b_m3");
 		}
 	}
 	if (measure3.pl!=null){
@@ -706,8 +705,8 @@ function goTable1 (){
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('b_m1', measure1.result._text);
-		console.log(sessionStorage.getItem('b_m1'));
+		localStorage.setItem('b_m1', measure1.result._text);
+		console.log(localStorage.getItem('b_m1'));
 		checkfull();
 	}
 }
@@ -721,8 +720,8 @@ function goTable2 (){
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('b_m2', measure2.result._text);
-		console.log(sessionStorage.getItem('b_m2'));
+		localStorage.setItem('b_m2', measure2.result._text);
+		console.log(localStorage.getItem('b_m2'));
 		checkfull();
 	}
 }function goTable3 (){
@@ -735,8 +734,8 @@ function goTable2 (){
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('b_m3', measure3.result._text);
-		console.log(sessionStorage.getItem('b_m3'));
+		localStorage.setItem('b_m3', measure3.result._text);
+		console.log(localStorage.getItem('b_m3'));
 		checkfull();
 	}
 }
@@ -746,7 +745,7 @@ function checkfull(){
 		tableup.fulltable=true;
 		tableup.lines= game.add.sprite(597,160,'tfull');
 		tableup.lines.scale.setTo(0.91,0.91);
-		sessionStorage.setItem('b_f', 'true');
+		localStorage.setItem('b_f', 'true');
 	}
 }
 //Función que quita el full de la tabla
@@ -754,7 +753,7 @@ function erasefull(){
 	if(tableup.fulltable==true){
 		tableup.fulltable=false;
 		tableup.lines.destroy();
-		sessionStorage.setItem('b_f', 'false');
+		localStorage.setItem('b_f', 'false');
 	}
 }
 function startDrag(sprite){

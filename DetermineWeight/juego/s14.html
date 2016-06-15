@@ -108,15 +108,15 @@ function create() {
 		termomether_label.visible=false;
 		ruler_label = game.add.text(560,443,"Regla",style3);
 		ruler_label.visible=false;
-    mesb1= game.add.text(635, 225, sessionStorage.getItem('b_m1'), style);
-    mesb2= game.add.text(635, 295, sessionStorage.getItem('b_m2'), style);
-    mesb3= game.add.text(635, 367, sessionStorage.getItem('b_m3'), style);
-    mesr1= game.add.text(632, 233, sessionStorage.getItem('r_m1'), style_r);
-    mesr2= game.add.text(632, 305, sessionStorage.getItem('r_m2'), style_r);
-    mesr3= game.add.text(632, 373, sessionStorage.getItem('r_m3'), style_r);
-    mest1= game.add.text(615, 248, sessionStorage.getItem('t_m1'), style_r);
-    mest2= game.add.text(615, 315, sessionStorage.getItem('t_m2'), style_r);
-    mest3= game.add.text(615, 387, sessionStorage.getItem('t_m3'), style_r);
+    mesb1= game.add.text(635, 225, localStorage.getItem('b_m1'), style);
+    mesb2= game.add.text(635, 295, localStorage.getItem('b_m2'), style);
+    mesb3= game.add.text(635, 367, localStorage.getItem('b_m3'), style);
+    mesr1= game.add.text(632, 233, localStorage.getItem('r_m1'), style_r);
+    mesr2= game.add.text(632, 305, localStorage.getItem('r_m2'), style_r);
+    mesr3= game.add.text(632, 373, localStorage.getItem('r_m3'), style_r);
+    mest1= game.add.text(615, 248, localStorage.getItem('t_m1'), style_r);
+    mest2= game.add.text(615, 315, localStorage.getItem('t_m2'), style_r);
+    mest3= game.add.text(615, 387, localStorage.getItem('t_m3'), style_r);
 		mesb1.visible=false;
 		mesb2.visible=false;
 		mesb3.visible=false;
@@ -280,9 +280,9 @@ function update(){
 		}
 
 		if(checkOverlap(block1,rock1) && checkOverlap(block2,rock2) && checkOverlap(block3,rock3))
-			sessionStorage.setItem('i23','1');
+			localStorage.setItem('i23','1');
 		else {
-			sessionStorage.setItem('i23','0');
+			localStorage.setItem('i23','0');
 		}
 }
 function checkOverlap(spriteA, spriteB) {
@@ -323,7 +323,7 @@ function goLeft(){
     window.open("s12.html", "_self");
 }
 function goTools(){
-	sessionStorage.setItem('before_dw','s14');
+	localStorage.setItem('before_dw','s14');
 	window.open("s11.html", "_self");
 }
 function checkRight(){

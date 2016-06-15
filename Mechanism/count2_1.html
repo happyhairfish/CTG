@@ -203,9 +203,9 @@ function goLeft()
 function goRight()
 {
 	if(button30_bool || button33_bool)
-		sessionStorage.setItem('i7','0');
+		localStorage.setItem('i7','0');
 	else if (button34_bool) {
-		sessionStorage.setItem('i7','1');
+		localStorage.setItem('i7','1');
 	}
 	window.open("../Mechanism/mid1.html", "_self");
 }

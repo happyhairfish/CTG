@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
@@ -51,7 +51,7 @@ function preload() {
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
 }
-function create() {    
+function create() {
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.image(70, 0, 'ill');
     ill.scale.setTo(0.95,0.95);
@@ -62,7 +62,7 @@ function create() {
     right.visible=false;
     voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
     rep_hist_button = game.add.button(250, 500, 'repetir_historia', rep_hist_action ,this);
-    rep_hist_button.scale.setTo(0.5,0.5);   
+    rep_hist_button.scale.setTo(0.5,0.5);
 
     ya=game.world.centerY-50;
     yb=game.world.centerY+30;
@@ -77,7 +77,7 @@ function create() {
 }
 function rep_hist_action()
 {
-    sessionStorage.setItem('before', '44');
+    localStorage.setItem('before', '44');
     window.open("h0.html", "_self");
 }
 function AnsA(){
@@ -103,7 +103,7 @@ function clearBefore(){
     }
     if(c_b!=null){
         c_b.destroy();
-        c_b=null;   
+        c_b=null;
     }
     if(c_c!=null){
         c_c.destroy();
@@ -120,14 +120,26 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
-        sessionStorage.setItem("i8","1");
+        localStorage.setItem("i8","1");
     else if(b_b_bool)
-        sessionStorage.setItem("i8","0");
+        localStorage.setItem("i8","0");
     else if(b_c_bool)
-        sessionStorage.setItem("i8","0");
+        localStorage.setItem("i8","0");
 
-    console.log(sessionStorage.getItem("i10"));
-    window.open("h45.html", "_self");
+    console.log(localStorage.getItem("i10"));
+    if(localStorage.getItem("bad")=='44')
+		{
+			if(b_a_bool)
+					localStorage.setItem("i29","1");
+			else if(b_b_bool)
+					localStorage.setItem("i29","0");
+			else if(b_c_bool)
+					localStorage.setItem("i29","0");
+			window.open("../FindTheOdd/context.html", "_self");
+		}
+		else {
+			window.open("h45.html", "_self");
+		}
 }
 function goLeft(){
     window.open("h43.html", "_self");

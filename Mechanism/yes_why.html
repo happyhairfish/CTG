@@ -46,7 +46,7 @@ function preload() {
 
 function create() {
 
-    var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
+    var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 5", style_title);
     game.stage.backgroundColor = '#ffffff';
 
     voice=game.add.audio('voice1');
@@ -67,7 +67,7 @@ function create() {
 
     game.time.events.add(Phaser.Timer.SECOND * 2.5, play_answer, this);
 
-    game.time.events.add(Phaser.Timer.SECOND * 20, showRight, this);
+    game.time.events.add(Phaser.Timer.SECOND * 60, showRight, this);
 
 }
 function play_sound()

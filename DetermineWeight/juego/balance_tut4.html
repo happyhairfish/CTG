@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Cómic Pensamiento Crítico</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var ill;
+var left;
+var right;
+var voice;
+var voice_button;
+var balance_button;
+var thermometer_button;
+var rule_button;
+
+function preload() {
+    game.load.audio('voice', 'assetsAudio/balance_tut4.mp3');
+    game.load.image('ill', 'assetsImg/balance_tut/tut4.png');
+    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
+    game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
+    game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
+    game.load.spritesheet('balanceButton', 'assetsImg/balanceButton.png', 246, 184);
+    game.load.spritesheet('ruleButton', 'assetsImg/ruleButton.png', 246, 181);
+    game.load.spritesheet('thermometerButton', 'assetsImg/termometerButton.png', 245, 180);
+		game.load.audio('voice', 'assets/voice_part1_ins.mp3');
+		game.load.spritesheet('voice_button', '../juego/assetsImg/button_voice3_50.png', 100, 50);
+
+}
+function create() {
+    game.stage.backgroundColor = "#FFFFFF";
+    ill=game.add.sprite(50, 0, 'ill');
+    ill.scale.setTo(0.9,0.9);
+    voice=game.add.audio('voice');
+    voice.play();
+    left=game.add.button(20,500, 'left', goLeft, this, 1,0,2);
+    right=game.add.button(685,500, 'right', goRight, this, 1,0,2);
+
+		voice_button = game.add.button(370, 530, 'voice_button', play_sound ,this, 1, 0, 2);
+
+}
+function play_sound(){
+    voice.play();
+}
+function goRight(){
+  	window.open("balance_tut5.html", "_self");
+}
+function goLeft(){
+    window.open("balance_tut3.html", "_self");
+}
+function goThermometer(){
+    console.log("Termometro");
+    window.open("s5.html", "_self");
+}
+function goBalance(){
+    console.log("Balanza");
+    window.open("s1.html", "_self");
+}
+function goRule(){
+    console.log("Regla");
+    window.open("s8.html", "_self");
+}
+function update(){
+}
+function render() {
+}
+</script>
+
+</body>
+</html>

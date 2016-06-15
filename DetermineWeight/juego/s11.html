@@ -47,15 +47,32 @@ function preload() {
 		game.load.spritesheet('moreTools', 'assetsImg/more_tools.png', 200,100);
 }
 function create() {
+
+	localStorage.removeItem("t_m1");
+	localStorage.removeItem("t_m2");
+	localStorage.removeItem("t_m3");
+	localStorage.removeItem("r_m1");
+	localStorage.removeItem("r_m2");
+	localStorage.removeItem("r_m3");
+	localStorage.removeItem("b_m1");
+	localStorage.removeItem("b_m2");
+	localStorage.removeItem("b_m3");
+	localStorage.setItem("t_f", "false");
+	localStorage.setItem("r_f", "false");
+	localStorage.setItem("b_f", "false");
+	localStorage.setItem("cameFrom", "0");
+
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(100, 30, 'ill');
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(20,470, 'left', goLeft, this, 1,0,2);
 
-		if(sessionStorage.getItem('before_dw')=='s12' || sessionStorage.getItem('before_dw')=='s14')
+		if(localStorage.getItem('before_dw')=='s12' || localStorage.getItem('before_dw')=='s13' || localStorage.getItem('before_dw')=='s14')
+		{	localStorage.setItem("i31", "1");
 			left.visible=true;
-		else {
+		}else {
+			localStorage.setItem("i31", "0");
 			left.visible=false;
 		}
 
@@ -94,48 +111,72 @@ function goRight(){
     window.open("s12.html", "_self");
 }
 function goLeft(){
-	if(sessionStorage.getItem('before_dw')=='s12')
+	if(localStorage.getItem('before_dw')=='s12')
 		window.open("s12.html", "_self");
-	if(sessionStorage.getItem('before_dw')=='s13')
+	if(localStorage.getItem('before_dw')=='s13')
 		window.open("s13.html", "_self");
-	if(sessionStorage.getItem('before_dw')=='s14')
+	if(localStorage.getItem('before_dw')=='s14')
 		window.open("s14.html", "_self");
 
 }
 function goOrder(){
-    sessionStorage.setItem('cameFrom', '0');
+    localStorage.setItem('cameFrom', '0');
     window.open("s14.html", "_self")
 }
 function checkOrder(){
-    if (sessionStorage.getItem('cameFrom')=='s14'){
+    if (localStorage.getItem('cameFrom')=='s14'){
         order.visible=true;
     }
 }
 function goThermometer(){
+		if(	localStorage.getItem('dw_first')=='0')
+			localStorage.setItem('i13','0')
+
+		localStorage.setItem('dw_first','1');
+
+
     console.log("Termometro");
-    window.open("termometros.html", "_self");
+		if(localStorage.getItem('termometer_tutorial')=='1')
+			window.open("termometer_tut1.html", "_self");
+		else
+    	window.open("termometros.html", "_self");
 }
 function goBalance(){
+		if(	localStorage.getItem('dw_first')=='0')
+			localStorage.setItem('i13','1')
+
+		localStorage.setItem('dw_first','1');
     console.log("Balanza");
-    window.open("index.html", "_self");
+
+		if(localStorage.getItem('balance_tutorial')=='1')
+			window.open("balance_tut1.html", "_self");
+		else
+    	window.open("index.html", "_self");
 }
 function goRule(){
+	if(	localStorage.getItem('dw_first')=='0')
+		localStorage.setItem('i13','0')
+
+	localStorage.setItem('dw_first','1');
     console.log("Regla");
-    window.open("reglas.html", "_self");
+		if(localStorage.getItem('ruler_tutorial')=='1')
+			window.open("ruler_tut1.html", "_self");
+		else
+			window.open("reglas.html", "_self");
 }
 function drawRed(){
 
 }
 function checkRight(){
-    // if(sessionStorage.getItem('r_f')=='true'||sessionStorage.getItem('b_f')=='true'||sessionStorage.getItem('t_f')=='true'){
+    // if(localStorage.getItem('r_f')=='true'||localStorage.getItem('b_f')=='true'||localStorage.getItem('t_f')=='true'){
     //     right=game.add.button(685,490, 'right', goRight, this, 1,0,2);
     // }
-		// if (sessionStorage.getItem('cameFrom')=='s14' || sessionStorage.getItem('cameFrom')=='s12'){
+		// if (localStorage.getItem('cameFrom')=='s14' || localStorage.getItem('cameFrom')=='s12'){
 		// 		order.visible=true;
 		// }
 }
 function update(){
-	if(sessionStorage.getItem('t_f')=='true'){
+	if(localStorage.getItem('t_f')=='true'){
 			thermometer_button.frame=2;
 			text_termometer_meds.visible=true;
 	}
@@ -144,7 +185,7 @@ function update(){
 		text_termometer_meds.visible=false;
 	}
 
-	if(sessionStorage.getItem('b_f')=='true'){
+	if(localStorage.getItem('b_f')=='true'){
 			balance_button.frame=2;
 			text_balance_meds.visible=true;
 	}
@@ -153,7 +194,7 @@ function update(){
 		text_balance_meds.visible=false;
 	}
 
-	if(sessionStorage.getItem('r_f')=='true'){
+	if(localStorage.getItem('r_f')=='true'){
 			rule_button.frame=2;
 			text_ruler_meds.visible=true;
 	}
@@ -162,7 +203,7 @@ function update(){
 		text_ruler_meds.visible=false;
 	}
 
-	if(sessionStorage.getItem('before_dw')=='s12' || sessionStorage.getItem('before_dw')=='s14')
+	if(localStorage.getItem('before_dw')=='s12' || localStorage.getItem('before_dw')=='s14')
 		left.visible.true;
 
 }

@@ -77,7 +77,7 @@ function create() {
 }
 function rep_hist_action()
 {
-    sessionStorage.setItem('before', '51');
+    localStorage.setItem('before', '51');
     window.open("h0.html", "_self");
 }
 function AnsA(){
@@ -120,12 +120,70 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
-        sessionStorage.setItem("i18","1");
+        localStorage.setItem("i18","1");
     else if(b_b_bool)
-        sessionStorage.setItem("i18","0");
+        localStorage.setItem("i18","0");
     else if(b_c_bool)
-        sessionStorage.setItem("i18","0");
-    window.open("../FindTheOdd/s0.html", "_self");
+        localStorage.setItem("i18","0");
+
+    if(localStorage.getItem('bad')==null)
+    {
+      if(localStorage.getItem('i8')=='0' || localStorage.getItem('i10')=='0' || localStorage.getItem('i11')=='0'|| localStorage.getItem('i12')=='0' || localStorage.getItem('i14')=='0' || localStorage.getItem('i15')=='0' || localStorage.getItem('i16')=='0' || localStorage.getItem('i18')=='0' || localStorage.getItem('i27')=='0')
+      {
+        if(localStorage.getItem('i8')=='0')
+        {
+          localStorage.setItem('bad','44');
+        }
+        else if(localStorage.getItem('i10')=='0')
+        {
+          localStorage.setItem('bad','38');
+        }
+        else if(localStorage.getItem('i11')=='0')
+        {
+          localStorage.setItem('bad','50');
+        }
+        else if(localStorage.getItem('i12')=='0')
+        {
+          localStorage.setItem('bad','47');
+        }
+        else if(localStorage.getItem('i14')=='0')
+        {
+          localStorage.setItem('bad','46');
+        }
+        else if(localStorage.getItem('i15')=='0')
+        {
+          localStorage.setItem('bad','48');
+        }
+        else if(localStorage.getItem('i16')=='0')
+        {
+          localStorage.setItem('bad','45');
+        }
+        else if(localStorage.getItem('i18')=='0')
+        {
+          localStorage.setItem('bad','51');
+        }
+        else if(localStorage.getItem('i27')=='0')
+        {
+          localStorage.setItem('bad','48_2');
+        }
+
+        window.open("check_bad.html", "_self");
+      }
+      else {
+        window.open("../FindTheOdd/context.html", "_self");
+      }
+    }
+    else {
+      if(b_a_bool)
+          localStorage.setItem("i29","1");
+      else if(b_b_bool)
+          localStorage.setItem("i29","0");
+      else if(b_c_bool)
+          localStorage.setItem("i29","0");
+      window.open("../FindTheOdd/context.html", "_self");
+    }
+
+
 }
 function goLeft(){
     window.open("h50.html", "_self");

@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
@@ -25,7 +25,7 @@ var voice_button;
 function preload() {
     game.load.audio('voice', 'assetsAudio/h0.m4a');
     game.load.image('ill', 'assetsImg/h0.jpg');
-    
+
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
@@ -33,15 +33,19 @@ function preload() {
     game.load.spritesheet('volver_pregunta', 'assetsImg/volver_preg.png', 201, 100);
 }
 function create() {
-    if(sessionStorage.getItem('before')!='0')
+
+
+    if(localStorage.getItem('before')!='0')
     {
+				console.log("asdas");
+				localStorage.setItem('i30','1');
         voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
         var rep_hist_button = game.add.button(250, 500, 'volver_pregunta', volver_pregunta_action ,this);
         rep_hist_button.scale.setTo(0.5,0.5);
     }
     else
     {
-        voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
+			voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
     }
 
 
@@ -57,8 +61,8 @@ function create() {
 }
 function volver_pregunta_action()
 {
-    var destination = sessionStorage.getItem('before');
-    sessionStorage.setItem('before','0');
+    var destination = localStorage.getItem('before');
+    localStorage.setItem('before','0');
     window.open("h"+destination+".html", "_self");
 }
 function play_sound(){

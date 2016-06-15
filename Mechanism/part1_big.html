@@ -158,7 +158,7 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/boton_reset3.png', 100, 50);
     game.load.spritesheet('buttoncontinue', 'assets/boton_continue3.png', 100, 50);
 
-    game.load.tilemap('map', 'assets/tilemap_big2.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_big2_ff.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles15.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -1010,6 +1010,7 @@ function buttonPipe6Bool()
 
 function buttonErase()
 {
+  localStorage.setItem('i32','1');
   buttondigbool=false;
   buttonpipe1bool=false;
   buttonpipe2bool=false;
@@ -1039,13 +1040,13 @@ function buttonResetAction()
 
 function buttonContinueAction()
 {
-    sessionStorage.setItem('i17','0.5');
+    localStorage.setItem('i17','0.5');
     window.open("../Mechanism/mid0_1.html", "_self");
 
 }
 function buttonContinueAction2()
 {
-    sessionStorage.setItem('i17','0');
+    localStorage.setItem('i17','0');
     window.open("../Mechanism/mid0_1.html", "_self");
 }
 

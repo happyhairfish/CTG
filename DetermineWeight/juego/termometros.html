@@ -168,7 +168,7 @@ function create(){
 
 function update(){
 	//Se permite que las rocas y el instrumento de medición colisionen. Cuando ocurra se llama a la función measure.
-	if((mAdone && mBdone && mCdone) || (sessionStorage.getItem('b_m1')!=null || sessionStorage.getItem('b_m2')!=null || sessionStorage.getItem('b_m3')!=null))
+	if((mAdone && mBdone && mCdone) || (localStorage.getItem('b_m1')!=null || localStorage.getItem('b_m2')!=null || localStorage.getItem('b_m3')!=null))
 	{
 		right.visible=true;
 	}
@@ -184,36 +184,36 @@ function play_sound()
 }
 function watch_tutorial()
 {
-	window.open("s12.html", "_self");
+	window.open("termometer_tut1.html", "_self");
 }
 function goRight()
 {
-	if(sessionStorage.getItem('before_dw')=='s14')
-		window.open("s14.html", "_self");
+	if(localStorage.getItem('before_dw')!='0')
+		window.open(localStorage.getItem('before_dw')+".html", "_self");
 	else
-		window.open("s12.html", "_self");
+    window.open("s12.html", "_self");
 }
 function goLeft(){
 	//ir al tutorial
 	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
-	// 	sessionStorage.setItem('i24','1');
+	// 	localStorage.setItem('i24','1');
 	// else {
-	// 	sessionStorage.setItem('i24','0');
+	// 	localStorage.setItem('i24','0');
 	// }
     window.open("s11.html", "_self");
 }
 //Se despliegan mediciones anteriores
 function reloadTable(){
-	if(sessionStorage.getItem('t_m1')!=null){
-		textA = game.add.text(707, 255, sessionStorage.getItem('t_m1'), style);
+	if(localStorage.getItem('t_m1')!=null){
+		textA = game.add.text(707, 255, localStorage.getItem('t_m1'), style);
 		tableup.measures++;
 	}
-	if(sessionStorage.getItem('t_m2')!=null){
-		textB = game.add.text(707, 328, sessionStorage.getItem('t_m2'), style);
+	if(localStorage.getItem('t_m2')!=null){
+		textB = game.add.text(707, 328, localStorage.getItem('t_m2'), style);
 		tableup.measures++;
 	}
-	if(sessionStorage.getItem('t_m3')!=null){
-		textC = game.add.text(707, 400, sessionStorage.getItem('t_m3'), style);
+	if(localStorage.getItem('t_m3')!=null){
+		textC = game.add.text(707, 400, localStorage.getItem('t_m3'), style);
 		tableup.measures++;
 	}
 	checkfull();
@@ -303,7 +303,7 @@ function eraseMeasure1(){
 		if (measure1.intable== true){
 			measure1.intable=false;
 			tableup.measures--;
-			sessionStorage.removeItem("t_m1");
+			localStorage.removeItem("t_m1");
 			erasefull();
 		}
 	}
@@ -320,7 +320,7 @@ function eraseMeasure2(){
 		if (measure2.intable== true){
 			measure2.intable=false;
 			tableup.measures--;
-			sessionStorage.removeItem("t_m2");
+			localStorage.removeItem("t_m2");
 			erasefull();
 		}
 	}
@@ -337,7 +337,7 @@ function eraseMeasure3(){
 		if (measure3.intable== true){
 			measure3.intable=false;
 			tableup.measures--;
-			sessionStorage.removeItem("t_m3");
+			localStorage.removeItem("t_m3");
 			erasefull();
 		}
 	}
@@ -354,8 +354,8 @@ function goTable1 (){
 		measure1.result.visible=true;
 		measure1.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('t_m1', measure1.result._text);
-		console.log(sessionStorage.getItem('t_m1'));
+		localStorage.setItem('t_m1', measure1.result._text);
+		console.log(localStorage.getItem('t_m1'));
 		checkfull();
 	}
 }
@@ -369,8 +369,8 @@ function goTable2 (){
 		measure2.result.visible=true;
 		measure2.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('t_m2', measure2.result._text);
-		console.log(sessionStorage.getItem('t_m2'));
+		localStorage.setItem('t_m2', measure2.result._text);
+		console.log(localStorage.getItem('t_m2'));
 		checkfull();
 	}
 }function goTable3 (){
@@ -383,8 +383,8 @@ function goTable2 (){
 		measure3.result.visible=true;
 		measure3.intable= true;
 		tableup.measures++;
-		sessionStorage.setItem('t_m3', measure3.result._text);
-		console.log(sessionStorage.getItem('t_m3'));
+		localStorage.setItem('t_m3', measure3.result._text);
+		console.log(localStorage.getItem('t_m3'));
 		checkfull();
 	}
 }
@@ -395,7 +395,7 @@ function checkfull(){
 		tableup.fulltable=true;
 		tableup.lines= game.add.sprite(595,165,'tfull');
 		tableup.lines.scale.setTo(0.89,0.89);
-		sessionStorage.setItem('t_f', 'true');
+		localStorage.setItem('t_f', 'true');
 	}
 }
 
@@ -404,7 +404,7 @@ function erasefull(){
 	if(tableup.fulltable==true){
 		tableup.fulltable=false;
 		tableup.lines.destroy();
-		sessionStorage.setItem('t_f', 'false');
+		localStorage.setItem('t_f', 'false');
 	}
 }
 //Funciones que permite que la física no funcione mientras se arrastra el objeto.

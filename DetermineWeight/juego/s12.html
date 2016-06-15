@@ -97,15 +97,15 @@ function create() {
 		termomether_label.visible=false;
 		ruler_label = game.add.text(545,466,"Regla",style3);
 		ruler_label.visible=false;
-    mesb1= game.add.text(610, 228, sessionStorage.getItem('b_m1'), style5);
-    mesb2= game.add.text(610, 305, sessionStorage.getItem('b_m2'), style5);
-    mesb3= game.add.text(610, 384, sessionStorage.getItem('b_m3'), style5);
-    mesr1= game.add.text(610, 240, sessionStorage.getItem('r_m1'), style);
-    mesr2= game.add.text(610, 322, sessionStorage.getItem('r_m2'), style);
-    mesr3= game.add.text(610, 400, sessionStorage.getItem('r_m3'), style);
-    mest1= game.add.text(597, 253, sessionStorage.getItem('t_m1'), style);
-    mest2= game.add.text(597, 332, sessionStorage.getItem('t_m2'), style);
-    mest3= game.add.text(597, 410, sessionStorage.getItem('t_m3'), style);
+    mesb1= game.add.text(610, 228, localStorage.getItem('b_m1'), style5);
+    mesb2= game.add.text(610, 305, localStorage.getItem('b_m2'), style5);
+    mesb3= game.add.text(610, 384, localStorage.getItem('b_m3'), style5);
+    mesr1= game.add.text(610, 240, localStorage.getItem('r_m1'), style);
+    mesr2= game.add.text(610, 322, localStorage.getItem('r_m2'), style);
+    mesr3= game.add.text(610, 400, localStorage.getItem('r_m3'), style);
+    mest1= game.add.text(597, 253, localStorage.getItem('t_m1'), style);
+    mest2= game.add.text(597, 332, localStorage.getItem('t_m2'), style);
+    mest3= game.add.text(597, 410, localStorage.getItem('t_m3'), style);
 		mesb1.visible=false;
 		mesb2.visible=false;
 		mesb3.visible=false;
@@ -120,12 +120,12 @@ function create() {
     text_m2b = game.add.text(485, 328, "Medida 2", style2);
     text_m3b = game.add.text(485, 404, "Medida 3", style2);
 
-		if((sessionStorage.getItem('b_m1')!=null && sessionStorage.getItem('b_m2')!=null) || (sessionStorage.getItem('b_m1')!=null && sessionStorage.getItem('b_m3')!=null) || (sessionStorage.getItem('b_m2')!=null && sessionStorage.getItem('b_m3')!=null)
-	|| (sessionStorage.getItem('r_m1')!=null && sessionStorage.getItem('r_m2')!=null) || (sessionStorage.getItem('r_m1')!=null && sessionStorage.getItem('r_m3')!=null) || (sessionStorage.getItem('r_m2')!=null && sessionStorage.getItem('r_m3')!=null)
-	|| (sessionStorage.getItem('t_m1')!=null && sessionStorage.getItem('t_m2')!=null) || (sessionStorage.getItem('t_m1')!=null && sessionStorage.getItem('t_m3')!=null) || (sessionStorage.getItem('t_m2')!=null && sessionStorage.getItem('t_m3')!=null))
-			sessionStorage.setItem('i24','1');
+		if((localStorage.getItem('b_m1')!=null && localStorage.getItem('b_m2')!=null) || (localStorage.getItem('b_m1')!=null && localStorage.getItem('b_m3')!=null) || (localStorage.getItem('b_m2')!=null && localStorage.getItem('b_m3')!=null)
+	|| (localStorage.getItem('r_m1')!=null && localStorage.getItem('r_m2')!=null) || (localStorage.getItem('r_m1')!=null && localStorage.getItem('r_m3')!=null) || (localStorage.getItem('r_m2')!=null && localStorage.getItem('r_m3')!=null)
+	|| (localStorage.getItem('t_m1')!=null && localStorage.getItem('t_m2')!=null) || (localStorage.getItem('t_m1')!=null && localStorage.getItem('t_m3')!=null) || (localStorage.getItem('t_m2')!=null && localStorage.getItem('t_m3')!=null))
+			localStorage.setItem('i24','1');
 		else {
-			sessionStorage.setItem('i24','0');
+			localStorage.setItem('i24','0');
 		}
 
     // text_m1t = game.add.text(450, 253, "Medida 1", style);
@@ -143,7 +143,7 @@ function create() {
 }
 function goTools()
 {
-
+	localStorage.setItem('before_dw','s12');
 	window.open("s11.html", "_self");
 }
 function table_left()
@@ -178,18 +178,25 @@ function play_sound(){
     voice.play();
 }
 function goRight(){
+		if(A_button_bool)
+			localStorage.setItem('i19','0');
+		else if(B_button_bool)
+			localStorage.setItem('i19','0');
+		else if(C_button_bool)
+			localStorage.setItem('i19','1');
+
     window.open("s13.html", "_self");
 }
 function goLeft(){
-		if(sessionStorage.setItem('before_dw','balance'))
+		if(localStorage.setItem('before_dw','balance'))
 		{
 			window.open("index.html", "_self");
 		}
-		else if(sessionStorage.setItem('before_dw','termometers'))
+		else if(localStorage.setItem('before_dw','termometers'))
 		{
 			window.open("termometros.html", "_self");
 		}
-		else if(sessionStorage.setItem('before_dw','rulers'))
+		else if(localStorage.setItem('before_dw','rulers'))
 		{
 			window.open("reglas.html", "_self");
 		}

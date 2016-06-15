@@ -144,6 +144,14 @@ var celda5bool=false;
 var celda6bool=false;
 var celda7bool=false;
 
+var celda1contentbool=false;
+var celda2contentbool=false;
+var celda3contentbool=false;
+var celda4contentbool=false;
+var celda5contentbool=false;
+var celda6contentbool=false;
+var celda7contentbool=false;
+
 function preload() {
 
     game.load.image('fondo', 'assets/textures/fondo3.png');
@@ -191,7 +199,7 @@ function preload() {
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
     game.load.image('dialogo', 'assets/dialogue_ins3.png');
-    game.load.audio('voice', 'assets/voice_part1_ins.mp3');
+    game.load.audio('voice', 'assets/voice_part3_ins.mp3');
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
 
@@ -581,9 +589,15 @@ function checkAnswer()
     }*/
 
     if(celda1bool && celda2bool && celda3bool && celda4bool && celda5bool && celda6bool && celda7bool)
-      sessionStorage.setItem('i25','1');
+      localStorage.setItem('i25','1');
     else {
-      sessionStorage.setItem('i25','0');
+      localStorage.setItem('i25','0');
+    }
+
+    if(celda1contentbool && celda2contentbool && celda3contentbool && celda4contentbool && celda5contentbool && celda6contentbool && celda7contentbool)
+      localStorage.setItem('i22','1');
+    else {
+      localStorage.setItem('i22','0');
     }
 
     window.open("../Mechanism/end0_1.html", "_self");
@@ -666,19 +680,48 @@ function updateMarker() {
         console.log("hoas");
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
         if(marker.x==14 && marker.y==5)
+        {
           celda1bool=true;
+          if(currentTile==3)
+            celda1contentbool=true;
+        }
         else if(marker.x==14 && marker.y==6)
+        {
           celda2bool=true;
+          if(currentTile==3)
+            celda2contentbool=true;
+        }
         else if(marker.x==14 && marker.y==7)
+        {
           celda3bool=true;
+          if(currentTile==3)
+            celda3contentbool=true;
+        }
         else if(marker.x==14 && marker.y==8)
+        {
           celda4bool=true;
+          if(currentTile==5)
+            celda4contentbool=true;
+        }
         else if(marker.x==14 && marker.y==9)
+        {
           celda5bool=true;
+          if(currentTile==5)
+            celda5contentbool=true;
+        }
         else if(marker.x==14 && marker.y==10)
+        {
           celda6bool=true;
+          if(currentTile==5)
+            celda6contentbool=true;
+        }
         else if(marker.x==14 && marker.y==11)
+        {
           celda7bool=true;
+          if(currentTile==5)
+            celda7contentbool=true;
+        }
+
     }
     else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasebool)
     {
@@ -1278,6 +1321,7 @@ function buttonPipe6Bool()
 
 function buttonErase()
 {
+  localStorage.setItem('i32','1');
   buttondigbool=false;
   buttonpipe1bool=false;
   buttonpipe2bool=false;
@@ -1356,7 +1400,7 @@ function openPopupW()
     closeButton.input.priorityID=1;
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupw.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-    sessionStorage.setItem('i17','1');
+    localStorage.setItem('i17','1');
 }
 
 function openPopupL()

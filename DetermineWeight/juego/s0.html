@@ -51,19 +51,7 @@ function create() {
     rule_button=game.add.button(game.world.centerX+250, game.world.centerY+20, 'ruleButton', goRule ,this, 0);
     rule_button.anchor.setTo(0.5);
 
-    localStorage.removeItem("t_m1");
-    localStorage.removeItem("t_m2");
-    localStorage.removeItem("t_m3");
-    localStorage.removeItem("r_m1");
-    localStorage.removeItem("r_m2");
-    localStorage.removeItem("r_m3");
-    localStorage.removeItem("b_m1");
-    localStorage.removeItem("b_m2");
-    localStorage.removeItem("b_m3");
-    localStorage.setItem("t_f", "false");
-    localStorage.setItem("r_f", "false");
-    localStorage.setItem("b_f", "false");
-    localStorage.setItem("cameFrom", "0");
+    
 }
 function play_sound(){
     voice.play();

@@ -80,7 +80,7 @@ function preload() {
 }
 
 function create() {
-    sessionStorage.setItem('i6','0');
+    localStorage.setItem('i6','0');
     // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
@@ -216,21 +216,21 @@ function boton_a_action()
     boton_a_bool=true;
     boton_b_bool=false;
     boton_c_bool=false;
-		sessionStorage.setItem('i6','0');
+		localStorage.setItem('i6','0');
 }
 function boton_b_action()
 {
     boton_a_bool=false;
     boton_b_bool=true;
     boton_c_bool=false;
-		sessionStorage.setItem('i6','0');
+		localStorage.setItem('i6','0');
 }
 function boton_c_action()
 {
     boton_a_bool=false;
     boton_b_bool=false;
     boton_c_bool=true;
-		sessionStorage.setItem('i6','0');
+		localStorage.setItem('i6','0');
 }
 
 function enter_answer_action()

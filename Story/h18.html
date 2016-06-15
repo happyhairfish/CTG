@@ -31,7 +31,7 @@ function preload() {
  game.load.spritesheet('volver_pregunta', 'assetsImg/volver_preg.png', 201, 100);
 }
 function create() {
-    if(sessionStorage.getItem('before')!='0')
+    if(localStorage.getItem('before')!='0')
     {
         voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
         var rep_hist_button = game.add.button(250, 500, 'volver_pregunta', volver_pregunta_action ,this);
@@ -55,8 +55,8 @@ function create() {
 }
 function volver_pregunta_action()
 {
-    var destination = sessionStorage.getItem('before');
-    sessionStorage.setItem('before','0');
+    var destination = localStorage.getItem('before');
+    localStorage.setItem('before','0');
     window.open("h"+destination+".html", "_self");
 }
 function play_sound(){

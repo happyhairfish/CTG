@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
@@ -29,7 +29,7 @@ function preload() {
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
 }
-function create() {    
+function create() {
    game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(50,50, 'ill');
     // ill.scale.setTo(0.85,0.85);
@@ -37,6 +37,8 @@ function create() {
     voice.play();
     left=game.add.button(0,250, 'left', goLeft, this, 0);
     right=game.add.button(700,250, 'right', goRight, this, 0);
+		right.visible=false;
+		game.time.events.add(Phaser.Timer.SECOND*60, update_right, this);
     voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
 
 }
@@ -47,8 +49,13 @@ function goRight(){
     window.open("h50.html", "_self");
 }
 function goLeft(){
-    window.open("h48.html", "_self");
+    window.open("h48_2.html", "_self");
 }
+function update_right()
+{
+  right.visible=true;
+}
+
 function update(){
 }
 function render() {

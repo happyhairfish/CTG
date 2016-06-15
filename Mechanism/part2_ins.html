@@ -1411,9 +1411,9 @@ function buttonResetAction()
 function buttonContinueAction()
 {
     if(buttonnum5bool && buttonpipe3bool)
-      sessionStorage.setItem('i26','1');
+      localStorage.setItem('i26','1');
     else {
-      sessionStorage.setItem('i26','0');
+      localStorage.setItem('i26','0');
     }
     window.open("../Mechanism/mid5.html", "_self");
 }
