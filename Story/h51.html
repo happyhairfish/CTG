@@ -126,10 +126,13 @@ function goRight(){
     else if(b_c_bool)
         localStorage.setItem("i18","0");
 
-    if(localStorage.getItem('bad')==null)
+    if(localStorage.getItem('bad')=='0')
     {
-      if(localStorage.getItem('i8')=='0' || localStorage.getItem('i10')=='0' || localStorage.getItem('i11')=='0'|| localStorage.getItem('i12')=='0' || localStorage.getItem('i14')=='0' || localStorage.getItem('i15')=='0' || localStorage.getItem('i16')=='0' || localStorage.getItem('i18')=='0' || localStorage.getItem('i27')=='0')
+              console.log("bad!!!1");
+      if(localStorage.getItem('i8')=='0' || localStorage.getItem('i10')=='0' || localStorage.getItem('i11')=='0'|| localStorage.getItem('i12')=='0' || localStorage.getItem('i14')=='0' || localStorage.getItem('i15')=='0' ||
+      localStorage.getItem('i16')=='0' || localStorage.getItem('i18')=='0' || localStorage.getItem('i27')=='0')
       {
+        console.log("bad!!!");
         if(localStorage.getItem('i8')=='0')
         {
           localStorage.setItem('bad','44');
@@ -174,6 +177,7 @@ function goRight(){
       }
     }
     else {
+      console.log("adasd");
       if(b_a_bool)
           localStorage.setItem("i29","1");
       else if(b_b_bool)
