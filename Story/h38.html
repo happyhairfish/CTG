@@ -37,8 +37,8 @@ var yb;
 var yc;
 
 function preload() {
-    game.load.audio('voice', 'assetsAudio/h38.m4a');
-    game.load.image('ill', 'assetsImg/h38_2.jpg');
+    game.load.audio('voice', 'assetsAudio/h38_2.m4a');
+    game.load.image('ill', 'assetsImg/h38_4.PNG');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
@@ -53,7 +53,7 @@ function preload() {
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.image(100, 0, 'ill');
+    ill=game.add.image(75, 10, 'ill');
 
     voice=game.add.audio('voice');
     voice.play();
@@ -145,6 +145,7 @@ function goLeft(){
 function rep_hist_action()
 {
 		console.log("before38");
+		localStorage.setItem('i30', '1');
     localStorage.setItem('before', '38');
     window.open("h0.html", "_self");
 }

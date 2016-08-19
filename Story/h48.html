@@ -47,7 +47,7 @@ function preload() {
 
     game.load.spritesheet('b_a', 'assetsImg/b48a_2.png', 300,50);
     game.load.spritesheet('b_b', 'assetsImg/b48b_2.png', 300,100);
-    game.load.spritesheet('b_c', 'assetsImg/b48c_2.png', 300,50);
+    game.load.spritesheet('b_c', 'assetsImg/b48c_4.png', 300,50);
     game.load.image('c_a', 'assetsImg/c38a.png');
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
@@ -78,6 +78,7 @@ function create() {
 }
 function rep_hist_action()
 {
+  		localStorage.setItem('i30', '1');
     localStorage.setItem('before', '48');
     window.open("h0.html", "_self");
 }

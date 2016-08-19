@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 
 var ill;
@@ -31,7 +31,7 @@ function preload() {
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
     game.load.spritesheet('repeat', 'assetsImg/b37_2.png', 300, 100);
 }
-function create() {    
+function create() {
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(160,25, 'ill');
     ill.scale.setTo(0.85,0.85);
@@ -51,7 +51,7 @@ function goRepeat(){
     window.open("h0.html", "_self");
 }
 function goRight(){
-    window.open("h43.html", "_self");
+    window.open("h44.html", "_self");
 }
 function goLeft(){
     window.open("h41.html", "_self");

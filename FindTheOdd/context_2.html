@@ -39,7 +39,7 @@ var yc;
 
 function preload() {
     game.load.audio('voice', 'assets/context_2.mp3');
-    game.load.image('ill', 'assets/context_2.PNG');
+    game.load.image('ill', 'assets/context_2_1.PNG');
     game.load.spritesheet('left', 'assets/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assets/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assets/button_voice3_50.png', 50, 50);
@@ -54,8 +54,8 @@ function preload() {
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.image(00, 0, 'ill');
-
+    ill=game.add.image(20, 0, 'ill');
+    ill.scale.setTo(0.9,0.9);
 
     voice=game.add.audio('voice');
     voice.play();
@@ -74,7 +74,7 @@ function create() {
     // b_b.anchor.setTo(0.5);
     // b_c = game.add.button(game.world.centerX, yc, 'b_c', AnsC ,this, 0);
     // b_c.anchor.setTo(0.5);
-    game.time.events.add(Phaser.Timer.SECOND*60, update_right, this);
+    game.time.events.add(Phaser.Timer.SECOND*20, update_right, this);
 }
 function rep_hist_action()
 {

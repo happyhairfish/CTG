@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
@@ -34,7 +34,7 @@ var voice_button;
 
 function preload() {
 	game.load.image('dialogo', 'assets/contar/all2.png');
-    game.load.image('mapa', 'assets/contar/base2.png');
+    game.load.image('mapa', 'assets/contar/base3.png');
 
     game.load.spritesheet('button1', 'assets/choose/minimap1_button.png', 200, 250);
     game.load.spritesheet('button2', 'assets/choose/minimap2_button.png', 200, 250);
@@ -70,11 +70,11 @@ function create() {
     right=game.add.button(700,250, 'right', goRight);
     right.visible=false;
 
-    game.time.events.add(Phaser.Timer.SECOND*10, update_right, this);
+    game.time.events.add(Phaser.Timer.SECOND*15, update_right, this);
 }
-function update() 
+function update()
 {
-    
+
 }
 
 function update_right()
@@ -118,7 +118,7 @@ function render() {
 
     game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 */
-    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)'); 
+    //game.debug.text('erase dig bool:'+eraseDigBool, 32, 70, 'rgb(0,0,0)');
     //game.debug.geom(line1);
     //game.debug.geom(line2);
     //game.debug.geom(line3);

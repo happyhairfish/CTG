@@ -48,6 +48,7 @@ function preload() {
 }
 function create() {
 
+
 	localStorage.removeItem("t_m1");
 	localStorage.removeItem("t_m2");
 	localStorage.removeItem("t_m3");
@@ -103,6 +104,10 @@ function create() {
 		text_ruler_meds=game.add.text(580,425,"Mediciones regla\ncompletas",style)
 		text_ruler_meds.addColor("#2cb800",0);
 		text_ruler_meds.visible=false;
+
+		localStorage.setItem('termometer_tutorial','0');
+		localStorage.setItem('ruler_tutorial','0');
+		localStorage.setItem('balance_tutorial','0');
 }
 function play_sound(){
     voice.play();

@@ -51,7 +51,7 @@ function preload() {
 
     game.load.spritesheet('option33', 'assets/contar/12_2.png', 100, 50);
     game.load.spritesheet('option34', 'assets/contar/18_2.png', 100, 50);
-    game.load.spritesheet('option30', 'assets/contar/21_2.png', 100, 50);
+    game.load.spritesheet('option30', 'assets/contar/16_2.png', 100, 50);
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice3_50.png', 100, 50);
     game.load.spritesheet('enter_answer_button', 'assets/contar/ingresar_rspta_3.png', 100, 50);
@@ -205,9 +205,9 @@ function goLeft()
 
 function goRight()
 {
-		if(button30_bool || button33_bool)
+		if(button34_bool || button33_bool)
 			localStorage.setItem('i7','0');
-		else if (button34_bool) {
+		else if (button30_bool) {
 			localStorage.setItem('i7','1');
 		}
     window.open("../Mechanism/count2.html", "_self");

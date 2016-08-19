@@ -39,22 +39,22 @@ var yc;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/h48.m4a');
-    game.load.image('ill', 'assetsImg/h48_2.PNG');
+    game.load.image('ill', 'assetsImg/h48_24.PNG');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
     game.load.spritesheet('repetir_historia', 'assetsImg/rep_hist.png', 201, 100);
 
     game.load.spritesheet('b_a', 'assetsImg/b48_2a.png', 300,100);
-    game.load.spritesheet('b_b', 'assetsImg/b48_2b.png', 300,50);
-    game.load.spritesheet('b_c', 'assetsImg/b48_2c.png', 300,100);
+    game.load.spritesheet('b_b', 'assetsImg/b48_2b_2.png', 300,100);
+    game.load.spritesheet('b_c', 'assetsImg/b48_2c_2.png', 300,50);
     game.load.image('c_a', 'assetsImg/c38a.png');
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.image(0, 0, 'ill');
+    ill=game.add.image(60, 0, 'ill');
     ill.scale.setTo(0.9,0.9);
 
     voice=game.add.audio('voice');
@@ -67,8 +67,8 @@ function create() {
     rep_hist_button.scale.setTo(0.5,0.5);
 
     ya=game.world.centerY-50;
-    yb=game.world.centerY+25;
-    yc=game.world.centerY+100;
+    yb=game.world.centerY+55;
+    yc=game.world.centerY+140;
     b_a = game.add.button(game.world.centerX+10, ya, 'b_a', AnsA ,this, 0);
     b_a.anchor.setTo(0.5);
     b_a.scale.setTo(0.9,0.9);
@@ -82,6 +82,7 @@ function create() {
 }
 function rep_hist_action()
 {
+  		localStorage.setItem('i30', '1');
     localStorage.setItem('before', '48_2');
     window.open("h0.html", "_self");
 }

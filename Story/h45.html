@@ -38,21 +38,21 @@ var yc;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/h45.m4a');
-    game.load.image('ill', 'assetsImg/h45.jpg');
+    game.load.image('ill', 'assetsImg/h45_2.PNG');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
     game.load.spritesheet('repetir_historia', 'assetsImg/rep_hist.png', 201, 100);
-    game.load.spritesheet('b_a', 'assetsImg/b45a_2.png', 300,100);
-    game.load.spritesheet('b_b', 'assetsImg/b45b_2.png', 300,50);
-    game.load.spritesheet('b_c', 'assetsImg/b45c_2.png', 300,50);
+    game.load.spritesheet('b_a', 'assetsImg/b45a_4.png', 300,100);
+    game.load.spritesheet('b_b', 'assetsImg/b45b_3.png', 300,100);
+    game.load.spritesheet('b_c', 'assetsImg/b45c_4.png', 300,100);
     game.load.image('c_a', 'assetsImg/c38a.png');
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.image(97, 0, 'ill');
+    ill=game.add.image(78, 0, 'ill');
     ill.scale.setTo(0.9,0.9);
 
     voice=game.add.audio('voice');
@@ -64,9 +64,9 @@ function create() {
     rep_hist_button = game.add.button(250, 500, 'repetir_historia', rep_hist_action ,this);
     rep_hist_button.scale.setTo(0.5,0.5);
 
-    ya=game.world.centerY-60;
-    yb=game.world.centerY+40;
-    yc=game.world.centerY+110;
+    ya=game.world.centerY-90;
+    yb=game.world.centerY+15;
+    yc=game.world.centerY+120;
     b_a = game.add.button(game.world.centerX-10, ya, 'b_a', AnsA ,this, 0);
     b_a.anchor.setTo(0.5);
     b_b = game.add.button(game.world.centerX-10, yb, 'b_b', AnsB ,this, 0);
@@ -77,6 +77,7 @@ function create() {
 }
 function rep_hist_action()
 {
+  		localStorage.setItem('i30', '1');
     localStorage.setItem('before', '45');
     window.open("h0.html", "_self");
 }
@@ -121,18 +122,18 @@ function play_sound(){
 function goRight(){
 
     if(b_a_bool)
-        localStorage.setItem("i16","1");
-    else if(b_b_bool)
         localStorage.setItem("i16","0");
+    else if(b_b_bool)
+        localStorage.setItem("i16","1");
     else if(b_c_bool)
         localStorage.setItem("i16","0");
 
         if(localStorage.getItem("bad")=='45')
         {
           if(b_a_bool)
-              localStorage.setItem("i29","1");
-          else if(b_b_bool)
               localStorage.setItem("i29","0");
+          else if(b_b_bool)
+              localStorage.setItem("i29","1");
           else if(b_c_bool)
               localStorage.setItem("i29","0");
           window.open("../FindTheOdd/context.html", "_self");

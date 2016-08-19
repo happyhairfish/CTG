@@ -49,7 +49,7 @@ function preload() {
     game.load.spritesheet('button33', 'assets/choose/minimap2_button.png', 200, 250);
     game.load.spritesheet('button3', 'assets/choose/minimap3_button.png', 200, 250);
 
-    game.load.spritesheet('option33', 'assets/contar/1_2.png', 100, 50);
+    game.load.spritesheet('option33', 'assets/contar/4.png', 100, 50);
     game.load.spritesheet('option34', 'assets/contar/2_2.png', 100, 50);
     game.load.spritesheet('option30', 'assets/contar/3_2.png', 100, 50);
 
@@ -202,9 +202,9 @@ function goLeft()
 
 function goRight()
 {
-	if(button30_bool || button33_bool)
+	if(button30_bool || button34_bool)
 		localStorage.setItem('i7','0');
-	else if (button34_bool) {
+	else if (button33_bool) {
 		localStorage.setItem('i7','1');
 	}
 	window.open("../Mechanism/mid1.html", "_self");

@@ -44,9 +44,9 @@ function preload() {
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
         game.load.spritesheet('repetir_historia', 'assetsImg/rep_hist.png', 201, 100);
 
-    game.load.spritesheet('b_a', 'assetsImg/b46a_2.png', 300,50);
-    game.load.spritesheet('b_b', 'assetsImg/b46b_2.png', 300,100);
-    game.load.spritesheet('b_c', 'assetsImg/b46c_2.png', 300,50);
+    game.load.spritesheet('b_a', 'assetsImg/b46a_3.png', 300,100);
+    game.load.spritesheet('b_b', 'assetsImg/b46b_3.png', 300,100);
+    game.load.spritesheet('b_c', 'assetsImg/b46c_3.png', 300,50);
     game.load.image('c_a', 'assetsImg/c38a.png');
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
@@ -66,9 +66,9 @@ voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
 
 
 
-    ya=game.world.centerY-80;
-    yb=game.world.centerY+12.5;
-    yc=game.world.centerY+110;
+    ya=game.world.centerY-70;
+    yb=game.world.centerY+37.5;
+    yc=game.world.centerY+120;
     b_a = game.add.button(game.world.centerX-10, ya, 'b_a', AnsA ,this, 0);
     b_a.anchor.setTo(0.5);
     b_b = game.add.button(game.world.centerX-10, yb, 'b_b', AnsB ,this, 0);
@@ -79,6 +79,7 @@ voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
 }
 function rep_hist_action()
 {
+  		localStorage.setItem('i30', '1');
     localStorage.setItem('before', '46');
     window.open("h0.html", "_self");
 }
@@ -122,18 +123,18 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
-        localStorage.setItem("i14","1");
-    else if(b_b_bool)
         localStorage.setItem("i14","0");
+    else if(b_b_bool)
+        localStorage.setItem("i14","1");
     else if(b_c_bool)
         localStorage.setItem("i14","0");
 
         if(localStorage.getItem("bad")=='46')
         {
           if(b_a_bool)
-              localStorage.setItem("i29","1");
-          else if(b_b_bool)
               localStorage.setItem("i29","0");
+          else if(b_b_bool)
+              localStorage.setItem("i29","1");
           else if(b_c_bool)
               localStorage.setItem("i29","0");
           window.open("../FindTheOdd/context.html", "_self");
