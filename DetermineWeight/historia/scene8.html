@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -24,29 +24,31 @@ var voice_button;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/scene8.m4a');
-    game.load.image('ill', 'assetsImg/ill08-4.jpg');
+    game.load.image('ill', 'assetsImg/scene8.png');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
     game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(130,25, 'ill');
+    ill=game.add.sprite(20,25, 'ill');
     ill.scale.setTo(0.9,0.9);
 
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(0,250, 'left', goLeft, this, 1,0,2);
     right=game.add.button(700,250, 'right', goRight, this, 1,0,2);
+		right.visible=false;
     voice_button = game.add.button(400,525 , 'buttonAudio', play_sound ,this, 1, 0, 2);
 
-    game.time.events.add(Phaser.Timer.SECOND * 2.5, play_answer, this);
-
-    game.time.events.add(Phaser.Timer.SECOND * 60, showRight, this);
+    game.time.events.add(Phaser.Timer.SECOND * 20, showRight, this);
 
 }
 function play_sound(){
     voice.play();
+}
+function showRight(){
+    right.visible=true
 }
 function goRight(){
     window.open("scene9.html", "_self");

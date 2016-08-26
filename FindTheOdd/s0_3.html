@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -81,7 +81,7 @@ function preload() {
 }
 
 function create() {
-    localStorage.setItem('i1','');
+    localStorage.setItem('i6','');
     // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
@@ -137,7 +137,7 @@ function play_answer()
 function goRight()
 {
     localStorage.setItem('before_fo','3');
-    localStorage.setItem('i1','0');
+    localStorage.setItem('i6','0');
     window.open("../FindTheOdd/s1.html", "_self");
 }
 function showRight()

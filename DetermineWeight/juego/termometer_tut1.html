@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -27,7 +27,7 @@ var rule_button;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/balance_tut1.mp3');
-    game.load.image('ill', 'assetsImg/termometer_tut/tut1.png');
+    game.load.image('ill', 'assetsImg/termometer_tut/tut1_2.png');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
     game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
@@ -46,6 +46,7 @@ function create() {
     voice.play();
     left=game.add.button(20,500, 'left', goLeft, this, 1,0,2);
     right=game.add.button(685,500, 'right', goRight, this, 1,0,2);
+
 
 		voice_button = game.add.button(370, 530, 'voice_button', play_sound ,this, 1, 0, 2);
 

@@ -1,9 +1,9 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 var ill1;
 var ill2;
@@ -27,10 +27,10 @@ var voice;
 var voice_button;
 
 function preload() {
-    game.load.audio('voice', 'assets/mid/voice3.mp3');
+    game.load.audio('voice', 'assets/mid/mid4.m4a');
 
 
-    game.load.image('ill1', 'assets/mid/vinheta4-2.png');
+    game.load.image('ill1', 'assets/mid/vinheta4-3.png');
 
     game.load.image('left', 'assets/arrowleft.png');
     game.load.image('right', 'assets/arrowright.png');
@@ -58,7 +58,7 @@ function play_sound()
 }
 function goRight()
 {
-    window.open("../Mechanism/part1_ins.html", "_self");
+    window.open("../Mechanism/part2_ins.html", "_self");
 }
 function goLeft()
 {

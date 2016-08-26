@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -117,6 +117,9 @@ var mBdone=false;
 var mCdone=false;
 var voice_button;
 var tutorial_button;
+var table1full=false;
+var table2full=false;
+var table3full=false;
 
 function create(){
 
@@ -334,6 +337,10 @@ function create(){
 	console.log(localStorage.getItem('b_m1'));
 	console.log(localStorage.getItem('b_m2'));
 	console.log(localStorage.getItem('b_m3'));
+
+	tableup.lines= game.add.sprite(597,160,'tfull');
+	tableup.lines.scale.setTo(0.91,0.91);
+	tableup.lines.visible=false;
 }
 function play_sound()
 {
@@ -351,6 +358,8 @@ function update(){
 
 	game.physics.arcade.collide(rocks, floors);
 	game.physics.arcade.collide(rocks, plates, onTouch, null, this);
+
+	checkfull();
 }
 
 function watch_tutorial()
@@ -371,7 +380,7 @@ function reloadTable(){
 		textC = game.add.text(727, 378, localStorage.getItem('b_m3'), style);
 		tableup.measures++;
 	}
-	checkfull();
+	// checkfull();
 }
 
 function onTouch(obj1, obj2){
@@ -576,13 +585,19 @@ function eraseMeasure1(){
 		pesaCmayBDer1.visible=false;
 	console.log("me apretaron1");
 	if (measure1.blockused==true){
+		if(table1full)
+		{
+			table1full=false;
+			tableup.measures--;
+		}
+
+
 		measure1.blockused=false;
 		measure1.ok.visible=false;
 
 		measure1.result.destroy();
 		if (measure1.intable== true){
 			measure1.intable=false;
-			tableup.measures--;
 			erasefull();
 			localStorage.removeItem("b_m1");
 		}
@@ -624,12 +639,17 @@ function eraseMeasure2(){
 	pesaCmayBDer2.visible=false;
 	console.log("me apretaron2");
 	if (measure2.blockused==true){
+		if(table2full)
+		{
+			table2full=false;
+			tableup.measures--;
+		}
+
 		measure2.blockused=false;
 		measure2.ok.visible=false;
 		measure2.result.destroy();
 		if (measure2.intable== true){
 			measure2.intable=false;
-			tableup.measures--;
 			erasefull();
 			localStorage.removeItem("b_m2");
 		}
@@ -671,12 +691,17 @@ function eraseMeasure3(){
 	pesaCmayBDer3.visible=false;
 	console.log("me apretaron3");
 	if (measure3.blockused==true){
+		if(table3full)
+		{
+			table3full=false;
+			tableup.measures--;
+		}
+
 		measure3.blockused=false;
 		measure3.ok.visible=false;
 		measure3.result.destroy();
 		if (measure3.intable== true){
 			measure3.intable=false;
-			tableup.measures--;
 			erasefull();
 			localStorage.removeItem("b_m3");
 		}
@@ -704,10 +729,14 @@ function goTable1 (){
 		}
 		measure1.result.visible=true;
 		measure1.intable= true;
-		tableup.measures++;
+		if(!table1full)
+		{
+			table1full=true;
+			tableup.measures++;
+		}
 		localStorage.setItem('b_m1', measure1.result._text);
 		console.log(localStorage.getItem('b_m1'));
-		checkfull();
+		// checkfull();
 	}
 }
 function goTable2 (){
@@ -717,42 +746,60 @@ function goTable2 (){
 			textB=null;
 			tableup.measures--;
 		}
+
+		if(!table2full)
+		{
+			table2full=true;
+			tableup.measures++;
+		}
 		measure2.result.visible=true;
 		measure2.intable= true;
-		tableup.measures++;
+
 		localStorage.setItem('b_m2', measure2.result._text);
 		console.log(localStorage.getItem('b_m2'));
-		checkfull();
+		// checkfull();
 	}
-}function goTable3 (){
+}
+function goTable3 (){
 	if (measure3.blockused==true){
 		if(textC!=null){
 			textC.destroy();
 			textC=null;
 			tableup.measures--;
 		}
+
+		if(!table3full)
+		{
+			table3full=true;
+			tableup.measures++;
+		}
 		measure3.result.visible=true;
 		measure3.intable= true;
-		tableup.measures++;
+
 		localStorage.setItem('b_m3', measure3.result._text);
 		console.log(localStorage.getItem('b_m3'));
-		checkfull();
+		// checkfull();
 	}
 }
 //Función que comprueba si la tabla está llena
 function checkfull(){
 	if (tableup.measures>=3){
 		tableup.fulltable=true;
-		tableup.lines= game.add.sprite(597,160,'tfull');
-		tableup.lines.scale.setTo(0.91,0.91);
-		localStorage.setItem('b_f', 'true');
+		tableup.lines.visible=true;
+		localStorage.setItem('t_f', 'true');
+	}
+	else {
+		tableup.fulltable=false;
+		tableup.lines.visible=false;
+		localStorage.setItem('t_f', 'false');
+
 	}
 }
 //Función que quita el full de la tabla
 function erasefull(){
 	if(tableup.fulltable==true){
 		tableup.fulltable=false;
-		tableup.lines.destroy();
+		tableup.lines.visible=false;
 		localStorage.setItem('b_f', 'false');
 	}
 }

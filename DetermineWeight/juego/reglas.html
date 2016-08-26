@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -27,6 +27,7 @@ function preload(){
     game.load.image('back', 'assets/fondo14.PNG');
     game.load.image('rule', 'assets/regla3.png');
     game.load.image('block', 'assets/block2.png');
+		game.load.image('dialogue','assetsImg/rope_dialogue5.PNG')
     game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
     game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
     game.load.image('tfull', 'assets/tablaCompleta3.png');
@@ -36,7 +37,7 @@ function preload(){
 		game.load.spritesheet('left', 'assets/arrowleft_choose_tool2.png', 100, 100);
 		game.load.spritesheet('right', 'assets/arrowright_2.png', 100, 100);
 
-		game.load.audio('voice', 'assets/voice3.mp3');
+		game.load.audio('voice', 'assetsAudio/rule_voice.m4a');
 		game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
 		game.load.spritesheet('button_tutorial','assets/tutorial.png',201,100);
 
@@ -68,6 +69,9 @@ var tutorial_button;
 var mAdone=false;
 var mBdone=false;
 var mCdone=false;
+var table1full=false;
+var table2full=false;
+var table3full=false;
 
 
 function create(){
@@ -77,6 +81,9 @@ function create(){
 	voice=game.add.audio('voice');
 	voice.play();
 	voice_button = game.add.button(675, 550, 'buttonAudio', play_sound ,this);
+
+	dialogo=game.add.sprite(170, 30, 'dialogue');
+	dialogo.scale.setTo(0.85,0.85);
 
 	// Se crea el fondo
 	game.stage.backgroundColor = "#FFFFFF";
@@ -160,6 +167,10 @@ function create(){
 	text_m1 = game.add.text(630, 255, "Medida 1", style);
 	text_m2 = game.add.text(630, 328, "Medida 2", style);
 	text_m3 = game.add.text(630, 400, "Medida 3", style);
+
+	tableup.lines= game.add.sprite(595,165,'tfull');
+	tableup.lines.scale.setTo(0.89,0.89);
+	tableup.lines.visible=false;
 }
 
 function update(){
@@ -213,7 +224,7 @@ function reloadTable(){
 		textC = game.add.text(720, 390, localStorage.getItem('r_m3'), style);
 		tableup.measures++;
 	}
-	checkfull();
+	// checkfull();
 }
 
 //Estas funciones permiten registrar la medición. En detalle, si la colisión ocurrió sobre un bloque de medición que no ha sido usado antes, impide que los objetos se vuelvan a usar y registra los datos.
@@ -299,9 +310,15 @@ function eraseMeasure1(){
 		measure1.instrument.destroy();
 		measure1.obj.destroy();
 		measure1.result.destroy();
+
+		if(table1full)
+		{
+			table1full=false;
+			tableup.measures--;
+		}
+
 		if (measure1.intable== true){
 			measure1.intable=false;
-			tableup.measures--;
 			localStorage.removeItem("r_m1");
 			erasefull();
 		}
@@ -316,9 +333,15 @@ function eraseMeasure2(){
 		measure2.instrument.destroy();
 		measure2.obj.destroy();
 		measure2.result.destroy();
+
+		if(table2full)
+		{
+			table2full=false;
+			tableup.measures--;
+		}
+
 		if (measure2.intable== true){
 			measure2.intable=false;
-			tableup.measures--;
 			localStorage.removeItem("r_m2");
 			erasefull();
 		}
@@ -333,9 +356,15 @@ function eraseMeasure3(){
 		measure3.instrument.destroy();
 		measure3.obj.destroy();
 		measure3.result.destroy();
+
+		if(table3full)
+		{
+			table3full=false;
+			tableup.measures--;
+		}
+
 		if (measure3.intable== true){
 			measure3.intable=false;
-			tableup.measures--;
 			localStorage.removeItem("r_m3");
 			erasefull();
 		}
@@ -352,10 +381,16 @@ function goTable1 (){
 		}
 		measure1.result.visible=true;
 		measure1.intable= true;
-		tableup.measures++;
+
+		if(!table1full)
+		{
+			table1full=true;
+			tableup.measures++;
+		}
+
 		localStorage.setItem('r_m1', measure1.result._text);
 		console.log(localStorage.getItem('r_m1'));
-		checkfull();
+		// checkfull();
 	}
 }
 function goTable2 (){
@@ -367,12 +402,19 @@ function goTable2 (){
 		}
 		measure2.result.visible=true;
 		measure2.intable= true;
-		tableup.measures++;
+
+		if(!table2full)
+		{
+			table2full=true;
+			tableup.measures++;
+		}
+
 		localStorage.setItem('r_m2', measure2.result._text);
 		console.log(localStorage.getItem('r_m2'));
 		checkfull();
 	}
-}function goTable3 (){
+}
+function goTable3 (){
 	if (measure3.blockused==true){
 		if(textC!=null){
 			textC.destroy();
@@ -381,7 +423,11 @@ function goTable2 (){
 		}
 		measure3.result.visible=true;
 		measure3.intable= true;
-		tableup.measures++;
+		if(!table3full)
+		{
+			table3full=true;
+			tableup.measures++;
+		}
 		localStorage.setItem('r_m3', measure3.result._text);
 		console.log(localStorage.getItem('r_m3'));
 		checkfull();
@@ -392,9 +438,14 @@ function goTable2 (){
 function checkfull(){
 	if (tableup.measures>=3){
 		tableup.fulltable=true;
-		tableup.lines= game.add.sprite(595,165,'tfull');
-		tableup.lines.scale.setTo(0.89,0.89);
-		localStorage.setItem('r_f', 'true');
+		tableup.lines.visible=true;
+		localStorage.setItem('t_f', 'true');
+	}
+	else {
+		tableup.fulltable=false;
+		tableup.lines.visible=false;
+		localStorage.setItem('t_f', 'false');
+
 	}
 }
 

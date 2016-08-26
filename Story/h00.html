@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+	<title>Cómic Pensamiento Crítico3</title>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -25,9 +25,7 @@ function create() {
 }
 function goRight(){
 	console.log("a");
-		localStorage.setItem('balance_tutorial','1');
-		localStorage.setItem('ruler_tutorial','1');
-		localStorage.setItem('termometer_tutorial','1');
+
 		localStorage.setItem('before','0');
 		localStorage.setItem('i1',null);
 		localStorage.setItem('i2',null);
@@ -66,6 +64,10 @@ function goRight(){
 		localStorage.setItem('before_dw', '0');
     localStorage.setItem('cameFrom', '0');
 		localStorage.setItem('dw_first','0');
+		localStorage.setItem('from_fo','0')
+		localStorage.setItem('balance_tutorial','0');
+		localStorage.setItem('ruler_tutorial','0');
+		localStorage.setItem('termometer_tutorial','0');
     console.log(localStorage.getItem('before'));
     window.open("h0.html", "_self");
 }

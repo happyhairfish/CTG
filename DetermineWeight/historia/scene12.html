@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -24,15 +24,15 @@ var voice_button;
 
 function preload() {
     game.load.audio('voice', 'assetsAudio/scene12_1.m4a');
-    game.load.image('ill', 'assetsImg/ill12_3.jpg');
+    game.load.image('ill', 'assetsImg/scene12.PNG');
     game.load.spritesheet('left', 'assetsImg/arrowleft_2.png', 100, 100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png', 100, 100);
     game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
 }
 function create() {
     game.stage.backgroundColor = "#FFFFFF";
-    ill=game.add.sprite(100,100, 'ill');
-
+    ill=game.add.sprite(0,100, 'ill');
+		ill.scale.setTo(0.95,0.95);
     voice=game.add.audio('voice');
     voice.play();
     left=game.add.button(20,450, 'left', goLeft, this, 1,0,2);

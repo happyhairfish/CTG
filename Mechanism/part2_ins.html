@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Phaser - Making your first game, part 1</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -148,6 +148,12 @@ var buttonnum5bool=false;
 var buttonnum6bool=false;
 var buttonnum7bool=false;
 
+var buttonopt1bool=false;
+var buttonopt2bool=false;
+
+var option_button1;
+var option_button2;
+
 
 
 function preload() {
@@ -173,6 +179,8 @@ function preload() {
     game.load.spritesheet('buttonenteranswer', 'assets/arrowright_2.png', 100,100);
     game.load.spritesheet('buttonresetchico', 'assets/textures/boton_reset.png', 100,50);
 
+    game.load.spritesheet('option_button1', 'assets/ins/option_button1_6.png', 150,50);
+    game.load.spritesheet('option_button2', 'assets/ins/option_button2_1.png', 150,50);
     game.load.spritesheet('button_num1', 'assets/ins/1_2.png', 50,50);
     game.load.spritesheet('button_num2', 'assets/ins/2_2.png', 50,50);
     game.load.spritesheet('button_num3', 'assets/ins/3_2.png', 50,50);
@@ -190,7 +198,7 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/textures/boton_reset.png', 100, 50);
     game.load.spritesheet('buttoncontinue', 'assets/boton_continue3.png', 100, 50);
 
-    game.load.tilemap('map', 'assets/tilemap_big8.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_ins2.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -203,10 +211,10 @@ function preload() {
 
     game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
 
-    game.load.image('dialogo', 'assets/dialogue_ins2_2.png');
+    game.load.image('dialogo', 'assets/part2_ins_dialogue2.png');
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice2.png', 100, 50);
-    game.load.audio('voice', 'assets/voice_part2_ins.mp3');
+    game.load.audio('voice', 'assets/part2_ins2.m4a');
 }
 function copyMap()
 {
@@ -490,6 +498,11 @@ function create() {
 
     var table_right_title = game.add.text(513, 410, "que tiene", style_title);
 
+    option_button1 = game.add.button(580, 40, 'option_button1', buttonOptAction1, this, 1, 0, 0);
+    option_button1.input.useHandCursor = true;
+    option_button2 = game.add.button(580, 120, 'option_button2', buttonOptAction2, this, 1, 0, 0);
+    option_button2.input.useHandCursor = true;
+
     var tile = game.add.text(218, 214, "1", style_map2);
     var tile1 = game.add.text(270, 214, "2", style_map2);
     var tile2 = game.add.text(318, 214, "3", style_map2);
@@ -534,8 +547,8 @@ function create() {
     buttonnum7 = game.add.button(690, 352, 'button_num7', buttonAction7, this, 1, 0, 0);
     buttonnum7.input.useHandCursor = true;
 
-    dialogo=game.add.image(210, 30, 'dialogo');
-    dialogo.scale.setTo(0.40,0.40);
+    dialogo=game.add.image(0, 10, 'dialogo');
+    // dialogo.scale.setTo(0.90,0.90);
 
 
     popupw = game.add.sprite(game.world.centerX, game.world.centerY, 'popup_win');
@@ -586,6 +599,19 @@ function play_sound()
 {
     voice.play();
 }
+
+function buttonOptAction1()
+{
+  buttonopt1bool=true;
+  buttonopt2bool=false;
+}
+
+function buttonOptAction2()
+{
+  buttonopt1bool=false;
+  buttonopt2bool=true;
+}
+
 
 function buttonAction1()
 {
@@ -663,12 +689,12 @@ function checkAnswer()
 
     console.log(currentTile);
 
-    if((buttonnum1bool || buttonnum2bool || buttonnum3bool || buttonnum4bool || buttonnum5bool || buttonnum6bool || buttonnum7bool) && (buttondigbool || buttonpipe1bool || buttonpipe2bool || buttonpipe3bool || buttonpipe4bool || buttonpipe5bool || buttonpipe6bool))
+    if((buttonopt1bool || buttonopt2bool) && (buttonnum1bool || buttonnum2bool || buttonnum3bool || buttonnum4bool || buttonnum5bool || buttonnum6bool || buttonnum7bool) && (buttondigbool || buttonpipe1bool || buttonpipe2bool || buttonpipe3bool || buttonpipe4bool || buttonpipe5bool || buttonpipe6bool))
         bAux=true;
 
     if(bAux)
     {
-        openPopupW();
+        buttonContinueAction();
     }
     else
     {
@@ -834,6 +860,16 @@ function waterPath()
 
 function update()
 {
+      if(buttonopt1bool)
+          option_button1.frame=1;
+      else
+          option_button1.frame=0;
+
+      if(buttonopt2bool)
+          option_button2.frame=1;
+      else
+          option_button2.frame=0;
+
     if(buttonnum1bool)
         buttonnum1.frame=1;
     else
@@ -1410,10 +1446,10 @@ function buttonResetAction()
 }
 function buttonContinueAction()
 {
-    if(buttonnum5bool && buttonpipe3bool)
-      localStorage.setItem('i26','1');
+    if(buttonnum5bool && buttonpipe3bool && buttonopt2bool)
+      localStorage.setItem('i22','1');
     else {
-      localStorage.setItem('i26','0');
+      localStorage.setItem('i22','0');
     }
     window.open("../Mechanism/mid5.html", "_self");
 }

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
-    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script src="phaser.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -80,7 +80,8 @@ function preload() {
 }
 
 function create() {
-    localStorage.setItem('i6','0');
+    localStorage.setItem('i1','0');
+		localStorage.setItem('from_fo','3');
     // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
@@ -137,7 +138,7 @@ function play_answer()
 }
 function goRight()
 {
-    window.open("../DetermineWeight/historia/scene0.html", "_self");
+    window.open("../FindTheOdd/context_3.html", "_self");
 }
 function showRight()
 {
@@ -216,21 +217,21 @@ function boton_a_action()
     boton_a_bool=true;
     boton_b_bool=false;
     boton_c_bool=false;
-		localStorage.setItem('i6','0');
+		localStorage.setItem('i1','0');
 }
 function boton_b_action()
 {
     boton_a_bool=false;
     boton_b_bool=true;
     boton_c_bool=false;
-		localStorage.setItem('i6','1');
+		localStorage.setItem('i1','1');
 }
 function boton_c_action()
 {
     boton_a_bool=false;
     boton_b_bool=false;
     boton_c_bool=true;
-		localStorage.setItem('i6','0');
+		localStorage.setItem('i1','0');
 }
 
 function enter_answer_action()
