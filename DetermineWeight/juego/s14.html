@@ -280,25 +280,27 @@ function update(){
 		}
 
 		if(checkOverlap(block1,rock3) && checkOverlap(block2,rock2) && checkOverlap(block3,rock1))
+		{
 			localStorage.setItem('i23','0');
 			localStorage.setItem('s14','CBA');
-		else if(checkOverlap(block1,rock3) && checkOverlap(block2,rock1) && checkOverlap(block3,rock2){
+		}
+		else if(checkOverlap(block1,rock3) && checkOverlap(block2,rock1) && checkOverlap(block3,rock2)){
 			localStorage.setItem('s14','CAB');
 			localStorage.setItem('i23','0');
 		}
-		else if(checkOverlap(block1,rock2) && checkOverlap(block2,rock1) && checkOverlap(block3,rock3){
+		else if(checkOverlap(block1,rock2) && checkOverlap(block2,rock1) && checkOverlap(block3,rock3)){
 			localStorage.setItem('s14','BAC');
 			localStorage.setItem('i23','0');
 		}
-		else if(checkOverlap(block1,rock2) && checkOverlap(block2,rock3) && checkOverlap(block3,rock1){
+		else if(checkOverlap(block1,rock2) && checkOverlap(block2,rock3) && checkOverlap(block3,rock1)){
 			localStorage.setItem('s14','BCA');
 			localStorage.setItem('i23','0');
 		}
-		else if(checkOverlap(block1,rock1) && checkOverlap(block2,rock3) && checkOverlap(block3,rock2){
+		else if(checkOverlap(block1,rock1) && checkOverlap(block2,rock3) && checkOverlap(block3,rock2)){
 			localStorage.setItem('s14','ACB');
 			localStorage.setItem('i23','0');
 		}
-		else if(checkOverlap(block1,rock1) && checkOverlap(block2,rock2) && checkOverlap(block3,rock3){
+		else if(checkOverlap(block1,rock1) && checkOverlap(block2,rock2) && checkOverlap(block3,rock3)){
 			localStorage.setItem('s14','ABC');
 			localStorage.setItem('i23','1');
 		}
