@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Cómic Pensamiento Crítico</title>
+    <script src="phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+
+var ill;
+var left;
+var right;
+var voice;
+var voice_button;
+
+function preload() {
+    game.load.audio('voice', 'assetsAudio/h1.m4a');
+    game.load.image('ill', 'assetsImg/h1.jpg');
+    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
+    game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
+    game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
+ game.load.spritesheet('volver_pregunta', 'assetsImg/volver_preg.png', 201, 100);
+}
+function create() {
+
+
+    game.stage.backgroundColor = "#FFFFFF";
+    // ill=game.add.sprite(160,25, 'ill');
+    // ill.scale.setTo(0.85,0.85);
+
+
+}
+function volver_pregunta_action()
+{
+    var destination = localStorage.getItem('before');
+    localStorage.setItem('before','0');
+    window.open("h"+destination+".html", "_self");
+}
+function play_sound(){
+    voice.play();
+}
+function goRight(){
+    window.open("h2.html", "_self");
+}
+function goLeft(){
+    window.open("h0.html", "_self");
+}
+function update(){
+}
+function render() {
+	game.debug.text('h38: '+localStorage.getItem("h38"), 32,47, 'rgb(0,0,0)');
+	game.debug.text('h44: '+localStorage.getItem("h44"), 32,62, 'rgb(0,0,0)');
+	game.debug.text('h45: '+localStorage.getItem("h45"), 32,77, 'rgb(0,0,0)');
+	game.debug.text('h46: '+localStorage.getItem("h46"), 32,92, 'rgb(0,0,0)');
+	game.debug.text('h47: '+localStorage.getItem("h47"), 32,107, 'rgb(0,0,0)');
+	game.debug.text('h48: '+localStorage.getItem("h48"), 32,122, 'rgb(0,0,0)');
+	game.debug.text('h48_2: '+localStorage.getItem("h48_2"), 32,137, 'rgb(0,0,0)');
+	game.debug.text('h50: '+localStorage.getItem("h50"), 32,152, 'rgb(0,0,0)');
+	game.debug.text('h51: '+localStorage.getItem("h51"), 32,167, 'rgb(0,0,0)');
+
+	game.debug.text('s0: '+localStorage.getItem("s0"), 32,182, 'rgb(0,0,0)');
+	game.debug.text('s1: '+localStorage.getItem("s1"), 32,197, 'rgb(0,0,0)');
+	game.debug.text('s2: '+localStorage.getItem("s2"), 32,212, 'rgb(0,0,0)');
+
+	game.debug.text('dw_first_choose: '+localStorage.getItem("dw_first_choose"), 32,272, 'rgb(0,0,0)');
+	game.debug.text('s12: '+localStorage.getItem("s12"), 32,227, 'rgb(0,0,0)');
+	game.debug.text('s13: '+localStorage.getItem("s13"), 32,242, 'rgb(0,0,0)');
+	game.debug.text('s14: '+localStorage.getItem("s14"), 32,257, 'rgb(0,0,0)');
+
+}
+</script>
+
+</body>
+</html>

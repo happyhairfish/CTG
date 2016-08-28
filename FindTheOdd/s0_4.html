@@ -80,7 +80,6 @@ function preload() {
 }
 
 function create() {
-    localStorage.setItem('i6','');
    // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
@@ -135,6 +134,19 @@ function play_answer()
 }
 function goRight()
 {
+  if(boton_a_bool)
+  {
+    localStorage.setItem('s0','4,a');
+  }
+  else if(boton_b_bool)
+  {
+    localStorage.setItem('s0','4,b');
+  }
+  else if(boton_c_bool)
+  {
+    localStorage.setItem('s0','4,c');
+  }
+
     localStorage.setItem('before_fo','4');
     if(boton_a_bool || boton_c_bool)
         localStorage.setItem('i6','0');

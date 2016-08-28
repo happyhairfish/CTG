@@ -135,7 +135,11 @@ function checkOrder(){
 }
 function goThermometer(){
 		if(	localStorage.getItem('dw_first')=='0')
-			localStorage.setItem('i13','0')
+		{
+			localStorage.setItem('i13','0');
+			localStorage.setItem('dw_first_choose','cuerda');
+		}
+
 
 		localStorage.setItem('dw_first','1');
 
@@ -148,7 +152,11 @@ function goThermometer(){
 }
 function goBalance(){
 		if(	localStorage.getItem('dw_first')=='0')
-			localStorage.setItem('i13','1')
+		{
+			localStorage.setItem('i13','1');
+			localStorage.setItem('dw_first_choose','balanza');
+		}
+
 
 		localStorage.setItem('dw_first','1');
     console.log("Balanza");
@@ -159,8 +167,12 @@ function goBalance(){
     	window.open("index.html", "_self");
 }
 function goRule(){
-	if(	localStorage.getItem('dw_first')=='0')
-		localStorage.setItem('i13','0')
+	if(localStorage.getItem('dw_first')=='0')
+	{
+		localStorage.setItem('i13','0');
+		localStorage.setItem('dw_first_choose','regla');
+	}
+
 
 	localStorage.setItem('dw_first','1');
     console.log("Regla");

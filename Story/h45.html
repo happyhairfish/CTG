@@ -122,11 +122,20 @@ function play_sound(){
 function goRight(){
 
     if(b_a_bool)
+    {
         localStorage.setItem("i16","0");
+        localStorage.setItem("h45","a");
+    }
     else if(b_b_bool)
+    {
         localStorage.setItem("i16","1");
+        localStorage.setItem("h45","b");
+    }
     else if(b_c_bool)
+    {
         localStorage.setItem("i16","0");
+        localStorage.setItem("h45","c");
+    }
 
         if(localStorage.getItem("bad")=='45')
         {

@@ -23,7 +23,7 @@ var voice;
 var voice_button;
 
 function preload() {
-    game.load.audio('voice', 'assetsAudio/h49.m4a');
+    game.load.audio('voice', 'assetsAudio/h49_2.m4a');
     game.load.image('ill', 'assetsImg/h49_4.PNG');
    game.load.spritesheet('left', 'assetsImg/arrowleft_2.png',100,100);
     game.load.spritesheet('right', 'assetsImg/arrowright_2.png',100,100);
@@ -38,7 +38,7 @@ function create() {
     left=game.add.button(0,250, 'left', goLeft, this, 0);
     right=game.add.button(700,250, 'right', goRight, this, 0);
 		right.visible=false;
-		game.time.events.add(Phaser.Timer.SECOND*20, update_right, this);
+		game.time.events.add(Phaser.Timer.SECOND*15, update_right, this);
     voice_button = game.add.button(380, 525, 'voice_button', play_sound ,this, 0);
 
 }

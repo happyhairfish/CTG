@@ -721,21 +721,21 @@ function updateMarker() {
     tileType=auxTile.index;
 
     //solo cavar
-    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
+    if (game.input.activePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
         // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
     }
     //poner tuberías
-    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
+    else if(game.input.activePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool )
+    else if(game.input.activePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool )
+    else if(game.input.activePointer.isDown &&  tileType==3 && buttonerasedigbool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
@@ -1001,8 +1001,8 @@ function createTileSelector() {
 
     //  Our painting marker
     marker = game.add.graphics();
-    marker.lineStyle(2, 0x000000, 1);
-    marker.drawRect(0, 0, 50, 50);
+    // marker.lineStyle(2, 0x000000, 1);
+    // marker.drawRect(0, 0, 50, 50);
 
 }
 

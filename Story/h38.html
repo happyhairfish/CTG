@@ -117,11 +117,20 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
+		{
         localStorage.setItem("i10","0");
+				localStorage.setItem("h38","a");
+		}
     else if(b_b_bool)
-        localStorage.setItem("i10","1");
-    else if(b_c_bool)
+		{
+		    localStorage.setItem("i10","1");
+				localStorage.setItem("h38","b");
+		}
+		else if(b_c_bool)
+		{
         localStorage.setItem("i10","0");
+				localStorage.setItem("h38","c");
+		}
 
 		if(localStorage.getItem("bad")=='38')
 		{

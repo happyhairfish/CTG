@@ -4,6 +4,7 @@
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="phaser.min.js"></script>
+		<script src="FileSaver.min.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -40,7 +41,7 @@ function preload() {
 
 function create() {
 	if(localStorage.getItem('i32')==null)
-	localStorage.setItem('i32','0');
+		localStorage.setItem('i32','0');
     game.stage.backgroundColor = '#ffffff';
 
    /* voice=game.add.audio('voice');
@@ -52,13 +53,18 @@ function create() {
     ill1=game.add.sprite(125,15, 'ill1');
 
     // voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+		// var file = new File([localStorage.getItem('i25')], "hello world.txt", {type: "text/plain;charset=utf-8"});
+		// saveAs(file);
 }
+
 function play_sound()
 {
     voice.play();
 }
 function goRight()
 {
+	// var file = new File([localStorage.getItem('i25')], "hello world.txt", {type: "text/plain;charset=utf-8"});
+	// saveAs(file);
     window.open("../Mechanism/end0_2.html", "_self");
 }
 function goLeft()

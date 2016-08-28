@@ -113,6 +113,19 @@ function play_sound(){
     voice.play();
 }
 function goRight(){
+  if(b_a_bool)
+  {
+    localStorage.setItem('s1','a');
+  }
+  else if(b_b_bool)
+  {
+    localStorage.setItem('s1','b');
+  }
+  else if(b_c_bool)
+  {
+    localStorage.setItem('s1','c');
+  }
+
     if(b_a_bool)
         localStorage.setItem("i2","0");
     else if(b_b_bool)

@@ -41,7 +41,7 @@ function create() {
 		right.visible=false;
     voice_button = game.add.button(400,525 , 'buttonAudio', play_sound ,this, 1, 0, 2);
 
-    game.time.events.add(Phaser.Timer.SECOND * 20, showRight, this);
+    game.time.events.add(Phaser.Timer.SECOND * 15, showRight, this);
 
 }
 function play_sound(){

@@ -179,11 +179,21 @@ function play_sound(){
 }
 function goRight(){
 		if(A_button_bool)
+		{
 			localStorage.setItem('i19','0');
+			localStorage.setItem('s12','A');
+		}
 		else if(B_button_bool)
+		{
 			localStorage.setItem('i19','0');
+			localStorage.setItem('s12','B');
+		}
 		else if(C_button_bool)
+		{
 			localStorage.setItem('i19','1');
+			localStorage.setItem('s12','C');
+		}
+
 
     window.open("s13.html", "_self");
 }

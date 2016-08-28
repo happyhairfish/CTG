@@ -121,11 +121,20 @@ function play_sound(){
 }
 function goRight(){
     if(b_a_bool)
+    {
         localStorage.setItem("i8","1");
+        localStorage.setItem("h44","a");
+    }
     else if(b_b_bool)
+    {
         localStorage.setItem("i8","0");
+        localStorage.setItem("h44","b");
+    }
     else if(b_c_bool)
+    {
         localStorage.setItem("i8","0");
+        localStorage.setItem("h44","c");
+    }
 
     console.log(localStorage.getItem("i10"));
     if(localStorage.getItem("bad")=='44')

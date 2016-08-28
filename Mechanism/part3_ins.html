@@ -621,61 +621,61 @@ function updateMarker() {
     tileType=auxTile.index;
 
     // //solo cavar
-    // if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
+    // if (game.input.activePointer.isDown && (tileType==0 || tileType==12) && currentTile==3)
     // {
     //     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     //     // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
     // }
     // //poner tuberías
-    // else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
+    // else if(game.input.activePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasepipebool )
     // {
     //     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
-    // else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
+    // else if(game.input.activePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasepipebool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
     // {
     //     console.log("erasepipeworld");
     //     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
-    // else if(game.input.mousePointer.isDown &&  tileType==3 && buttonerasedigbool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
+    // else if(game.input.activePointer.isDown &&  tileType==3 && buttonerasedigbool && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]!=16)
     // {
     //     console.log("erasedigbool");
     //     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
-    // else if(game.input.mousePointer.isDown && tileType==16 && (!buttonerasedigbool && !buttonerasepipebool) && currentTile!=20)
+    // else if(game.input.activePointer.isDown && tileType==16 && (!buttonerasedigbool && !buttonerasepipebool) && currentTile!=20)
     // {
     //     map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
-    // else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasedigbool)
+    // else if(game.input.activePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasedigbool)
     // {
     //     console.log("hoas");
     //     map.putTile(16, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
-    // else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasepipebool)
+    // else if(game.input.activePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasepipebool)
     // {
     //     console.log("hoas2");
     //     map.putTile(16, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     // }
 
     //solo cavar
-    if (game.input.mousePointer.isDown && (tileType==0 || tileType==12) && currentTile==3 && !buttonerasebool)
+    if (game.input.activePointer.isDown && (tileType==0 || tileType==12) && currentTile==3 && !buttonerasebool)
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
         // map.fill(currentTile, currentLayer.getTileX(marker.x), currentLayer.getTileY(marker.y), 4, 4, currentLayer);
     }
     //poner tuberías
-    else if(game.input.mousePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasebool )
+    else if(game.input.activePointer.isDown && tileType==2 && (currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ) && !buttonerasebool )
     {
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasebool )
+    else if(game.input.activePointer.isDown &&  (tileType==4 || tileType==5 || tileType==6 || tileType==7 || tileType==8 || tileType==9 ) && buttonerasebool )
     {
         map.putTile(2, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown && tileType==3 && buttonerasebool )
+    else if(game.input.activePointer.isDown && tileType==3 && buttonerasebool )
     {
         map.putTile(12, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
     }
-    else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && !buttonerasebool && (currentTile==3 || currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ))
+    else if(game.input.activePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && !buttonerasebool && (currentTile==3 || currentTile==4 || currentTile==5 || currentTile==6 || currentTile==7 || currentTile==8 || currentTile==9 ))
     {
         console.log("hoas");
         map.putTile(currentTile, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
@@ -725,7 +725,7 @@ function updateMarker() {
         }
 
     }
-    else if(game.input.mousePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasebool)
+    else if(game.input.activePointer.isDown && mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)]==16 && buttonerasebool)
     {
         console.log("hoas2");
         map.putTile(16, layer1.getTileX(marker.x), layer1.getTileY(marker.y), layer1);
@@ -919,13 +919,13 @@ function createTileSelector() {
 
 function render() {
 
-    // // game.debug.text('I AM NUMBER 0');
-    game.debug.text('content 1:'+celda1contentbool, 32, 32, 'rgb(0,0,0)');
-    game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 48, 'rgb(0,0,0)');
-    game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 64, 'rgb(0,0,0)');
-    game.debug.text('pointer tile:'+currentTile, 32, 100, 'rgb(0,0,0)');
-    // // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
-    // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
+    // // // game.debug.text('I AM NUMBER 0');
+    // game.debug.text('content 1:'+celda1contentbool, 32, 32, 'rgb(0,0,0)');
+    // game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 48, 'rgb(0,0,0)');
+    // game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 64, 'rgb(0,0,0)');
+    // game.debug.text('pointer tile:'+currentTile, 32, 100, 'rgb(0,0,0)');
+    // // // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
+    // // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
 }
 
