@@ -85,10 +85,6 @@ function create() {
 
     // var button_enter_answer=game.add.button(375,450,'button_enter_answer',enter_answer_action,1,0);
 
-    button_key1=game.add.button(100,225,'key_button_1',actionKey1,this,0,0,0,0);
-    button_key2=game.add.button(250,225,'key_button_2',actionKey2,this,0,0,0,0);
-    button_key3=game.add.button(400,225,'key_button_3',actionKey3,this,0,0,0,0);
-    button_key4=game.add.button(550,225,'key_button_4',actionKey4,this,0,0,0,0);
 
     popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
     popup.anchor.set(0.5);
@@ -106,6 +102,12 @@ function create() {
     popup.addChild(closeButton);
 
     popup.scale.set(0);
+
+		button_key1=game.add.button(100,225,'key_button_1',actionKey1,this,0,0,0,0);
+		button_key2=game.add.button(250,225,'key_button_2',actionKey2,this,0,0,0,0);
+		button_key3=game.add.button(400,225,'key_button_3',actionKey3,this,0,0,0,0);
+		button_key4=game.add.button(550,225,'key_button_4',actionKey4,this,0,0,0,0);
+
 
 }
 function play_sound()
