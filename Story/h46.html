@@ -79,7 +79,7 @@ voice_button = game.add.button(450, 500, 'voice_button', play_sound ,this);
 }
 function rep_hist_action()
 {
-  		localStorage.setItem('i30', '1');
+  		localStorage.setItem('i_30', '1');
     localStorage.setItem('before', '46');
     window.open("h0.html", "_self");
 }
@@ -124,28 +124,28 @@ function play_sound(){
 function goRight(){
   if(b_a_bool)
   {
-      localStorage.setItem("i14","0");
+      localStorage.setItem("i_14","0");
       localStorage.setItem("h46","a");
   }
   else if(b_b_bool)
   {
-      localStorage.setItem("i14","1");
+      localStorage.setItem("i_14","1");
       localStorage.setItem("h46","b");
   }
   else if(b_c_bool)
   {
-      localStorage.setItem("i14","0");
+      localStorage.setItem("i_14","0");
       localStorage.setItem("h46","c");
   }
 
         if(localStorage.getItem("bad")=='46')
         {
           if(b_a_bool)
-              localStorage.setItem("i29","0");
+              localStorage.setItem("i_29","0");
           else if(b_b_bool)
-              localStorage.setItem("i29","1");
+              localStorage.setItem("i_29","1");
           else if(b_c_bool)
-              localStorage.setItem("i29","0");
+              localStorage.setItem("i_29","0");
           window.open("../FindTheOdd/context.html", "_self");
         }
         else {

@@ -27,14 +27,14 @@ function preload(){
     game.load.image('A', 'assets/stone1C.png');
     game.load.image('B', 'assets/piedra2C.png');
     game.load.image('C', 'assets/piedra3C.png');
-    game.load.image('back', 'assets/fondo12.png');
+    game.load.image('back', 'assets/fondo12_2.png');
     game.load.image('piv', 'assets/pesa2.png');
     game.load.image('platei', 'assets/pivote2d_3.png');
     game.load.image('plated', 'assets/pivote2d_3.png');
     //borde cuadros
     game.load.image('block', 'assets/block2.png');
-    game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
-    game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
+    game.load.spritesheet('basurero', 'assetsImg/sacar_medicion_de_tabla2.png', 75,57);
+    game.load.spritesheet('add', 'assetsImg/medicion_a_tabla.png', 75,57);
     game.load.image('tfull', 'assets/tablaCompleta3.png');
     game.load.spritesheet('tools', 'assets/choose_tool.png', 100,50);
     game.load.image('ok', 'assets/ticket_nuevo.png');
@@ -52,7 +52,7 @@ function preload(){
 		game.load.spritesheet('left', 'assets/arrowleft_choose_tool2.png', 100, 100);
 		game.load.spritesheet('right', 'assets/arrowright_2.png', 100, 100);
 
-		game.load.audio('voice', 'assets/voice1.mp3');
+		game.load.audio('voice', 'assetsAudio/voice1_2.mp3');
 		game.load.spritesheet('buttonAudio', 'assetsImg/button_voice3_50.png', 114, 50);
 		game.load.spritesheet('button_tutorial','assets/tutorial.png',201,100);
 }
@@ -120,6 +120,10 @@ var tutorial_button;
 var table1full=false;
 var table2full=false;
 var table3full=false;
+var text21;
+var text22;
+var text23;
+
 
 function create(){
 
@@ -444,17 +448,17 @@ function measure(measureTemp, obj1, obj2){
 }
 function goRight()
 {
-	if(localStorage.getItem('before_dw')!='0')
-		window.open(localStorage.getItem('before_dw')+".html", "_self");
-	else
+	// if(localStorage.getItem('before_dw')!='0')
+	// 	window.open(localStorage.getItem('before_dw')+".html", "_self");
+	// else
     window.open("s12.html", "_self");
 }
 function goLeft(){
 	//ir al tutorial
 	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
-	// 	localStorage.setItem('i24','1');
+	// 	localStorage.setItem('i_24','1');
 	// else {
-	// 	localStorage.setItem('i24','0');
+	// 	localStorage.setItem('i_24','0');
 	// }
     window.open("s11.html", "_self");
 }
@@ -466,10 +470,12 @@ function doMeasure(m){
 	m.blockused=true;
 	m.ok.visible=true;
 
+
 	if(m.name=="1")
 	{
 		mAdone=true;
 		pivImg1.visible=false;
+		text21 = game.add.text(80, 200,m.pl.key+m.midtext+m.pr.key, style);
 		if(m.pl.key=='A' && m.pr.key=='A')
 			pesaAigualA1.visible=true;
 		else if(m.pl.key=='B' && m.pr.key=='B')
@@ -493,6 +499,7 @@ function doMeasure(m){
 	{
 		mBdone=true;
 		pivImg2.visible=false;
+		text22 = game.add.text(270, 200,m.pl.key+m.midtext+m.pr.key, style);
 		if(m.pl.key=='A' && m.pr.key=='A')
 			pesaAigualA2.visible=true;
 		else if(m.pl.key=='B' && m.pr.key=='B')
@@ -516,6 +523,7 @@ function doMeasure(m){
 	{
 		mCdone=true;
 		pivImg3.visible=false;
+		text23 = game.add.text(460, 200,m.pl.key+m.midtext+m.pr.key, style);
 		if(m.pl.key=='A' && m.pr.key=='A')
 			pesaAigualA3.visible=true;
 		else if(m.pl.key=='B' && m.pr.key=='B')
@@ -563,6 +571,7 @@ function reloadRock(obj){
 }
 
 function eraseMeasure1(){
+		text21.destroy();
 		mAdone=false;
 		pivImg1.visible=true;
 
@@ -617,6 +626,7 @@ function eraseMeasure1(){
 }
 
 function eraseMeasure2(){
+	text22.destroy();
 	mBdone=false;
 	pivImg2.visible=true;
 
@@ -669,6 +679,7 @@ function eraseMeasure2(){
 }
 
 function eraseMeasure3(){
+	text23.destroy();
 	mCdone=false;
 	pivImg3.visible=true;
 

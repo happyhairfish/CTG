@@ -38,7 +38,7 @@ function create() {
     // ill.scale.setTo(0.85,0.85);
 		for (i=1;i<33;i++)
 		{
-			console.log("game.debug.text('indicador "+i+": '+localStorage.getItem('i"+i+"'), 32,"+(32+i*15)+", 'rgb(0,0,0)');");
+			console.log("game.debug.text('indicador "+i+": '+localStorage.getItem('i_"+i+"'), 32,"+(32+i*15)+", 'rgb(0,0,0)');");
 		}
 
 }
@@ -60,38 +60,38 @@ function goLeft(){
 function update(){
 }
 function render() {
-	game.debug.text('indicador 1 (FindTheOdd/s2_1,s2_2,s2_3): '+localStorage.getItem('i1'), 32,47, 'rgb(0,0,0)');
-game.debug.text('indicador 2 (FindTheOdd/s1): '+localStorage.getItem('i2'), 32,62, 'rgb(0,0,0)');
-game.debug.text('indicador 3 (DetermineWeight/juego/s13):'+localStorage.getItem('i3'), 32,77, 'rgb(0,0,0)');
-game.debug.text('indicador 4 (FindTheOdd/Preg 2 escrita): '+localStorage.getItem('i4'), 32,92, 'rgb(0,0,0)');
-game.debug.text('indicador 5 (FindTheOdd/Preg 2 escrita): '+localStorage.getItem('i5'), 32,107, 'rgb(0,0,0)');
-game.debug.text('indicador 6 (FindTheOdd/s0_1,s0_2,s0_3,s0_4): '+localStorage.getItem('i6'), 32,122, 'rgb(0,0,0)');
-game.debug.text('indicador 7 (Mechanism/count1_1): '+localStorage.getItem('i7'), 32,137, 'rgb(0,0,0)');
-game.debug.text('indicador 8 (Story/h44):'+localStorage.getItem('i8'), 32,152, 'rgb(0,0,0)');
+	game.debug.text('indicador 1 (FindTheOdd/s2_1,s2_2,s2_3): '+localStorage.getItem('i_1'), 32,47, 'rgb(0,0,0)');
+game.debug.text('indicador 2 (FindTheOdd/s1): '+localStorage.getItem('i_2'), 32,62, 'rgb(0,0,0)');
+// game.debug.text('indicador 3 (DetermineWeight/juego/s13):'+localStorage.getItem('i_3'), 32,77, 'rgb(0,0,0)');
+game.debug.text('indicador 4 (FindTheOdd/Preg 2 escrita): '+localStorage.getItem('i_4'), 32,92, 'rgb(0,0,0)');
+// game.debug.text('indicador 5 (FindTheOdd/Preg 2 escrita): '+localStorage.getItem('i_5'), 32,107, 'rgb(0,0,0)');
+game.debug.text('indicador 6 (FindTheOdd/s0_1,s0_2,s0_3,s0_4): '+localStorage.getItem('i_6'), 32,122, 'rgb(0,0,0)');
+game.debug.text('indicador 7 (Mechanism/count1_1): '+localStorage.getItem('i_7'), 32,137, 'rgb(0,0,0)');
+game.debug.text('indicador 8 (Story/h44):'+localStorage.getItem('i_8'), 32,152, 'rgb(0,0,0)');
 game.debug.text('indicador 9 (story/h49->Preg 1 escrita):', 32,167, 'rgb(0,0,0)');
-game.debug.text('indicador 10 (Story/h38):'+localStorage.getItem('i10'), 32,182, 'rgb(0,0,0)');
-game.debug.text('indicador 11 (Story/h50):'+localStorage.getItem('i11'), 32,197, 'rgb(0,0,0)');
-game.debug.text('indicador 12 (Story/h47):'+localStorage.getItem('i12'), 32,212, 'rgb(0,0,0)');
-game.debug.text('indicador 13 (DetermineWeight/juego/s11):'+localStorage.getItem('i13'), 32,227, 'rgb(0,0,0)');
-game.debug.text('indicador 14 (Story/h46):'+localStorage.getItem('i14'), 32,242, 'rgb(0,0,0)');
-game.debug.text('indicador 15 (Story/h48):'+localStorage.getItem('i15'), 32,257, 'rgb(0,0,0)');
-game.debug.text('indicador 16 (Story/h45):'+localStorage.getItem('i16'), 32,272, 'rgb(0,0,0)');
-game.debug.text('indicador 17 (FindTheOdd/context_3): '+localStorage.getItem('i17'), 32,287, 'rgb(0,0,0)');
-game.debug.text('indicador 18 (Story/h51):'+localStorage.getItem('i18'), 32,302, 'rgb(0,0,0)');
-game.debug.text('indicador 19 (DetermineWeight/juego/s12):'+localStorage.getItem('i19'), 32,317, 'rgb(0,0,0)');
-game.debug.text('indicador 20 ANULADO '+localStorage.getItem('i20'), 32,332, 'rgb(0,0,0)');
-game.debug.text('indicador 21 (DetermineWeight/historia/scene8->Pregunta 4 escrita): '+localStorage.getItem('i21'), 32,347, 'rgb(0,0,0)');
-game.debug.text('indicador 22 (mechanism/part2_ins): '+localStorage.getItem('i22'), 32,362, 'rgb(0,0,0)');
-game.debug.text('indicador 23 (DetermineWeight/juego/s14):'+localStorage.getItem('i23'), 32,377, 'rgb(0,0,0)');
-game.debug.text('indicador 24 (DetermineWeight/juego/index, reglas, termometros):'+localStorage.getItem('i24'), 32,392, 'rgb(0,0,0)');
-game.debug.text('indicador 25 (mechanism/part3_ins): '+localStorage.getItem('i25'), 32,407, 'rgb(0,0,0)');
-game.debug.text('indicador 26 (Mechanism/yes_why): '+localStorage.getItem('i26'), 32,422, 'rgb(0,0,0)');
-game.debug.text('indicador 27 (Story/h48_2)'+localStorage.getItem('i27'), 32,437, 'rgb(0,0,0)');
-game.debug.text('indicador 28 (DetermineWeight/historia/scene8->Pregunta 3 escrita)'+localStorage.getItem('i28'), 32,452, 'rgb(0,0,0)');
-game.debug.text('indicador 29 (Story/check_bad) '+localStorage.getItem('i29'), 32,467, 'rgb(0,0,0)');
-game.debug.text('indicador 30 (Story/volver a leer historia en cualquier momento) '+localStorage.getItem('i30'), 32,482, 'rgb(0,0,0)');
-game.debug.text('indicador 31 (determineweight/volver a las herramientas alguna vez): '+localStorage.getItem('i31'), 32,497, 'rgb(0,0,0)');
-game.debug.text('indicador 32 (mechanism/si se borra algo en un mapa): '+localStorage.getItem('i32'), 32,512, 'rgb(0,0,0)');
+game.debug.text('indicador 10 (Story/h38):'+localStorage.getItem('i_10'), 32,182, 'rgb(0,0,0)');
+game.debug.text('indicador 11 (Story/h50):'+localStorage.getItem('i_11'), 32,197, 'rgb(0,0,0)');
+game.debug.text('indicador 12 (Story/h47):'+localStorage.getItem('i_12'), 32,212, 'rgb(0,0,0)');
+game.debug.text('indicador 13 (DetermineWeight/juego/s11):'+localStorage.getItem('i_13'), 32,227, 'rgb(0,0,0)');
+game.debug.text('indicador 14 (Story/h46):'+localStorage.getItem('i_14'), 32,242, 'rgb(0,0,0)');
+// game.debug.text('indicador 15 (Story/h48):'+localStorage.getItem('i_15'), 32,257, 'rgb(0,0,0)');
+game.debug.text('indicador 16 (Story/h45):'+localStorage.getItem('i_16'), 32,272, 'rgb(0,0,0)');
+game.debug.text('indicador 17 (FindTheOdd/context_3): Pregunta 3 escrita', 32,287, 'rgb(0,0,0)');
+game.debug.text('indicador 18 (Story/h51):'+localStorage.getItem('i_18'), 32,302, 'rgb(0,0,0)');
+game.debug.text('indicador 19 (DetermineWeight/juego/s12):'+localStorage.getItem('i_19'), 32,317, 'rgb(0,0,0)');
+// game.debug.text('indicador 20 ANULADO '+localStorage.getItem('i_20'), 32,332, 'rgb(0,0,0)');
+// game.debug.text('indicador 21 (DetermineWeight/historia/scene8->Pregunta 4 escrita): '+localStorage.getItem('i_21'), 32,347, 'rgb(0,0,0)');
+game.debug.text('indicador 22 (mechanism/part2_ins): '+localStorage.getItem('i_22'), 32,362, 'rgb(0,0,0)');
+game.debug.text('indicador 23 (DetermineWeight/juego/s14):'+localStorage.getItem('i_23'), 32,377, 'rgb(0,0,0)');
+game.debug.text('indicador 24 (DetermineWeight/juego/index, reglas, termometros):'+localStorage.getItem('i_24'), 32,392, 'rgb(0,0,0)');
+game.debug.text('indicador 25 (mechanism/part3_ins): '+localStorage.getItem('i_25'), 32,407, 'rgb(0,0,0)');
+game.debug.text('indicador 26 (Mechanism/yes_why): '+localStorage.getItem('i_26'), 32,422, 'rgb(0,0,0)');
+game.debug.text('indicador 27 (Story/h48_2)'+localStorage.getItem('i_27'), 32,437, 'rgb(0,0,0)');
+game.debug.text('indicador 28 (DetermineWeight/historia/scene8->Pregunta 4 escrita)', 32,452, 'rgb(0,0,0)');
+// game.debug.text('indicador 29 (Story/check_bad) '+localStorage.getItem('i_29'), 32,467, 'rgb(0,0,0)');
+game.debug.text('indicador 30 (Story/volver a leer historia en cualquier momento) '+localStorage.getItem('i_30'), 32,482, 'rgb(0,0,0)');
+game.debug.text('indicador 31 (determineweight/volver a las herramientas alguna vez): '+localStorage.getItem('i_31'), 32,497, 'rgb(0,0,0)');
+game.debug.text('indicador 32 (mechanism/si se borra algo en un mapa): '+localStorage.getItem('i_32'), 32,512, 'rgb(0,0,0)');
 
 game.debug.text('before: '+localStorage.getItem('before'), 32,527, 'rgb(0,0,0)');
 game.debug.text('bad: '+localStorage.getItem('bad'), 32,539, 'rgb(0,0,0)');
@@ -99,9 +99,12 @@ game.debug.text('dw_first: '+localStorage.getItem('dw_first'), 32,551, 'rgb(0,0,
 game.debug.text('from_fo: '+localStorage.getItem('from_fo'), 32,563, 'rgb(0,0,0)');
 
 
+
 game.debug.text('balance_tutorial: '+localStorage.getItem('balance_tutorial'), 32,575, 'rgb(0,0,0)');
 game.debug.text('termometer_tutorial: '+localStorage.getItem('termometer_tutorial'), 32,587, 'rgb(0,0,0)');
 game.debug.text('ruler_tutorial: '+localStorage.getItem('ruler_tutorial'), 32,599, 'rgb(0,0,0)');
+game.debug.text('before_dw: '+localStorage.getItem('before_dw'), 300,575, 'rgb(0,0,0)');
+
 
 }
 </script>

@@ -28,8 +28,8 @@ function preload(){
     game.load.image('rule', 'assets/regla3.png');
     game.load.image('block', 'assets/block2.png');
 		game.load.image('dialogue','assetsImg/rope_dialogue5.PNG')
-    game.load.spritesheet('basurero', 'assets/delete_3.png', 64,64);
-    game.load.spritesheet('add', 'assets/shapes_3.png', 64,64);
+		game.load.spritesheet('basurero', 'assetsImg/sacar_medicion_de_tabla2.png', 75,57);
+    game.load.spritesheet('add', 'assetsImg/medicion_a_tabla.png', 75,57);
     game.load.image('tfull', 'assets/tablaCompleta3.png');
     // game.load.spritesheet('tools', 'assetsImg/herramientaButton.png', 115,58);
     game.load.image('ok', 'assets/ticket_nuevo.png');
@@ -72,8 +72,9 @@ var mCdone=false;
 var table1full=false;
 var table2full=false;
 var table3full=false;
-
-
+var text21;
+var text22;
+var text23;
 function create(){
 	// Se habilita la física, Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -191,17 +192,17 @@ function play_sound()
 }
 function goRight()
 {
-	if(localStorage.getItem('before_dw')!='0')
-		window.open(localStorage.getItem('before_dw')+".html", "_self");
-	else
+	// if(localStorage.getItem('before_dw')!='0')
+	// 	window.open(localStorage.getItem('before_dw')+".html", "_self");
+	// else
     window.open("s12.html", "_self");
 }
 function goLeft(){
 	//ir al tutorial
 	// if((measure1.intable && measure2.intable) || (measure1.intable && measure3.intable) || (measure2.intable && measure3.intable))
-	// 	localStorage.setItem('i24','1');
+	// 	localStorage.setItem('i_24','1');
 	// else {
-	// 	localStorage.setItem('i24','0');
+	// 	localStorage.setItem('i_24','0');
 	// }
     window.open("s11.html", "_self");
 }
@@ -237,16 +238,19 @@ function measure(obj1, obj2){
 		mAdone=true;
 		console.log("Medicion 1");
     	var text = game.add.text(720, 248, textRock(obj1), style);
+			text21 = game.add.text(80, 200,textRock(obj1), style);
     	doMeasure(measure1, obj1, obj2, text);
 	} else if(obj2.overlap(block2)&& !measure2.blockused){
 		mBdone=true;
 		console.log("Medicion 2");
     	var text = game.add.text(720, 320, textRock(obj1), style);
+			text22 = game.add.text(270, 200,textRock(obj1), style);
     	doMeasure(measure2, obj1, obj2, text);
 	} else if(obj2.overlap(block3)&& !measure3.blockused){
 		mCdone=true;
 		console.log("Medicion 3");
     	var text = game.add.text(720, 390, textRock(obj1), style);
+			text23 = game.add.text(460, 200,textRock(obj1), style);
     	doMeasure(measure3, obj1, obj2, text);
 	}else {
 		console.log("No area de medición");
@@ -310,7 +314,7 @@ function eraseMeasure1(){
 		measure1.instrument.destroy();
 		measure1.obj.destroy();
 		measure1.result.destroy();
-
+		text21.destroy();
 		if(table1full)
 		{
 			table1full=false;
@@ -333,7 +337,7 @@ function eraseMeasure2(){
 		measure2.instrument.destroy();
 		measure2.obj.destroy();
 		measure2.result.destroy();
-
+		text22.destroy();
 		if(table2full)
 		{
 			table2full=false;
@@ -356,7 +360,7 @@ function eraseMeasure3(){
 		measure3.instrument.destroy();
 		measure3.obj.destroy();
 		measure3.result.destroy();
-
+		text23.destroy();
 		if(table3full)
 		{
 			table3full=false;

@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
 	<title>Cómic Pensamiento Crítico</title>
     <script src="phaser.min.js"></script>
@@ -13,67 +13,72 @@
 <body>
 
 <script type="text/javascript">
-    
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
-var ill1;
-var ill2;
-var ill3;
 
-var current;
-var left;
-var right;
+	var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+	var ill1;
+	var ill2;
+	var ill3;
 
-var voice;
-var voice_button;
+	var current;
+	var left;
+	var right;
 
-function preload() {
-    game.load.audio('voice', 'assets/mid/voice4.mp3');
+	var voice;
+	var voice_button;
+
+	function preload() {
+	    game.load.audio('voice', 'assets/mid/voice4.mp3');
 
 
-    game.load.image('ill1', 'assets/end/ill1.png');
+	    game.load.image('ill1', 'assets/end/ill1.png');
 
-    game.load.image('left', 'assets/arrowleft.png');
-    game.load.image('right', 'assets/arrowright.png');
+	    game.load.image('left', 'assets/arrowleft.png');
+	    game.load.image('right', 'assets/arrowright.png');
 
-    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
-}
+	    game.load.spritesheet('voice_button', 'assets/choose/button_voice.png', 100, 50);
+	}
 
-function create() {
-    game.stage.backgroundColor = '#ffffff';
+	function create() {
 
-    /*voice=game.add.audio('voice');
-    voice.play();
+	    game.stage.backgroundColor = '#ffffff';
 
-    // left=game.add.button(0,250, 'left', goLeft);
-    right=game.add.button(700,250, 'right', goRight);*/
+	    /*voice=game.add.audio('voice');
+	    voice.play();
 
-    ill1=game.add.sprite(150,15, 'ill1');
+	    // left=game.add.button(0,250, 'left', goLeft);*/
+	    // right=game.add.button(700,250, 'right', goRight);
 
-    // voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
-}
-function play_sound()
-{
-    voice.play();
-}
-function goRight()
-{
-    window.open("../Mechanism/part3_ins.html", "_self");
-}
-function goLeft()
-{
-    window.open("../Mechanism/start.html", "_self");
-}
+	    ill1=game.add.sprite(150,15, 'ill1');
 
-function update()
-{
+	    // voice_button = game.add.button(350, 525, 'voice_button', play_sound ,this, 1, 0, 2);
+	}
+	function play_sound()
+	{
+	    voice.play();
+	}
+	function goRight()
+	{
+	    window.open("../Mechanism/end2.php", "_self");
+	}
+	function goLeft()
+	{
+	    window.open("../Mechanism/start.html", "_self");
+	}
 
-}
+	function update()
+	{
 
-function render()
-{
+	}
 
-}
+	function render()
+	{
+
+	}
 </script>
+<script type="text/php">
+
+</script>
+
 
 </body>
 </html>

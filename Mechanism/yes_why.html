@@ -36,7 +36,7 @@ function preload() {
     game.load.audio('voice2', 'assets/escribe_tu_rspta.mp3');
 
 
-    game.load.image('ill1', 'assets/yes_why_nuevo.PNG');
+    game.load.image('ill1', 'assets/yes_why_nuevo2.PNG');
 
     game.load.image('left', 'assets/arrowleft_2.png');
     game.load.image('right', 'assets/arrowright_2.png');
@@ -59,8 +59,10 @@ function create() {
     right=game.add.button(700,250, 'right', goRight);
     right.visible=false;
 
-    ill1=game.add.sprite(30,25, 'ill1');
-		ill1.scale.setTo(0.8,0.8);
+    ill1=game.add.sprite(100,25, 'ill1');
+		var style_title = { font: "18px Arial", fill: "#000000", align: "center" };
+		game.add.text(150,250,"Responde la pregunta en la hoja número 5. \nCuando termines continúa en el juego apretando la flecha roja.", style_title);
+		// ill1.scale.setTo(0.8,0.8);
 
     voice_button = game.add.button(400, 525, 'voice_button', play_sound ,this, 1, 0, 2);
 
@@ -88,7 +90,7 @@ function showRight()
 }
 function goLeft()
 {
-    window.open("../Mechanism/yes_no.html", "_self");
+    window.open("../Mechanism/part1_big.html", "_self");
 }
 
 function update()

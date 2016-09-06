@@ -589,15 +589,15 @@ function checkAnswer()
     }*/
     console.log("asdasdasd");
     if(celda1contentbool && celda2contentbool && celda3contentbool && celda4contentbool && celda5contentbool && celda6contentbool && celda7contentbool)
-      localStorage.setItem('i25','1');
+      localStorage.setItem('i_25','1');
     else {
-      localStorage.setItem('i25','0');
+      localStorage.setItem('i_25','0');
     }
 
     // if(celda1contentbool && celda2contentbool && celda3contentbool && celda4contentbool && celda5contentbool && celda6contentbool && celda7contentbool)
-    //   localStorage.setItem('i22','1');
+    //   localStorage.setItem('i_22','1');
     // else {
-    //   localStorage.setItem('i22','0');
+    //   localStorage.setItem('i_22','0');
     // }
 
     window.open("../Mechanism/end0_1.html", "_self");
@@ -1324,7 +1324,7 @@ function buttonPipe6Bool()
 
 function buttonErase()
 {
-  localStorage.setItem('i32','1');
+  localStorage.setItem('i_32','1');
   buttondigbool=false;
   buttonpipe1bool=false;
   buttonpipe2bool=false;
@@ -1403,7 +1403,7 @@ function openPopupW()
     closeButton.input.priorityID=1;
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupw.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-    localStorage.setItem('i17','1');
+    localStorage.setItem('i_17','1');
 }
 
 function openPopupL()

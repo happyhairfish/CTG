@@ -49,19 +49,7 @@ function preload() {
 function create() {
 
 
-	localStorage.removeItem("t_m1");
-	localStorage.removeItem("t_m2");
-	localStorage.removeItem("t_m3");
-	localStorage.removeItem("r_m1");
-	localStorage.removeItem("r_m2");
-	localStorage.removeItem("r_m3");
-	localStorage.removeItem("b_m1");
-	localStorage.removeItem("b_m2");
-	localStorage.removeItem("b_m3");
-	localStorage.setItem("t_f", "false");
-	localStorage.setItem("r_f", "false");
-	localStorage.setItem("b_f", "false");
-	localStorage.setItem("cameFrom", "0");
+	
 
     game.stage.backgroundColor = "#FFFFFF";
     ill=game.add.sprite(100, 30, 'ill');
@@ -70,10 +58,10 @@ function create() {
     left=game.add.button(20,470, 'left', goLeft, this, 1,0,2);
 
 		if(localStorage.getItem('before_dw')=='s12' || localStorage.getItem('before_dw')=='s13' || localStorage.getItem('before_dw')=='s14')
-		{	localStorage.setItem("i31", "1");
+		{	localStorage.setItem("i_31", "1");
 			left.visible=true;
 		}else {
-			localStorage.setItem("i31", "0");
+			localStorage.setItem("i_31", "0");
 			left.visible=false;
 		}
 
@@ -136,7 +124,7 @@ function checkOrder(){
 function goThermometer(){
 		if(	localStorage.getItem('dw_first')=='0')
 		{
-			localStorage.setItem('i13','0');
+			localStorage.setItem('i_13','0');
 			localStorage.setItem('dw_first_choose','cuerda');
 		}
 
@@ -153,7 +141,7 @@ function goThermometer(){
 function goBalance(){
 		if(	localStorage.getItem('dw_first')=='0')
 		{
-			localStorage.setItem('i13','1');
+			localStorage.setItem('i_13','1');
 			localStorage.setItem('dw_first_choose','balanza');
 		}
 
@@ -169,7 +157,7 @@ function goBalance(){
 function goRule(){
 	if(localStorage.getItem('dw_first')=='0')
 	{
-		localStorage.setItem('i13','0');
+		localStorage.setItem('i_13','0');
 		localStorage.setItem('dw_first_choose','regla');
 	}
 

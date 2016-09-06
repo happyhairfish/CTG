@@ -123,9 +123,9 @@ function create() {
 		if((localStorage.getItem('b_m1')!=null && localStorage.getItem('b_m2')!=null) || (localStorage.getItem('b_m1')!=null && localStorage.getItem('b_m3')!=null) || (localStorage.getItem('b_m2')!=null && localStorage.getItem('b_m3')!=null)
 	|| (localStorage.getItem('r_m1')!=null && localStorage.getItem('r_m2')!=null) || (localStorage.getItem('r_m1')!=null && localStorage.getItem('r_m3')!=null) || (localStorage.getItem('r_m2')!=null && localStorage.getItem('r_m3')!=null)
 	|| (localStorage.getItem('t_m1')!=null && localStorage.getItem('t_m2')!=null) || (localStorage.getItem('t_m1')!=null && localStorage.getItem('t_m3')!=null) || (localStorage.getItem('t_m2')!=null && localStorage.getItem('t_m3')!=null))
-			localStorage.setItem('i24','1');
+			localStorage.setItem('i_24','1');
 		else {
-			localStorage.setItem('i24','0');
+			localStorage.setItem('i_24','0');
 		}
 
     // text_m1t = game.add.text(450, 253, "Medida 1", style);
@@ -180,36 +180,40 @@ function play_sound(){
 function goRight(){
 		if(A_button_bool)
 		{
-			localStorage.setItem('i19','0');
+			localStorage.setItem('i_19','0');
 			localStorage.setItem('s12','A');
 		}
 		else if(B_button_bool)
 		{
-			localStorage.setItem('i19','0');
+			localStorage.setItem('i_19','0');
 			localStorage.setItem('s12','B');
 		}
 		else if(C_button_bool)
 		{
-			localStorage.setItem('i19','1');
+			localStorage.setItem('i_19','1');
 			localStorage.setItem('s12','C');
 		}
 
 
-    window.open("s13.html", "_self");
+    window.open("s14.html", "_self");
 }
 function goLeft(){
-		if(localStorage.setItem('before_dw','balance'))
-		{
-			window.open("index.html", "_self");
-		}
-		else if(localStorage.setItem('before_dw','termometers'))
-		{
-			window.open("termometros.html", "_self");
-		}
-		else if(localStorage.setItem('before_dw','reglas'))
-		{
-			window.open("reglas.html", "_self");
-		}
+		// if(localStorage.getItem('before_dw')=='balance')
+		// {
+		// 	window.open("index.html", "_self");
+		// }
+		// else if(localStorage.getItem('before_dw')=='termometros')
+		// {
+		// 	window.open("termometros.html", "_self");
+		// }
+		// else if(localStorage.getItem('before_dw')=='reglas')
+		// {
+		// 	window.open("reglas.html", "_self");
+		// }
+		// else {
+		// 	window.open("s11.html", "_self");
+		// }
+		window.open("s11.html", "_self");
 }
 function goA(){
     A_button_bool=true;

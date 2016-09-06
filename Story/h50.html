@@ -80,7 +80,7 @@ function create() {
 }
 function rep_hist_action()
 {
-  	localStorage.setItem('i30', '1');
+  	localStorage.setItem('i_30', '1');
     localStorage.setItem('before', '50');
     window.open("h0.html", "_self");
 }
@@ -125,28 +125,28 @@ function play_sound(){
 function goRight(){
   if(b_a_bool)
   {
-      localStorage.setItem("i11","1");
+      localStorage.setItem("i_11","1");
       localStorage.setItem("h50","a");
   }
   else if(b_b_bool)
   {
-      localStorage.setItem("i11","0");
+      localStorage.setItem("i_11","0");
       localStorage.setItem("h50","b");
   }
   else if(b_c_bool)
   {
-      localStorage.setItem("i11","0");
+      localStorage.setItem("i_11","0");
       localStorage.setItem("h50","c");
   }
 
     if(localStorage.getItem("bad")=='50')
     {
       if(b_a_bool)
-        localStorage.setItem("i29","1");
+        localStorage.setItem("i_29","1");
       else if(b_b_bool)
-        localStorage.setItem("i29","0");
+        localStorage.setItem("i_29","0");
       else if(b_c_bool)
-        localStorage.setItem("i29","0");
+        localStorage.setItem("i_29","0");
       window.open("../FindTheOdd/context.html", "_self");
     }
     else {
