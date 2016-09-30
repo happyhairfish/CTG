@@ -76,6 +76,8 @@ var text21;
 var text22;
 var text23;
 function create(){
+	if(localStorage.getItem('i_13')==null)
+		localStorage.setItem('i_13','0')
 	// Se habilita la física, Arcade Physics system
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -237,18 +239,30 @@ function measure(obj1, obj2){
 	if (obj2.overlap(block1)&& !measure1.blockused){
 		mAdone=true;
 		console.log("Medicion 1");
+		obj1.x=60;
+		obj1.y=350;
+		obj2.x=60;
+		obj2.y=270;
     	var text = game.add.text(720, 248, textRock(obj1), style);
 			text21 = game.add.text(80, 200,textRock(obj1), style);
     	doMeasure(measure1, obj1, obj2, text);
 	} else if(obj2.overlap(block2)&& !measure2.blockused){
 		mBdone=true;
 		console.log("Medicion 2");
+		obj1.x=250;
+		obj1.y=350;
+		obj2.x=250;
+		obj2.y=270;
     	var text = game.add.text(720, 320, textRock(obj1), style);
 			text22 = game.add.text(270, 200,textRock(obj1), style);
     	doMeasure(measure2, obj1, obj2, text);
 	} else if(obj2.overlap(block3)&& !measure3.blockused){
 		mCdone=true;
 		console.log("Medicion 3");
+		obj1.x=440;
+		obj1.y=350;
+		obj2.x=440;
+		obj2.y=270;
     	var text = game.add.text(720, 390, textRock(obj1), style);
 			text23 = game.add.text(460, 200,textRock(obj1), style);
     	doMeasure(measure3, obj1, obj2, text);

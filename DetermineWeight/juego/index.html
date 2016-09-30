@@ -126,6 +126,8 @@ var text23;
 
 
 function create(){
+	if(localStorage.getItem('i_13')==null)
+		localStorage.setItem('i_13','0')
 
 	voice=game.add.audio('voice');
 	voice.play();
@@ -408,6 +410,13 @@ function onTouch(obj1, obj2){
 function measure(measureTemp, obj1, obj2){
 	var text2;
 	if (obj2.key=='platei'){
+		if(measureTemp.id=='1')
+			obj1.x=43;
+		if(measureTemp.id=='2')
+			obj1.x=235;
+		if(measureTemp.id=='3')
+			obj1.x=418;
+
 		measureTemp.plw=obj1.body.mass;
 		measureTemp.pl=obj1;
 		measureTemp.pl.body.allowGravity=false;
@@ -415,6 +424,13 @@ function measure(measureTemp, obj1, obj2){
 		measureTemp.pl.y= measureTemp.pl.y-3;
 
 	}else{
+		if(measureTemp.id=='1')
+			obj1.x=133;
+		if(measureTemp.id=='2')
+			obj1.x=320;
+		if(measureTemp.id=='3')
+			obj1.x=500;
+
 		measureTemp.prw=obj1.body.mass;
 		measureTemp.pr=obj1;
 		measureTemp.pr.body.allowGravity=false;

@@ -45,9 +45,9 @@ function preload() {
     game.load.spritesheet('voice_button', 'assetsImg/button_voice3_50.png', 50, 50);
     game.load.spritesheet('repetir_historia', 'assetsImg/rep_hist.png', 201, 100);
 
-    game.load.spritesheet('b_a', 'assetsImg/b51a_2.png', 300,50);
-    game.load.spritesheet('b_b', 'assetsImg/b51b_2.png', 300,50);
-    game.load.spritesheet('b_c', 'assetsImg/b51c_2.png', 300,100);
+    game.load.spritesheet('b_a', 'assetsImg/b51a_3.png', 300,50);
+    game.load.spritesheet('b_b', 'assetsImg/b51b_4.png', 300,50);
+    game.load.spritesheet('b_c', 'assetsImg/b51c_3.png', 300,50);
     game.load.image('c_a', 'assetsImg/c38a.png');
     game.load.image('c_b', 'assetsImg/c38b.png');
     game.load.image('c_c', 'assetsImg/c38c.png');
@@ -65,7 +65,7 @@ function create() {
     rep_hist_button = game.add.button(250, 520, 'repetir_historia', rep_hist_action ,this);
     rep_hist_button.scale.setTo(0.5,0.5);
     ya=game.world.centerY-50;
-    yb=game.world.centerY+25;
+    yb=game.world.centerY+40;
     yc=game.world.centerY+130;
     b_a = game.add.button(game.world.centerX, ya, 'b_a', AnsA ,this, 0);
     b_a.anchor.setTo(0.5);
@@ -136,58 +136,8 @@ function goRight(){
       localStorage.setItem("h51","c");
   }
 
-    if(localStorage.getItem('bad')=='0')
-    {
-        console.log("bad!!!");
-        if(localStorage.getItem('i8')=='0')
-        {
-          localStorage.setItem('bad','44');
-        }
-        else if(localStorage.getItem('i10')=='0')
-        {
-          localStorage.setItem('bad','38');
-        }
-        else if(localStorage.getItem('i11')=='0')
-        {
-          localStorage.setItem('bad','50');
-        }
-        else if(localStorage.getItem('i12')=='0')
-        {
-          localStorage.setItem('bad','47');
-        }
-        else if(localStorage.getItem('i14')=='0')
-        {
-          localStorage.setItem('bad','46');
-        }
-        else if(localStorage.getItem('i15')=='0')
-        {
-          localStorage.setItem('bad','48');
-        }
-        else if(localStorage.getItem('i16')=='0')
-        {
-          localStorage.setItem('bad','45');
-        }
-        else if(localStorage.getItem('i18')=='0')
-        {
-          localStorage.setItem('bad','51');
-        }
-        else if(localStorage.getItem('i27')=='0')
-        {
-          localStorage.setItem('bad','48_2');
-        }
 
-        window.open("../FindTheOdd/context.html", "_self");
-    }
-    else {
-      console.log("adasd");
-      if(b_a_bool)
-          localStorage.setItem("i_29","1");
-      else if(b_b_bool)
-          localStorage.setItem("i_29","0");
-      else if(b_c_bool)
-          localStorage.setItem("i_29","0");
-      window.open("../FindTheOdd/context.html", "_self");
-    }
+  window.open("../FindTheOdd/context.html", "_self");
 
 
 }

@@ -42,7 +42,7 @@ var tween = null;
 var closeButton;
 
 function preload() {
-	game.load.image('dialogo', 'assets/contar/dialogo_globo1.png');
+	game.load.image('dialogo', 'assets/contar/dialogo5.png');
     game.load.image('mapa', 'assets/contar/base.png');
 
     game.load.spritesheet('button30', 'assets/choose/minimap1_button.png', 200, 250);
@@ -50,14 +50,13 @@ function preload() {
     game.load.spritesheet('button3', 'assets/choose/minimap3_button.png', 200, 250);
 
 
-    game.load.spritesheet('option30', 'assets/contar/20_1.png', 100, 50);
-		game.load.spritesheet('option33', 'assets/contar/16_3.png', 100, 50);
-		game.load.spritesheet('option34', 'assets/contar/24.png', 100, 50);
+    game.load.spritesheet('option30', 'assets/contar/boton1.png', 200, 100);
+		game.load.spritesheet('option33', 'assets/contar/boton2.png', 200, 100);
 
     game.load.spritesheet('voice_button', 'assets/choose/button_voice3_50.png', 100, 50);
     game.load.spritesheet('enter_answer_button', 'assets/contar/ingresar_rspta_3.png', 100, 50);
 
-    game.load.audio('voice', 'assets/contar/voice2.mp3');
+    game.load.audio('voice', 'assets/contar/count1_2.mp3');
 
     game.load.image('left', 'assets/arrowleft_2.png');
     game.load.image('right', 'assets/arrowright_2.png');
@@ -73,7 +72,7 @@ function create() {
     game.stage.backgroundColor = "#FFFFFF";
 
 
-    dialogo=game.add.image(75, 40, 'dialogo');
+    dialogo=game.add.image(150, 40, 'dialogo');
 		dialogo.scale.setTo(0.9,0.9);
     // map=game.add.image(175,175, 'mapa');
     //map.scale.setTo(0.75,0.75);
@@ -82,9 +81,9 @@ function create() {
     // button33 = game.add.button(300, 200, 'button33', null, this, 1, 0, 2);
     // button3 = game.add.button(500, 200, 'button3', null, this, 1, 0, 2);
 
-    button30 = game.add.button(340,200,'option30',option_30,this,0,0);
-    button33 = game.add.button(340,285,'option33',option_33,this,0,0);
-    button34 = game.add.button(340,370,'option34',option_34,this,0,0);
+    button30 = game.add.button(280,180,'option30',option_30,this,0,0);
+    button33 = game.add.button(280,300,'option33',option_33,this,0,0);
+    // button34 = game.add.button(340,370,'option34',option_34,this,0,0);
 
 
     voice_button = game.add.button(370, 450, 'voice_button', play_sound ,this, 0);
@@ -94,7 +93,7 @@ function create() {
     voice=game.add.audio('voice');
     voice.play();
 
-    // left=game.add.button(0,250, 'left', goLeft);
+    left=game.add.button(0,250, 'left', goLeft);
 
     popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
     popup.anchor.set(0.5);
@@ -121,7 +120,7 @@ function create() {
 }
 function update()
 {
-	if(button30_bool || button34_bool || button33_bool)
+	if(button30_bool || button33_bool)
 		right.visible=true;
 
 	if(button30_bool)
@@ -133,14 +132,10 @@ function update()
 	if(button33_bool)
 		button33.frame=1;
 	else {
-			button33.frame=0;
+		button33.frame=0;
 	}
 
-	if(button34_bool)
-		button34.frame=1;
-	else {
-		button34.frame=0;
-	}
+
 
 }
 function closeWindow() {
@@ -201,17 +196,17 @@ function update_right()
 
 function goLeft()
 {
-    window.open("../Mechanism/count1.html", "_self");
+    window.open("../Mechanism/count1_1.html", "_self");
 }
 
 function goRight()
 {
-		if(button34_bool || button33_bool)
+		if(button30_bool)
 			localStorage.setItem('i_7','0');
-		else if (button30_bool) {
-			localStorage.setItem('i_7','0.5');
+		else if (button33_bool) {
+			localStorage.setItem('i_7','1');
 		}
-    window.open("../Mechanism/count1_2.html", "_self");
+    window.open("../Mechanism/mid1.html", "_self");
 }
 function actionOnClick1()
 {

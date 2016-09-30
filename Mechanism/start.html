@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
     <meta charset="UTF-8" />
     <title>Cómic Pensamiento Crítico</title>
     <script src="phaser.min.js"></script>
@@ -13,7 +13,7 @@
 <body>
 
 <script type="text/javascript">
-    
+
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
 var ill1;
 var ill2;
@@ -28,7 +28,7 @@ var voice_button;
 
 function preload() {
     game.load.audio('voice', 'assets/start/voice0.mp3');
- 
+
 
     game.load.image('ill1', 'assets/start/ill0.PNG');
 
@@ -39,6 +39,8 @@ function preload() {
 }
 
 function create() {
+    if(localStorage.getItem('i_31')==null)
+      localStorage.setItem('i_31','0');
     game.stage.backgroundColor = '#ffffff';
 
     voice=game.add.audio('voice');

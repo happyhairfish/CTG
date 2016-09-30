@@ -185,7 +185,7 @@ function preload() {
     game.load.spritesheet('buttonreset', 'assets/boton_reset.png', 200, 100);
     game.load.spritesheet('buttoncontinue', 'assets/textures/boton_continue.png', 200, 100);
 
-    game.load.tilemap('map', 'assets/tilemap_big20.csv', null, Phaser.Tilemap.CSV);
+    game.load.tilemap('map', 'assets/tilemap_big21.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'assets/tiles16.png');
     game.load.image('tileselector', 'assets/tileselector1.png');
 
@@ -684,7 +684,7 @@ function updateMarker() {
         if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==5)
         {
           celda1bool=true;
-          if(currentTile==3)
+          if(currentTile==4)
             celda1contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==6)
@@ -696,13 +696,13 @@ function updateMarker() {
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==7)
         {
           celda3bool=true;
-          if(currentTile==3)
+          if(currentTile==4)
             celda3contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==8)
         {
           celda4bool=true;
-          if(currentTile==5)
+          if(currentTile==6)
             celda4contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==9)
