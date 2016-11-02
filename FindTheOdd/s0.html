@@ -14,7 +14,7 @@
 
 <script type="text/javascript">
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render});
+var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'ctg', {preload: preload, create: create, update: update, render: render});
 var ill1;
 var ill2;
 var ill3;
@@ -54,7 +54,7 @@ function preload() {
     game.load.image('left', 'assets/arrowleft_2.png');
     game.load.image('right', 'assets/arrowright_2.png');
 
-    game.load.spritesheet('voice_button', 'assets/button_voice3_50.png', 100, 50);
+    game.load.spritesheet('voice_button', 'assets/button_voice3_50.png', 50, 50);
 
     game.load.spritesheet('key_button_1', 'assets/button_llave1.png',150,150);
     game.load.spritesheet('key_button_2', 'assets/button_llave2.png',150,150);
@@ -69,7 +69,6 @@ function preload() {
 
 function create() {
 
-    // var text1 = game.add.text(250, 225, "Escribe tu respuesta en la hoja 1", style_title);
     game.stage.backgroundColor = '#ffffff';
 
     voice=game.add.audio('voice1');
@@ -83,25 +82,24 @@ function create() {
 
     ill1=game.add.sprite(50,25, 'ill1');
 
-    // var button_enter_answer=game.add.button(375,450,'button_enter_answer',enter_answer_action,1,0);
-
-
-    popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
-    popup.anchor.set(0.5);
-    popup.inputEnabled = true;
-    popup.input.enableDrag();
-
-    popup.scale.set(0);
-
-    //  And click the close button to close it down again
-    closeButton = game.make.sprite(100,-95, 'close');
-    closeButton.inputEnabled = true;
-    closeButton.input.priorityID=-1000;
-    closeButton.events.onInputDown.add(closeWindow, this);
-
-    popup.addChild(closeButton);
-
-    popup.scale.set(0);
+		//
+		//
+    // popup = game.add.sprite(game.world.centerX, game.world.centerY, 'popup');
+    // popup.anchor.set(0.5);
+    // popup.inputEnabled = true;
+    // popup.input.enableDrag();
+		//
+    // popup.scale.set(0);
+		//
+    // //  And click the close button to close it down again
+    // closeButton = game.make.sprite(100,-95, 'close');
+    // closeButton.inputEnabled = true;
+    // closeButton.input.priorityID=-1000;
+    // closeButton.events.onInputDown.add(closeWindow, this);
+		//
+    // popup.addChild(closeButton);
+		//
+    // popup.scale.set(0);
 
 		button_key1=game.add.button(100,225,'key_button_1',actionKey1,this,0,0,0,0);
 		button_key2=game.add.button(250,225,'key_button_2',actionKey2,this,0,0,0,0);
@@ -216,18 +214,7 @@ function enter_answer_action()
         else if(button_key4_bool)
             window.open("../FindTheOdd/s0_4.html", "_self");
     }
-    else
-    {
-        console.log("hoa");
-        if ((tween && tween.isRunning) || popup.scale.x === 1)
-        {
-            return;
-        }
-        //console.log("hola");
-        closeButton.input.priorityID=1;
-        //  Create a tween that will pop-open the window, but only if it's not already tweening or open
-        tween = game.add.tween(popup.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
-    }
+
 }
 
 function closeWindow()

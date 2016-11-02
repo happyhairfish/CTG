@@ -63,17 +63,6 @@ function create() {
     right=game.add.button(660,280, 'right', goRight, this, 1,0,2);
     right.visible=false;
     voice_button = game.add.button(350, 400, 'voice_button', play_sound ,this);
-    // rep_hist_button = game.add.button(250, 520, 'repetir_historia', rep_hist_action ,this);
-    // rep_hist_button.scale.setTo(0.5,0.5);
-    // ya=game.world.centerY-50;
-    // yb=game.world.centerY+25;
-    // yc=game.world.centerY+130;
-    // b_a = game.add.button(game.world.centerX, ya, 'b_a', AnsA ,this, 0);
-    // b_a.anchor.setTo(0.5);
-    // b_b = game.add.button(game.world.centerX, yb, 'b_b', AnsB ,this, 0);
-    // b_b.anchor.setTo(0.5);
-    // b_c = game.add.button(game.world.centerX, yc, 'b_c', AnsC ,this, 0);
-    // b_c.anchor.setTo(0.5);
     game.time.events.add(Phaser.Timer.SECOND*15, update_right, this);
 }
 function rep_hist_action()
@@ -130,23 +119,7 @@ function goLeft(){
     window.open("context_1.html", "_self");
 }
 function update(){
-    // if(b_a_bool)
-    //     b_a.frame=1;
-    // else
-    //     b_a.frame=0;
-    //
-    // if(b_b_bool)
-    //     b_b.frame=1;
-    // else
-    //     b_b.frame=0;
-    //
-    // if(b_c_bool)
-    //     b_c.frame=1;
-    // else
-    //     b_c.frame=0;
-    //
-    // if(b_a_bool || b_b_bool || b_c_bool)
-    //     right.visible=true;
+
 
 }
 function render() {

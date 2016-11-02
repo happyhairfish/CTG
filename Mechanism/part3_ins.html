@@ -190,7 +190,7 @@ function preload() {
     game.load.image('tileselector', 'assets/tileselector1.png');
 
     game.load.image('popup_win', 'assets/popup_win3.png');
-    game.load.image('popup_lose', 'assets/popup_lose.png');
+    game.load.image('popup_lose', 'assets/popup_lose3.png');
     game.load.image('popup_start', 'assets/textures/first_dialogue.png');
     game.load.image('buttonreset1', 'assets/button_reset_1.png');
 
@@ -690,19 +690,19 @@ function updateMarker() {
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==6)
         {
           celda2bool=true;
-          if(currentTile==3)
+          if(currentTile==4)
             celda2contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==7)
         {
           celda3bool=true;
-          if(currentTile==4)
+          if(currentTile==6)
             celda3contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==8)
         {
           celda4bool=true;
-          if(currentTile==6)
+          if(currentTile==5)
             celda4contentbool=true;
         }
         else if(layer1.getTileX(marker.x)==14 && layer1.getTileY(marker.y)==9)
@@ -780,10 +780,10 @@ function waterPath()
 
     if(!waterPathBool)
     {
-        findPathGround(4,4);
+        findPathRock(4,4);
 
-        if(end1)
-            findPathRock(6,5,0);
+        // if(end1)
+        //     findPathRock(6,5,0);
 
 /*        if(end2)
             findPathGround(6,9);
@@ -834,7 +834,7 @@ function waterPath()
             }
         }
 
-        if(end1 && end2)
+        if(end1)
             openPopupW();
         else
             openPopupL();
@@ -913,7 +913,7 @@ function createTileSelector() {
     //  Our painting marker
     marker = game.add.graphics();
     marker.lineStyle(2, 0x000000, 1);
-    marker.drawRect(0, 0, 50, 50);
+    // marker.drawRect(0, 0, 50, 50);
 
 }
 
@@ -924,8 +924,8 @@ function render() {
     // game.debug.text('current tile X:'+layer1.getTileX(game.input.activePointer.worldX), 32, 48, 'rgb(0,0,0)');
     // game.debug.text('current tile Y:'+layer1.getTileY(game.input.activePointer.worldY), 32, 64, 'rgb(0,0,0)');
     // game.debug.text('pointer tile:'+currentTile, 32, 100, 'rgb(0,0,0)');
-    // // // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
-    // // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
+    // game.debug.text('activePointer:'+game.input.activePointer.worldX+" "+game.input.activePointer.worldY, 32, 80, 'rgb(0,0,0)')
+    // game.debug.text('current tile:'+mapCopy[layer1.getTileX(game.input.activePointer.worldX)][layer1.getTileY(game.input.activePointer.worldY)], 32, 64, 'rgb(0,0,0)');
 
 }
 
@@ -1026,6 +1026,7 @@ function findPathGround(x,y)
 
 function findPathRock(x,y,lastRockTile,direction)
 {
+  console.log("asdas");
     var auxTile;
 
     var markerX = layer1.getTileX(x*50) ;
@@ -1034,20 +1035,20 @@ function findPathRock(x,y,lastRockTile,direction)
     //Me paro en esta tile
     auxTile=map.getTile(markerX,markerY);
 
-    // console.log('\nRock X: '+x+' Y: '+y+' Tile: '+auxTile.index);
+    console.log('\nRock X: '+x+' Y: '+y+' Tile: '+auxTile.index);
 
     //veo si está fuera del mapa
     if(x<0 || y<0 || x>=16 || y>=12)
         return false;
-    //console.log('\nRock.1 X: '+x+' Y: '+y+' Tile: '+auxTile.index);
+    // console.log('\nRock.1 X: '+x+' Y: '+y+' Tile: '+auxTile.index);
     //si está dentro del mapa, veo que esté en roca, y que no se haya recorrido anteriormente
     if(mapCopy[x][y]==1 || mapCopy[x][y]==0 || auxTile.index==2 || mapCopy[x][y]==30 || mapCopy[x][y]==31)
         return false;
-    //console.log('\nRock.2 X: '+x+' Y: '+y+' Tile: '+auxTile.index);
+    // console.log('\nRock.2 X: '+x+' Y: '+y+' Tile: '+auxTile.index);
     //veo si llegamos al final
     if(x==6 && y==8)
     {
-        end2=true;
+        end1=true;
         mapCopy[x][y]=31;
         console.log("XXXXRock2 X:"+x+" Y:"+y);
         return true;
@@ -1081,14 +1082,15 @@ function findPathRock(x,y,lastRockTile,direction)
         return true;
     }
 
-    //console.log('\nRock 1 X: '+markerX+' Y: '+markerY+' Tile: '+auxTile.index);
+    console.log('\nRock 1 X: '+markerX+' Y: '+markerY+' Tile: '+auxTile.index);
     //inicio (es distinto a otros pasos). Quiero ver si es que estoy en una tile válida (5:vert, 8:codo N-E, 9:codo N-w)
     if(rockFirstStep)
     {
+      console.log("firstep");
         lastRockTile=auxTile.index;
         rockFirstStep=false;
 
-        if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9))
+        if(!(auxTile.index==5 || auxTile.index==8 || auxTile.index==9 || auxTile.index==4))
             return false;
         else
         {
@@ -1413,7 +1415,7 @@ function openPopupL()
         return;
     }
     //console.log("hola");
-    closeButton.input.priorityID=1;
+    closeButton2.input.priorityID=1;
     //  Create a tween that will pop-open the window, but only if it's not already tweening or open
     tween = game.add.tween(popupl.scale).to( { x: 1, y: 1 }, 1000, Phaser.Easing.Elastic.Out, true);
 }
